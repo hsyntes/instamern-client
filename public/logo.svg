@@ -1,0 +1,21 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_286_5)">
+<circle cx="48" cy="48" r="24" fill="#D9D9D9"/>
+<circle cx="74" cy="22" r="5" fill="#D9D9D9"/>
+<mask id="mask0_286_5" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="96">
+<path d="M28.3636 0C12.72 0 0 12.72 0 28.3636V67.6364C0 83.28 12.72 96 28.3636 96H67.6364C83.28 96 96 83.28 96 67.6364V28.3636C96 12.72 83.28 0 67.6364 0H28.3636ZM74.1818 17.4545C76.5818 17.4545 78.5455 19.4182 78.5455 21.8182C78.5455 24.2182 76.5818 26.1818 74.1818 26.1818C71.7818 26.1818 69.8182 24.2182 69.8182 21.8182C69.8182 19.4182 71.7818 17.4545 74.1818 17.4545ZM48 24C61.2436 24 72 34.7564 72 48C72 61.2436 61.2436 72 48 72C34.7564 72 24 61.2436 24 48C24 34.7564 34.7564 24 48 24ZM48 28.3636C37.1782 28.3636 28.3636 37.1782 28.3636 48C28.3636 58.8218 37.1782 67.6364 48 67.6364C58.8218 67.6364 67.6364 58.8218 67.6364 48C67.6364 37.1782 58.8218 28.3636 48 28.3636Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_286_5)">
+<rect width="96" height="96" fill="url(#paint0_linear_286_5)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_286_5" x1="0" y1="0" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+<stop stop-color="#4285F4"/>
+<stop offset="1" stop-color="#FF0080"/>
+</linearGradient>
+<clipPath id="clip0_286_5">
+<rect width="96" height="96" fill="white"/>
+</clipPath>
+</defs>
+</svg>
