@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,10 +8,25 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        primary: {
+          DEFAULT: "rgb(var(--color-primary))",
+          darker: "rgb(var(--color-primary-darker))",
+        },
+
+        secondary: {
+          DEFAULT: "rgb(var(--color-secondary))",
+          darker: "rgb(var(--color-secondary-darker))",
+        },
+
+        dark: "rgb(var(--color-dark))",
+        black: "rgb(var(--color-black))",
+        light: "rgb(var(--color-light))",
+        muted: "rgb(var(--color-muted))",
+      },
+
+      transitionDuration: {
+        DEFAULT: ".35s",
       },
     },
   },
