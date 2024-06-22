@@ -10,7 +10,7 @@ config.autoAddCss = false;
 const Layout = ({ children }) => (
   <div id="layout" className="lg:grid lg:grid-cols-12">
     <Sidebar />
-    <main className="lg:col-span-9">
+    <main className="lg:col-span-8 xl:col-span-9">
       {children}
       <div style={{ height: "1000px" }} />
     </main>
