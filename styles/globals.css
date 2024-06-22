@@ -8,9 +8,8 @@
   --color-secondary: 255, 0, 128;
   --color-secondary-darker: 204, 0, 102;
   --color-black: 20, 20, 20;
-  --color-dark: 28, 28, 28;
-  --color-light: 240, 240, 240;
-  --color-muted: 120, 120, 120;
+  --color-dark: 22, 22, 22;
+  --color-light: 250, 250, 250;
 }
 
 body {

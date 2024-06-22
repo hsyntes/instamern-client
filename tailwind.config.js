@@ -22,11 +22,20 @@ module.exports = {
         dark: "rgb(var(--color-dark))",
         black: "rgb(var(--color-black))",
         light: "rgb(var(--color-light))",
-        muted: "rgb(var(--color-muted))",
+
+        muted: {
+          DEFAULT: "rgb(0, 0, 0, 0.5)",
+          dark: "rgb(255, 255, 255, 0.4)",
+        },
       },
 
       transitionDuration: {
         DEFAULT: ".35s",
+      },
+
+      borderColor: {
+        DEFAULT: "rgba(0, 0, 0, 0.1)",
+        dark: "rgba(255, 255, 255, 0.1)",
       },
     },
   },
