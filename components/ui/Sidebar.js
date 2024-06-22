@@ -1,4 +1,11 @@
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSliceActions } from "@/store/theme-slice/theme-slice";
 import {
+  faAngleDown,
   faGear,
   faHeart,
   faHome,
@@ -7,20 +14,25 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import Offcanvas from "./Offcanvas";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
+import Collapse from "./Collapse";
 
 const Sidebar = () => {
   const router = useRouter();
 
+  const themeState = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+
   const [searchOffcanvas, setSearchOffcanvas] = useState(true);
   const [notificationsOffcanvas, setNotificationsOffcanvas] = useState(false);
   const [settingsDropdown, setSettingsDropdown] = useState(false);
+  const [themeCollapse, setThemeCollapse] = useState(false);
+  const [inputTheme, setInputTheme] = useState("white");
+  const [selectedTheme, setSelectedTheme] = useState("");
+  const dropdownRef = useRef();
 
   const handleSearchOffcanvas = () => {
     setSearchOffcanvas(!searchOffcanvas);
@@ -35,8 +47,40 @@ const Sidebar = () => {
   };
 
   const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
+  const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
+
+  const handleThemeOnChange = (e) =>
+    dispatch(themeSliceActions.switchTheme(e.target.value));
 
   const { pathname } = router;
+  const { theme } = themeState;
+
+  useEffect(() => {
+    if (theme === "dark") setInputTheme("dark");
+    if (theme === "light") setInputTheme("white");
+
+    setSelectedTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        !e.target.classList.contains("dropdown")
+      ) {
+        setSettingsDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [dropdownRef, setSettingsDropdown]);
+
+  console.log("selectedTheme: ", selectedTheme);
 
   return (
     <aside className="hidden lg:flex lg:col-span-2 h-screen sticky top-0">
@@ -95,24 +139,81 @@ const Sidebar = () => {
               size="lg"
               className="cursor-pointer p-2"
               onClick={handleSettingsDropdown}
+              ref={dropdownRef}
             />
             <Dropdown
               show={settingsDropdown}
-              handleDropdown={handleSettingsDropdown}
+              setDropdown={setSettingsDropdown}
               className={
-                "bg-white dark:bg-dark backdrop-blur p-5 left-full bottom-0"
+                "bg-white dark:bg-dark backdrop-blur py-6 px-4 left-full bottom-0"
               }
-              width={"150px"}
+              width={"175px"}
             >
-              <Dropdown.Header className={"flex items-center gap-2"}>
-                <FontAwesomeIcon icon={faGear} size="sm" />
-                <h6 className="text-sm font-semibold">Settings</h6>
+              <Dropdown.Header className={"dropdown flex items-center gap-2"}>
+                <FontAwesomeIcon icon={faGear} className="dropdown" size="sm" />
+                <h6 className="dropdown text-sm font-semibold">Settings</h6>
               </Dropdown.Header>
               <Dropdown.Divider />
               <Dropdown.Body>
-                <ul className="text-sm space-y-2">
-                  <li>Dark Theme</li>
-                  <li className="text-danger font-semibold">Log out</li>
+                <ul className="dropdown text-sm font-semibold space-y-3">
+                  <li>
+                    <section
+                      className={`dropdown flex items-center justify-between cursor-pointer hover:text-primary ${
+                        themeCollapse && "text-primary"
+                      }`}
+                      onClick={handleThemeCollapse}
+                    >
+                      <span className="dropdown">Theme</span>
+                      <motion.span
+                        className="dropdown"
+                        animate={{
+                          rotateZ: themeCollapse ? "180deg" : "0deg",
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faAngleDown}
+                          className="dropdown"
+                        />
+                      </motion.span>
+                    </section>
+                    <Collapse className={"dropdown"} show={themeCollapse}>
+                      <section className="dropdown flex items-center gap-1">
+                        <input
+                          type="radio"
+                          id="dark"
+                          name="theme"
+                          value={"dark"}
+                          className="dropdown"
+                          onChange={handleThemeOnChange}
+                          defaultChecked={selectedTheme === "dark"}
+                        />
+                        <label
+                          htmlFor="dark"
+                          className="dropdown font-normal block cursor-pointer"
+                        >
+                          Dark
+                        </label>
+                      </section>
+                      <section className="dropdown flex items-center gap-1">
+                        <input
+                          type="radio"
+                          id="light"
+                          name="theme"
+                          value={"light"}
+                          onChange={handleThemeOnChange}
+                          className="dropdown"
+                          defaultChecked={selectedTheme === "light"}
+                        />
+                        <label
+                          htmlFor="light"
+                          className="dropdown font-normal block cursor-pointer"
+                        >
+                          Light
+                        </label>
+                      </section>
+                    </Collapse>
+                  </li>
+                  <li className="dropdown text-danger">Log out</li>
                 </ul>
               </Dropdown.Body>
             </Dropdown>
@@ -127,7 +228,7 @@ const Sidebar = () => {
               <Input
                 type={"text"}
                 name={"search"}
-                variant={"white"}
+                variant={inputTheme}
                 placeholder={"Search"}
               />
               <FontAwesomeIcon
