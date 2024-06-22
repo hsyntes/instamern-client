@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const Dropdown = ({ show, handleDropdown, width, className, children }) => {
+const Dropdown = ({ show, width, className, children }) => {
   const [display, setDisplay] = useState("none");
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Dropdown = ({ show, handleDropdown, width, className, children }) => {
   }, [show]);
 
   return (
-    <div style={{ display }}>
+    <div style={{ display }} className="dropdown">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{
@@ -32,13 +32,15 @@ const Dropdown = ({ show, handleDropdown, width, className, children }) => {
 };
 
 const DropdownHeader = ({ className, children }) => (
-  <div className={`dropdown-header ${className}`}>{children}</div>
+  <div className={`dropdown dropdown-header ${className}`}>{children}</div>
 );
 
-const DropdownDivider = ({}) => <hr className="dark:border-dark my-3" />;
+const DropdownDivider = ({}) => (
+  <hr className="dropdown dark:border-dark my-3" />
+);
 
 const DropdownBody = ({ children }) => (
-  <div className="dropdown-body">{children}</div>
+  <div className="dropdown dropdown-body">{children}</div>
 );
 
 Dropdown.Header = DropdownHeader;
