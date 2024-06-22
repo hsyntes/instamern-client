@@ -13,11 +13,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Offcanvas from "./Offcanvas";
 import Input from "./Input";
+import Dropdown from "./Dropdown";
 
 const Sidebar = () => {
   const router = useRouter();
-  const [searchOffcanvas, setSearchOffcanvas] = useState(false);
+
+  const [searchOffcanvas, setSearchOffcanvas] = useState(true);
   const [notificationsOffcanvas, setNotificationsOffcanvas] = useState(false);
+  const [settingsDropdown, setSettingsDropdown] = useState(false);
 
   const handleSearchOffcanvas = () => {
     setSearchOffcanvas(!searchOffcanvas);
@@ -31,12 +34,12 @@ const Sidebar = () => {
     if (searchOffcanvas) setSearchOffcanvas(false);
   };
 
+  const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
+
   const { pathname } = router;
 
-  console.log("notificationsOffcanvas: ", notificationsOffcanvas);
-
   return (
-    <aside className="hidden lg:flex lg:col-span-4 xl:col-span-3 h-screen sticky top-0">
+    <aside className="hidden lg:flex lg:col-span-2 h-screen sticky top-0">
       <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-4 px-2 z-50">
         <Link href={"/"} className="mb-auto">
           <Image
@@ -86,8 +89,33 @@ const Sidebar = () => {
           </ul>
         </nav>
         <ul>
-          <li className="flex items-center justify-center text-dark dark:text-white hover:bg-light hover:dark:bg-dark rounded-full transition-all cursor-pointer p-2">
-            <FontAwesomeIcon icon={faGear} size="lg" />
+          <li className="block relative justify-center text-dark dark:text-white hover:bg-light hover:dark:bg-dark rounded-full transition-all">
+            <FontAwesomeIcon
+              icon={faGear}
+              size="lg"
+              className="cursor-pointer p-2"
+              onClick={handleSettingsDropdown}
+            />
+            <Dropdown
+              show={settingsDropdown}
+              handleDropdown={handleSettingsDropdown}
+              className={
+                "bg-white dark:bg-dark backdrop-blur p-5 left-full bottom-0"
+              }
+              width={"150px"}
+            >
+              <Dropdown.Header className={"flex items-center gap-2"}>
+                <FontAwesomeIcon icon={faGear} size="sm" />
+                <h6 className="text-sm font-semibold">Settings</h6>
+              </Dropdown.Header>
+              <Dropdown.Divider />
+              <Dropdown.Body>
+                <ul className="text-sm space-y-2">
+                  <li>Dark Theme</li>
+                  <li className="text-danger font-semibold">Log out</li>
+                </ul>
+              </Dropdown.Body>
+            </Dropdown>
           </li>
         </ul>
       </div>
@@ -95,12 +123,19 @@ const Sidebar = () => {
         <Offcanvas show={searchOffcanvas}>
           <Offcanvas.Header handleOffcanvas={handleSearchOffcanvas}>
             <h1 className="text-lg font-semibold mb-2">Search</h1>
-            <Input
-              type={"text"}
-              name={"search"}
-              variant={"black"}
-              placeholder={"Search"}
-            />
+            <section className="relative">
+              <Input
+                type={"text"}
+                name={"search"}
+                variant={"white"}
+                placeholder={"Search"}
+              />
+              <FontAwesomeIcon
+                icon={faSearch}
+                size="sm"
+                className="absolute text-muted dark:text-muted-dark top-1/2 right-2 -translate-y-1/2"
+              />
+            </section>
           </Offcanvas.Header>
           <Offcanvas.Body></Offcanvas.Body>
           <Offcanvas.Footer />
