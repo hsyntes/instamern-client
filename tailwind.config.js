@@ -19,13 +19,22 @@ module.exports = {
           darker: "rgb(var(--color-secondary-darker))",
         },
 
-        dark: "rgb(var(--color-dark))",
+        dark: {
+          DEFAULT: "rgb(var(--color-dark))",
+          darker: "rgb(var(--color-dark-darker))",
+        },
+
         black: "rgb(var(--color-black))",
         light: "rgb(var(--color-light))",
 
+        danger: {
+          DEFAULT: "rgb(var(--color-danger))",
+          darker: "rgb(var(--color-danger-dark))",
+        },
+
         muted: {
-          DEFAULT: "rgb(0, 0, 0, 0.5)",
-          dark: "rgb(255, 255, 255, 0.4)",
+          DEFAULT: "rgba(var(--color-muted))",
+          dark: "rgba(var(--color-muted-dark))",
         },
       },
 
