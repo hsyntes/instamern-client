@@ -17,14 +17,27 @@ import Input from "./Input";
 const Sidebar = () => {
   const router = useRouter();
   const [searchOffcanvas, setSearchOffcanvas] = useState(false);
+  const [notificationsOffcanvas, setNotificationsOffcanvas] = useState(false);
 
-  const handleSearchOffcanvas = () => setSearchOffcanvas(!searchOffcanvas);
+  const handleSearchOffcanvas = () => {
+    setSearchOffcanvas(!searchOffcanvas);
+
+    if (notificationsOffcanvas) setNotificationsOffcanvas(false);
+  };
+
+  const handleNotificationsOffcanvas = () => {
+    setNotificationsOffcanvas(!notificationsOffcanvas);
+
+    if (searchOffcanvas) setSearchOffcanvas(false);
+  };
 
   const { pathname } = router;
 
+  console.log("notificationsOffcanvas: ", notificationsOffcanvas);
+
   return (
-    <aside className="hidden lg:flex lg:col-span-3 h-screen sticky top-0 border dark:border-dark">
-      <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-dark py-4 px-2 z-50">
+    <aside className="hidden lg:flex lg:col-span-4 xl:col-span-3 h-screen sticky top-0">
+      <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-4 px-2 z-50">
         <Link href={"/"} className="mb-auto">
           <Image
             src={"/logo.svg"}
@@ -46,8 +59,7 @@ const Sidebar = () => {
             </li>
             <li
               className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
-                searchOffcanvas &&
-                "!text-dark border !bg-light dark:!text-white dark:border-dark dark:!bg-dark"
+                searchOffcanvas && "!text-dark dark:!text-white"
               }`}
               onClick={handleSearchOffcanvas}
             >
@@ -59,7 +71,10 @@ const Sidebar = () => {
               <FontAwesomeIcon icon={faPlusCircle} size="lg" />
             </li>
             <li
-              className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2`}
+              className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
+                notificationsOffcanvas && "!text-dark dark:!text-white"
+              }`}
+              onClick={handleNotificationsOffcanvas}
             >
               <FontAwesomeIcon icon={faHeart} size="lg" />
             </li>
@@ -76,19 +91,26 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <Offcanvas show={searchOffcanvas}>
-        <Offcanvas.Header>
-          <h1 className="text-lg font-semibold mb-2">Search</h1>
-          <Input
-            type={"text"}
-            name={"search"}
-            variant={"black"}
-            placeholder={"Search"}
-          />
-        </Offcanvas.Header>
-        <Offcanvas.Body></Offcanvas.Body>
-        <Offcanvas.Footer />
-      </Offcanvas>
+      <section className="w-full">
+        <Offcanvas show={searchOffcanvas}>
+          <Offcanvas.Header handleOffcanvas={handleSearchOffcanvas}>
+            <h1 className="text-lg font-semibold mb-2">Search</h1>
+            <Input
+              type={"text"}
+              name={"search"}
+              variant={"black"}
+              placeholder={"Search"}
+            />
+          </Offcanvas.Header>
+          <Offcanvas.Body></Offcanvas.Body>
+          <Offcanvas.Footer />
+        </Offcanvas>
+        <Offcanvas show={notificationsOffcanvas}>
+          <Offcanvas.Header handleOffcanvas={handleNotificationsOffcanvas}>
+            <h1 className="text-lg font-semibold mb-2">Notifications</h1>
+          </Offcanvas.Header>
+        </Offcanvas>
+      </section>
     </aside>
   );
 };
