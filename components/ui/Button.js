@@ -11,6 +11,11 @@ const Button = ({ type, variant, className, onClick, children }) => {
       classes += "bg-secondary hover:bg-secondary-darker text-white";
       break;
     }
+
+    case "link": {
+      classes += "!p-0 text-primary hover:text-primary-darker";
+      break;
+    }
   }
 
   return (
