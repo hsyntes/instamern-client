@@ -116,14 +116,22 @@ const reducer = (state, action) => {
         }
       }
     }
+
+    case "onClear": {
+      switch (name) {
+        case "search": {
+          return { ...initialState };
+        }
+      }
+    }
   }
 };
 
 const initialState = {
   value: "",
-  isValid: null,
-  isError: null,
-  message: null,
+  isValid: false,
+  isError: false,
+  message: "",
 };
 
 const useInput = () => {
@@ -139,7 +147,11 @@ const useInput = () => {
     dispatch({ type: "onBlur", name });
   };
 
-  return { state, handleOnChange, handleOnBlur };
+  const handleOnClear = (name) => {
+    dispatch({ type: "onClear", name });
+  };
+
+  return { state, handleOnChange, handleOnBlur, handleOnClear };
 };
 
 export default useInput;
