@@ -23,7 +23,7 @@ const Offcanvas = ({ show, className, children }) => {
         initial={{ translateX: "-100%" }}
         animate={{ translateX: show ? "0%" : "-100%" }}
         // transition={{ ease: "easeOut", duration: 0.2 }}
-        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark-darker w-full h-screen z-40 border-r border-t dark:border-r-dark dark:border-t-dark select-none ${className}`}
+        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen z-40 border-r border-t dark:border-r-dark dark:border-t-dark select-none ${className}`}
       >
         {children}
       </motion.div>
@@ -52,7 +52,7 @@ const OffcanvasHeader = ({ handleOffcanvas, className, children }) => (
 
 const OffcanvasBody = ({ handleOffcanvas, className, children }) => (
   <div
-    className={`offcanvas-body mt-auto mb-auto border h-full overflow-y-scroll p-4`}
+    className={`offcanvas-body mt-auto mb-auto h-full overflow-y-scroll p-4`}
     style={{ scrollbarWidth: "none" }}
   >
     {children}
