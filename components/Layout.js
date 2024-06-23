@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
   return (
     <div id="layout" className="lg:grid lg:grid-cols-12">
       <Sidebar />
-      <main className="lg:col-span-10 py-4">
+      <main className="lg:col-span-9 py-4">
         <Container>
           <header className="flex items-center justify-end">
             <Button type={"button"} variant={"primary"}>

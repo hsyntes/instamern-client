@@ -33,7 +33,7 @@ const Offcanvas = ({ show, className, children }) => {
 
 const OffcanvasHeader = ({ handleOffcanvas, className, children }) => (
   <div className={`offcanvas-header px-4 py-3 ${className}`}>
-    <section className="flex items-center justify-between mb-4">
+    <section className="flex items-center justify-between mb-6">
       <h1
         className={`text-3xl bg-gradient-to-r from-primary to-secondary to-70% bg-clip-text text-transparent ${Charm_700.className}`}
       >
@@ -52,7 +52,7 @@ const OffcanvasHeader = ({ handleOffcanvas, className, children }) => (
 
 const OffcanvasBody = ({ handleOffcanvas, className, children }) => (
   <div
-    className={`offcanvas-body h-full overflow-y-scroll p-4`}
+    className={`offcanvas-body mt-auto mb-auto border h-full overflow-y-scroll p-4`}
     style={{ scrollbarWidth: "none" }}
   >
     {children}

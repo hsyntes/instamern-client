@@ -1,4 +1,12 @@
-const Input = ({ type, name, variant, placeholder, className }) => {
+const Input = ({
+  type,
+  name,
+  variant,
+  placeholder,
+  value,
+  onChange,
+  className,
+}) => {
   let classes = `w-full rounded border dark:border-dark text-sm outline-none focus:!border-primary transition-all p-2 ${className} `;
 
   switch (variant) {
@@ -34,6 +42,8 @@ const Input = ({ type, name, variant, placeholder, className }) => {
       name={name}
       placeholder={placeholder}
       className={classes}
+      value={value}
+      onChange={onChange}
     />
   );
 };
