@@ -15,11 +15,6 @@ const Input = ({
       break;
     }
 
-    case "darker": {
-      classes += "bg-dark-darker placeholder:text-muted-dark text-white";
-      break;
-    }
-
     case "black": {
       classes += "bg-black placeholder:text-muted-dark text-white";
       break;

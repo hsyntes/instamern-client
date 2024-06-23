@@ -22,6 +22,7 @@ import Collapse from "./Collapse";
 import { useQuery } from "react-query";
 import useInput from "@/hooks/useInput";
 import HttpRequest from "@/utils/HttpRequest";
+import UsersLoading from "./Loading/UsersLoading";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`, null);
@@ -39,6 +40,7 @@ const Sidebar = () => {
   const [themeCollapse, setThemeCollapse] = useState(false);
   const [inputTheme, setInputTheme] = useState("white");
   const [selectedTheme, setSelectedTheme] = useState("");
+  const [loadingTheme, setLoadingTheme] = useState("");
   const dropdownRef = useRef();
 
   const {
@@ -84,11 +86,17 @@ const Sidebar = () => {
   );
 
   useEffect(() => {
-    if (theme === "dark") setInputTheme("dark");
+    if (theme === "dark") setInputTheme("black");
     if (theme === "light") setInputTheme("white");
 
     setSelectedTheme(theme);
   }, [theme, selectedTheme]);
+
+  useEffect(() => {
+    if (theme === "dark") setLoadingTheme("black");
+
+    if (theme === "light") setLoadingTheme("light");
+  }, [theme]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -268,7 +276,15 @@ const Sidebar = () => {
               />
             </section>
           </Offcanvas.Header>
-          <Offcanvas.Body>{/* <Spinner /> */}</Offcanvas.Body>
+          <Offcanvas.Body>
+            {isSearchedUsersLoading && (
+              <UsersLoading
+                count={10}
+                variant={loadingTheme}
+                className={"mb-4 last:mb-0"}
+              />
+            )}
+          </Offcanvas.Body>
           <Offcanvas.Footer />
         </Offcanvas>
         <Offcanvas show={notificationsOffcanvas}>

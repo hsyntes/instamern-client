@@ -3,7 +3,7 @@ const { default: axios } = require("axios");
 class HttpRequest {
   static async get(endpoint, payload) {
     try {
-      console.log(`${process.env.NEXT_PUBLIC_API} in GET Request`);
+      console.log(`${process.env.NEXT_PUBLIC_API}/${endpoint} in GET Request`);
 
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/${endpoint}`,
@@ -23,7 +23,7 @@ class HttpRequest {
 
   static async post(endpoint, payload) {
     try {
-      console.log(`${process.env.NEXT_PUBLIC_API} in POST Request`);
+      console.log(`${process.env.NEXT_PUBLIC_API}/${endpoint} in POST Request`);
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/${endpoint}`,
