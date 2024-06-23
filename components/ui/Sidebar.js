@@ -19,6 +19,12 @@ import Offcanvas from "./Offcanvas";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
 import Collapse from "./Collapse";
+import { useQuery } from "react-query";
+import useInput from "@/hooks/useInput";
+import HttpRequest from "@/utils/HttpRequest";
+
+const searchUsers = async (payload) =>
+  await HttpRequest.get(`users/search/${payload}`, null);
 
 const Sidebar = () => {
   const router = useRouter();
@@ -26,13 +32,22 @@ const Sidebar = () => {
   const themeState = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
-  const [searchOffcanvas, setSearchOffcanvas] = useState(true);
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [searchOffcanvas, setSearchOffcanvas] = useState(false);
   const [notificationsOffcanvas, setNotificationsOffcanvas] = useState(false);
   const [settingsDropdown, setSettingsDropdown] = useState(false);
   const [themeCollapse, setThemeCollapse] = useState(false);
   const [inputTheme, setInputTheme] = useState("white");
   const [selectedTheme, setSelectedTheme] = useState("");
   const dropdownRef = useRef();
+
+  const {
+    state: { value: search, isValid: isSearchValid },
+    handleOnChange: handleSearchOnChange,
+  } = useInput();
+
+  const { pathname } = router;
+  const { theme } = themeState;
 
   const handleSearchOffcanvas = () => {
     setSearchOffcanvas(!searchOffcanvas);
@@ -52,15 +67,28 @@ const Sidebar = () => {
   const handleThemeOnChange = (e) =>
     dispatch(themeSliceActions.switchTheme(e.target.value));
 
-  const { pathname } = router;
-  const { theme } = themeState;
+  const { isLoading: isSearchedUsersLoading } = useQuery(
+    ["searchUsers", search],
+    {
+      queryFn: async () => {
+        if (isSearchValid) {
+          const data = await searchUsers({ username: search });
+          console.log("data: ", data);
+
+          setSearchedUsers(data.data.users);
+        }
+      },
+
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
     if (theme === "dark") setInputTheme("dark");
     if (theme === "light") setInputTheme("white");
 
     setSelectedTheme(theme);
-  }, [theme]);
+  }, [theme, selectedTheme]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -80,10 +108,10 @@ const Sidebar = () => {
     };
   }, [dropdownRef, setSettingsDropdown]);
 
-  console.log("selectedTheme: ", selectedTheme);
+  console.log("searchedUsers: ", searchedUsers);
 
   return (
-    <aside className="hidden lg:flex lg:col-span-2 h-screen sticky top-0">
+    <aside className="hidden lg:flex lg:col-span-3 h-screen sticky top-0">
       <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-4 px-2 z-50">
         <Link href={"/"} className="mb-auto">
           <Image
@@ -230,6 +258,8 @@ const Sidebar = () => {
                 name={"search"}
                 variant={inputTheme}
                 placeholder={"Search"}
+                value={search}
+                onChange={handleSearchOnChange}
               />
               <FontAwesomeIcon
                 icon={faSearch}
@@ -238,7 +268,7 @@ const Sidebar = () => {
               />
             </section>
           </Offcanvas.Header>
-          <Offcanvas.Body></Offcanvas.Body>
+          <Offcanvas.Body>{/* <Spinner /> */}</Offcanvas.Body>
           <Offcanvas.Footer />
         </Offcanvas>
         <Offcanvas show={notificationsOffcanvas}>
