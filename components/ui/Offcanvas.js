@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEarth, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Charm_700 } from "../Layout";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const Offcanvas = ({ show, className, children }) => {
   const [display, setDisplay] = useState("none");
@@ -60,8 +63,45 @@ const OffcanvasBody = ({ handleOffcanvas, className, children }) => (
 );
 
 const OffcanvasFooter = ({}) => (
-  <div className={`offcanvas-footer mt-auto border-t dark:border-t-dark p-4`}>
-    <p>SADSA</p>
+  <div
+    className={`offcanvas-footer flex items-start gap-3 mt-auto border-t dark:border-t-dark p-4`}
+  >
+    <Image
+      src={"https://avatars.githubusercontent.com/u/69708483?v=4"}
+      width={32}
+      height={32}
+      className="rounded-full"
+      alt="Husyin Ates"
+    />
+    <section>
+      <h1 className="text-sm">Huseyin Ates</h1>
+      <p className="text-xs text-muted dark:text-muted-dark">
+        Full Stack Developer
+      </p>
+    </section>
+    <section className="flex items-center gap-3 ms-auto">
+      <Link
+        href={"https://hsyntes.com"}
+        target="_blank"
+        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+      >
+        <FontAwesomeIcon icon={faEarth} />
+      </Link>
+      <Link
+        href={"https://github.com/hsyntes"}
+        target="_blank"
+        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+      >
+        <FontAwesomeIcon icon={faGithub} />
+      </Link>
+      <Link
+        href={"https://linkedin.com/in/hsyntes"}
+        target="_blank"
+        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+      >
+        <FontAwesomeIcon icon={faLinkedin} />
+      </Link>
+    </section>
   </div>
 );
 

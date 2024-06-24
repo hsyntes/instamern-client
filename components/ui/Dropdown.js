@@ -22,7 +22,7 @@ const Dropdown = ({ show, width, className, children }) => {
           scale: show ? [0.9, 1] : [1, 0.9],
           opacity: show ? [0, 1] : [1, 0],
         }}
-        className={`dropdown absolute rounded border dark:border-dark select-none z-50 ${className}`}
+        className={`dropdown absolute border dark:border-dark select-none z-50 ${className}`}
         style={{ width }}
       >
         {children}

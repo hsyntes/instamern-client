@@ -6,6 +6,7 @@ const Input = ({
   value,
   onChange,
   className,
+  autoFocus,
 }) => {
   let classes = `w-full rounded border dark:border-dark text-sm outline-none focus:!border-primary transition-all p-2 ${className} `;
 
@@ -39,6 +40,7 @@ const Input = ({
       className={classes}
       value={value}
       onChange={onChange}
+      autoFocus={autoFocus}
     />
   );
 };

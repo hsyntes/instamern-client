@@ -122,7 +122,7 @@ const Sidebar = () => {
 
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-screen sticky top-0">
-      <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-4 px-2 z-50">
+      <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-6 px-2 z-50">
         <Link href={"/"} className="mb-auto">
           <Image
             src={"/logo.svg"}
@@ -183,7 +183,7 @@ const Sidebar = () => {
               show={settingsDropdown}
               setDropdown={setSettingsDropdown}
               className={
-                "bg-white dark:bg-dark backdrop-blur py-6 px-4 left-full bottom-0"
+                "backdrop-blur dark:backdrop-brightness-50 rounded-lg p-4 left-full bottom-0"
               }
               width={"175px"}
             >
@@ -270,12 +270,13 @@ const Sidebar = () => {
                 placeholder={"Search"}
                 value={search}
                 onChange={handleSearchOnChange}
+                autoFocus={true}
               />
               {isSearchValid ? (
                 <FontAwesomeIcon
                   icon={faTimesCircle}
                   size="sm"
-                  className="absolute text-muted dark:text-muted-dark top-1/2 right-2 -translate-y-1/2"
+                  className="absolute text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-all"
                   onClick={() => handleSearchOnClear("search")}
                 />
               ) : (
