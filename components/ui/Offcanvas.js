@@ -83,21 +83,21 @@ const OffcanvasFooter = ({}) => (
       <Link
         href={"https://hsyntes.com"}
         target="_blank"
-        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+        className="text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
       >
         <FontAwesomeIcon icon={faEarth} />
       </Link>
       <Link
         href={"https://github.com/hsyntes"}
         target="_blank"
-        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+        className="text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
       >
         <FontAwesomeIcon icon={faGithub} />
       </Link>
       <Link
         href={"https://linkedin.com/in/hsyntes"}
         target="_blank"
-        className="text-muted text-lg dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
+        className="text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white transition-all"
       >
         <FontAwesomeIcon icon={faLinkedin} />
       </Link>

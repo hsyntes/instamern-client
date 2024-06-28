@@ -1,11 +1,10 @@
-import { Charm } from "next/font/google";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { Charm } from "next/font/google";
 import Sidebar from "./ui/Sidebar";
-import Button from "./ui/Button";
 import Container from "./Container";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 export const Charm_700 = Charm({ subsets: ["latin"], weight: "700" });
 
@@ -40,11 +39,6 @@ const Layout = ({ children }) => {
       <Sidebar />
       <main className="lg:col-span-9 py-6">
         <Container>
-          <header className="flex items-center justify-end">
-            <Button type={"button"} variant={"primary"}>
-              Sign up
-            </Button>
-          </header>
           {children}
           <div style={{ height: "1000px" }} />
         </Container>

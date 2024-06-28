@@ -1,9 +1,19 @@
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { themeSliceActions } from "@/store/theme-slice/theme-slice";
+import { motion } from "framer-motion";
+import Offcanvas from "./Offcanvas";
+import Input from "./form/Input";
+import Dropdown from "./Dropdown";
+import Collapse from "./Collapse";
+import UsersLoading from "./loading/UsersLoading";
+import Avatar from "./Avatar";
+import Button from "./Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
   faGear,
@@ -14,18 +24,8 @@ import {
   faTimesCircle,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
-import Offcanvas from "./Offcanvas";
-import Input from "./Input";
-import Dropdown from "./Dropdown";
-import Collapse from "./Collapse";
-import { useQuery } from "react-query";
 import useInput from "@/hooks/useInput";
 import HttpRequest from "@/utils/HttpRequest";
-import UsersLoading from "./Loading/UsersLoading";
-import Avatar from "./Avatar";
-import Button from "./Button";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`);
@@ -98,7 +98,6 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (theme === "dark") setLoadingTheme("black");
-
     if (theme === "light") setLoadingTheme("light");
   }, [theme]);
 
@@ -108,9 +107,8 @@ const Sidebar = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(e.target) &&
         !e.target.classList.contains("dropdown")
-      ) {
+      )
         setSettingsDropdown(false);
-      }
     };
 
     document.addEventListener("click", handleClickOutside, true);
