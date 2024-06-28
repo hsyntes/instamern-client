@@ -1,5 +1,5 @@
 const Button = ({ type, variant, className, onClick, children }) => {
-  let classes = `button rounded-xl text-sm font-semibold select-none transition-all px-4 py-1.5 ${className} `;
+  let classes = `button rounded text-sm font-semibold select-none transition-all px-4 py-1.5 ${className} `;
 
   switch (variant) {
     case "primary": {
