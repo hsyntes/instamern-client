@@ -21,7 +21,7 @@ const reducer = (state, action) => {
               .toLowerCase()
               .replace(/[^a-zA-Z ]/g, "")
               .trim(),
-            isValid: payload.length >= 3 && payload.length <= 8,
+            isValid: payload.length >= 3 && payload.length <= 12,
           };
         }
 
@@ -57,8 +57,12 @@ const reducer = (state, action) => {
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 2) errorMessage = "Fullname is too short";
-            if (state.value.length >= 10) errorMessage = "Fullname is too long";
+            if (state.value !== "") {
+              if (state.value.length <= 2)
+                errorMessage = "Fullname is too short";
+              if (state.value.length >= 10)
+                errorMessage = "Fullname is too long";
+            }
           }
 
           return {
@@ -74,8 +78,12 @@ const reducer = (state, action) => {
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 3) errorMessage = "Username is too short";
-            if (state.value.length >= 12) errorMessage = "Username is too long";
+            if (state.value !== "") {
+              if (state.value.length < 3)
+                errorMessage = "Username is too short";
+              if (state.value.length > 12)
+                errorMessage = "Username is too long";
+            }
           }
 
           return {
@@ -100,9 +108,12 @@ const reducer = (state, action) => {
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 8) errorMessage = "Password is too short";
-            if (state.value.length >= 32) errorMessage = "Password is too long";
-            // else errorMessage = "Password contains invalid values";
+            if (state.value !== "") {
+              if (state.value.length < 8)
+                errorMessage = "Password is too short";
+              if (state.value.length > 32)
+                errorMessage = "Password is too long";
+            }
           }
 
           return {

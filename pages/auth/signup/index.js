@@ -102,16 +102,16 @@ const SignupPage = () => {
     handleOnBlur: handlePasswordConfirmOnBlur,
   } = useInput();
 
-  const handleNextFormStage = () => {
+  function handleNextFormStage() {
     if (formStage < 1) setFormStage(1);
-  };
+  }
 
-  const handlePreviousFormStage = () => {
+  function handlePreviousFormStage() {
     if (formStage > 0) setFormStage(0);
-  };
+  }
 
   useQuery(["checkUserExits", username], {
-    queryFn: async () => {
+    queryFn: async function () {
       if (isUsernameValid) {
         const data = await checkUserExists(username);
 
@@ -133,7 +133,7 @@ const SignupPage = () => {
   });
 
   useQuery(["checkEmailExists", email], {
-    queryFn: async () => {
+    queryFn: async function () {
       if (isEmailValid) {
         const data = await checkEmailExists(email);
 
@@ -155,17 +155,19 @@ const SignupPage = () => {
 
   const signupMutation = useMutation({
     mutationFn: signup,
-    onSuccess: (data) => {
-      console.log("data: ", data);
-
-      setToast(true);
-      setToastMessage(data.message);
+    onSuccess: function (data) {
+      console.log(data);
 
       if (data.status === "success") router.push("/");
+
+      if (data.status === "fail") {
+        setToast(true);
+        setToastMessage(data.message);
+      }
     },
   });
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
 
     signupMutation.mutate({
@@ -175,241 +177,263 @@ const SignupPage = () => {
       password,
       passwordConfirm,
     });
-  };
+  }
 
-  useEffect(() => {
-    if (theme === "dark") setInputTheme("black");
-    if (theme === "light") setInputTheme("white");
-  }, [theme]);
+  useEffect(
+    function () {
+      if (theme === "dark") setInputTheme("black");
+      if (theme === "light") setInputTheme("white");
+    },
+    [theme]
+  );
 
   if (typeof window !== "undefined")
-    window.addEventListener("keyup", (e) => {
+    window.addEventListener("keyup", function (e) {
       if (e.key === "Enter" && isFormStage_1_Valid) handleNextFormStage();
     });
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      setFormStage_1_Valid(
-        isFullnameValid && isUsernameValid && isEmailValid && !isUserExists
-      );
-    }, 350);
+  useEffect(
+    function () {
+      const identifier = setTimeout(function () {
+        setFormStage_1_Valid(
+          isFullnameValid &&
+            isUsernameValid &&
+            isEmailValid &&
+            !isUserExists &&
+            !isEmailExists
+        );
+      }, 350);
 
-    return () => clearTimeout(identifier);
-  }, [isFullnameValid, isUsernameValid, isEmailValid, isUserExists]);
+      return () => clearTimeout(identifier);
+    },
+    [
+      isFullnameValid,
+      isUsernameValid,
+      isEmailValid,
+      isUserExists,
+      isEmailExists,
+    ]
+  );
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      setIsFormValid(
-        isFormStage_1_Valid && isPasswordValid && isPasswordConfirmValid
-      );
-    }, 350);
+  useEffect(
+    function () {
+      const identifier = setTimeout(function () {
+        setIsFormValid(
+          isFormStage_1_Valid && isPasswordValid && isPasswordConfirmValid
+        );
+      }, 350);
 
-    return () => clearTimeout(identifier);
-  }, [isFormStage_1_Valid, isPasswordValid, isPasswordConfirmValid]);
-
-  console.log("isFormStage_1_Valid: ", isFormStage_1_Valid);
+      return () => clearTimeout(identifier);
+    },
+    [isFormStage_1_Valid, isPasswordValid, isPasswordConfirmValid]
+  );
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="fixed flex items-center justify-center bg-light dark:bg-black select-none"
-      style={{ width: "100vw", height: "100vh" }}
-    >
-      <Card
-        className={
-          "w-full lg:w-1/3 xl:w-1/4 lg:bg-white lg:dark:bg-dark dark:border-dark lg:rounded lg:border lg:dark:border-dark lg:shadow-sm lg:dark:shadow-2xl py-12 px-8"
-        }
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="fixed flex items-center justify-center bg-light dark:bg-black select-none"
+        style={{ width: "100vw", height: "100vh" }}
       >
-        <Card.Header className={"mb-16 lg:mb-8"}>
-          <h1
-            className={`bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-4xl mx-auto ${Charm_700.className}`}
-          >
-            <Link href={"/"}>instamern</Link>
-          </h1>
-        </Card.Header>
-        <Card.Body
-          className={"flex items-center overflow-x-hidden w-full my-8"}
+        <Card
+          className={
+            "w-full lg:w-1/3 xl:w-1/4 lg:bg-white lg:dark:bg-dark dark:border-dark lg:rounded lg:border lg:dark:border-dark lg:shadow-sm lg:dark:shadow-2xl py-12 px-8"
+          }
         >
-          <motion.section
-            animate={{ translateX: `-${formStage * 100}%` }}
-            className="min-w-full px-1"
+          <Card.Header className={"mb-16 lg:mb-8"}>
+            <h1
+              className={`bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-4xl mx-auto ${Charm_700.className}`}
+            >
+              <Link href={"/"}>instamern</Link>
+            </h1>
+          </Card.Header>
+          <Card.Body
+            className={"flex items-center overflow-x-hidden w-full my-8"}
           >
-            <FormGroup className={"relative mb-4"}>
-              <FloatingInput
-                type={"text"}
-                name={"fullname"}
-                placeholder={"Fullname"}
-                variant={inputTheme}
-                value={fullname}
-                onChange={handleFullnameOnChange}
-                onBlur={handleFullnameOnBlur}
-              />
-              {isFullnameError && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {fullNameErrorMessage}
-                </p>
-              )}
-            </FormGroup>
-            <FormGroup className={"relative mb-4"}>
-              <FloatingInput
-                type={"text"}
-                name={"username"}
-                placeholder={"Username"}
-                variant={inputTheme}
-                value={username}
-                onChange={handleUsernameOnChange}
-                onBlur={handleUsernameOnBlur}
-              />
-              {isUsernameError && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {usernameErrorMessage}
-                </p>
-              )}
-              {isUserExists && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {userExistsErrorMessage}
-                </p>
-              )}
-              {isUserExists === false && (
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
+            <motion.section
+              animate={{ translateX: `-${formStage * 100}%` }}
+              className="min-w-full px-1"
+            >
+              <FormGroup className={"relative mb-4"}>
+                <FloatingInput
+                  type={"text"}
+                  name={"fullname"}
+                  placeholder={"Fullname"}
+                  variant={inputTheme}
+                  value={fullname}
+                  onChange={handleFullnameOnChange}
+                  onBlur={handleFullnameOnBlur}
                 />
-              )}
-            </FormGroup>
-            <FormGroup className={"relative mb-4"}>
-              <FloatingInput
-                type={"email"}
-                name={"email"}
-                placeholder={"Email Address"}
-                variant={inputTheme}
-                value={email}
-                onChange={handleEmailOnChange}
-                onBlur={handleEmailOnBlur}
-              />
-              {isEmailError && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {emailErrorMessage}
-                </p>
-              )}
-              {isEmailExists && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {emailExistsErrorMessage}
-                </p>
-              )}
-              {isEmailExists === false && (
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
-                />
-              )}
-            </FormGroup>
-            <FormGroup>
-              <Button
-                type={"button"}
-                variant={"primary"}
-                className={
-                  "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
-                }
-                disabled={!isFormStage_1_Valid}
-                onClick={handleNextFormStage}
-              >
-                <span>Next</span>
-                <FontAwesomeIcon icon={faAngleRight} />
-              </Button>
-            </FormGroup>
-          </motion.section>
-          <motion.section
-            animate={{ translateX: `-${formStage * 100}%` }}
-            className="min-w-full px-1"
-          >
-            <FormGroup className={"relative mb-4"}>
-              <FloatingInput
-                type={"password"}
-                name={"password"}
-                placeholder={"Password"}
-                variant={inputTheme}
-                value={password}
-                onChange={handlePasswordOnChange}
-                onBlur={handlePasswordOnBlur}
-              />
-              {isPasswordError && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {passwordErrorMessage}
-                </p>
-              )}
-            </FormGroup>
-            <FormGroup className={"relative mb-4"}>
-              <FloatingInput
-                type={"password"}
-                name={"password-confirm"}
-                placeholder={"Password Confirm"}
-                variant={inputTheme}
-                value={passwordConfirm}
-                onChange={handlePasswordConfirmOnChange}
-                onBlur={handlePasswordConfirmOnBlur}
-              />
-              {isPasswordConfirmError && (
-                <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
-                  {passwordConfirmErrorMessage}
-                </p>
-              )}
-            </FormGroup>
-            <FormGroup className={"mb-8"}>
-              <Button
-                type={"submit"}
-                variant={"primary"}
-                className={
-                  "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
-                }
-                disabled={!isFormValid || signupMutation.status === "loading"}
-                onClick={handleSubmit}
-              >
-                {signupMutation.status === "loading" ? (
-                  <Spinner size={"sm"} />
-                ) : (
-                  <span>Signup</span>
+                {isFullnameError && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {fullNameErrorMessage}
+                  </p>
                 )}
-              </Button>
-            </FormGroup>
-            <FormGroup>
-              <Button
-                type={"button"}
-                variant={"link"}
-                className={
-                  "flex items-center justify-center gap-2 mx-auto text-dark dark:text-white"
-                }
-                onClick={handlePreviousFormStage}
-              >
-                <FontAwesomeIcon icon={faAngleLeft} />
-                <span>Back</span>
-              </Button>
-            </FormGroup>
-          </motion.section>
-        </Card.Body>
-        <Card.Footer>
-          <section>
-            <section className="flex items-center justify-between mb-8">
-              <hr className="border dark:border-dark h-0.5 w-1/3" />
-              <span className="text-muted dark:text-muted-dark">or</span>
-              <hr className="border dark:border-dark h-0.5 w-1/3" />
+              </FormGroup>
+              <FormGroup className={"relative mb-4"}>
+                <FloatingInput
+                  type={"text"}
+                  name={"username"}
+                  placeholder={"Username"}
+                  variant={inputTheme}
+                  value={username}
+                  onChange={handleUsernameOnChange}
+                  onBlur={handleUsernameOnBlur}
+                />
+                {isUsernameError && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {usernameErrorMessage}
+                  </p>
+                )}
+                {isUserExists && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {userExistsErrorMessage}
+                  </p>
+                )}
+                {isUserExists === false && isUsernameValid && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
+                  />
+                )}
+              </FormGroup>
+              <FormGroup className={"relative mb-4"}>
+                <FloatingInput
+                  type={"email"}
+                  name={"email"}
+                  placeholder={"Email Address"}
+                  variant={inputTheme}
+                  value={email}
+                  onChange={handleEmailOnChange}
+                  onBlur={handleEmailOnBlur}
+                />
+                {isEmailError && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {emailErrorMessage}
+                  </p>
+                )}
+                {isEmailExists && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {emailExistsErrorMessage}
+                  </p>
+                )}
+                {isEmailExists === false && isEmailValid && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
+                  />
+                )}
+              </FormGroup>
+              <FormGroup>
+                <Button
+                  type={"button"}
+                  variant={"primary"}
+                  className={
+                    "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
+                  }
+                  disabled={!isFormStage_1_Valid}
+                  onClick={handleNextFormStage}
+                >
+                  <span>Next</span>
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </Button>
+              </FormGroup>
+            </motion.section>
+            <motion.section
+              animate={{ translateX: `-${formStage * 100}%` }}
+              className="min-w-full px-1"
+            >
+              <FormGroup className={"relative mb-4"}>
+                <FloatingInput
+                  type={"password"}
+                  name={"password"}
+                  placeholder={"Password"}
+                  variant={inputTheme}
+                  value={password}
+                  onChange={handlePasswordOnChange}
+                  onBlur={handlePasswordOnBlur}
+                />
+                {isPasswordError && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {passwordErrorMessage}
+                  </p>
+                )}
+              </FormGroup>
+              <FormGroup className={"relative mb-4"}>
+                <FloatingInput
+                  type={"password"}
+                  name={"password-confirm"}
+                  placeholder={"Password Confirm"}
+                  variant={inputTheme}
+                  value={passwordConfirm}
+                  onChange={handlePasswordConfirmOnChange}
+                  onBlur={handlePasswordConfirmOnBlur}
+                />
+                {isPasswordConfirmError && (
+                  <p className="absolute top-1/2 -translate-y-1/2 text-danger text-xs right-3">
+                    {passwordConfirmErrorMessage}
+                  </p>
+                )}
+              </FormGroup>
+              <FormGroup className={"mb-8"}>
+                <Button
+                  type={"submit"}
+                  variant={"primary"}
+                  className={
+                    "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
+                  }
+                  disabled={!isFormValid || signupMutation.status === "loading"}
+                  onClick={handleSubmit}
+                >
+                  {signupMutation.status === "loading" ? (
+                    <Spinner size={"sm"} />
+                  ) : (
+                    <span>Signup</span>
+                  )}
+                </Button>
+              </FormGroup>
+              <FormGroup>
+                <Button
+                  type={"button"}
+                  variant={"link"}
+                  className={
+                    "flex items-center justify-center gap-1 mx-auto text-dark dark:text-white"
+                  }
+                  onClick={handlePreviousFormStage}
+                >
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                  <span>Back</span>
+                </Button>
+              </FormGroup>
+            </motion.section>
+          </Card.Body>
+          <Card.Footer>
+            <section>
+              <section className="flex items-center justify-between mb-8">
+                <hr className="border dark:border-dark h-0.5 w-1/3" />
+                <span className="text-muted dark:text-muted-dark">or</span>
+                <hr className="border dark:border-dark h-0.5 w-1/3" />
+              </section>
+              <section className="flex items-center justify-center">
+                <Button
+                  type={"button"}
+                  variant={"link"}
+                  onClick={() => router.push("/auth/login")}
+                >
+                  Login
+                </Button>
+              </section>
             </section>
-            <section className="flex items-center justify-center">
-              <Button
-                type={"button"}
-                variant={"link"}
-                onClick={() => router.push("/auth/login")}
-              >
-                Login
-              </Button>
-            </section>
-          </section>
-        </Card.Footer>
-      </Card>
-      <Toast show={toast} setToast={setToast}>
-        <p>{toastMessage}</p>
-      </Toast>
-    </form>
+          </Card.Footer>
+        </Card>
+      </form>
+      <Toast
+        show={toast}
+        variant={"danger"}
+        setToast={setToast}
+        message={toastMessage}
+      />
+    </>
   );
 };
 
