@@ -10,18 +10,17 @@ const reducer = (state, action) => {
       switch (name) {
         case "fullname": {
           return {
-            value: String(
-              `${payload.slice(0, 1).toUpperCase()}${payload
-                .slice(1)
-                .toLowerCase()}`
-            ).replaceAll(/[0-9]/g, ""),
+            value: String(payload).replace(/[^a-zA-Z ]/g, ""),
             isValid: payload.length >= 2 && payload.length <= 24,
           };
         }
 
         case "username": {
           return {
-            value: payload.toLowerCase().trim(),
+            value: payload
+              .toLowerCase()
+              .replace(/[^a-zA-Z ]/g, "")
+              .trim(),
             isValid: payload.length >= 3 && payload.length <= 8,
           };
         }
@@ -53,38 +52,36 @@ const reducer = (state, action) => {
     case "onBlur": {
       switch (name) {
         case "fullname": {
-          let isError, message;
+          let isError, errorMessage;
 
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 2) message = "Fullname is too short.";
-            if (state.value.length >= 10) message = "Fullname is too long.";
-            else message = "Invalid fullname.";
+            if (state.value.length <= 2) errorMessage = "Fullname is too short";
+            if (state.value.length >= 10) errorMessage = "Fullname is too long";
           }
 
           return {
             ...state,
             isError,
-            message,
+            errorMessage,
           };
         }
 
         case "username": {
-          let isError, message;
+          let isError, errorMessage;
 
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 3) message = "Username is too short.";
-            if (state.value.length >= 12) message = "Username is too long.";
-            else message = "Invalid username.";
+            if (state.value.length <= 3) errorMessage = "Username is too short";
+            if (state.value.length >= 12) errorMessage = "Username is too long";
           }
 
           return {
             ...state,
             isError,
-            message,
+            errorMessage,
           };
         }
 
@@ -92,26 +89,26 @@ const reducer = (state, action) => {
           return {
             ...state,
             isError: !state.isValid,
-            message: "Invalid email address.",
+            errorMessage: "Invalid email address",
           };
         }
 
         case "password":
         case "password-confirm": {
-          let isError, message;
+          let isError, errorMessage;
 
           if (!state.isValid) {
             isError = !state.isValid;
 
-            if (state.value.length <= 8) message = "Password is too short.";
-            if (state.value.length >= 32) message = "Password is too long.";
-            else message = "Password contains invalid values.";
+            if (state.value.length <= 8) errorMessage = "Password is too short";
+            if (state.value.length >= 32) errorMessage = "Password is too long";
+            // else errorMessage = "Password contains invalid values";
           }
 
           return {
             ...state,
             isError,
-            message,
+            errorMessage,
           };
         }
       }
@@ -130,8 +127,8 @@ const reducer = (state, action) => {
 const initialState = {
   value: "",
   isValid: false,
-  isError: false,
-  message: "",
+  isError: null,
+  errorMessage: "",
 };
 
 const useInput = () => {

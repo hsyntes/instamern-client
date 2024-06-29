@@ -5,12 +5,13 @@ const FloatingInput = ({
   placeholder,
   value,
   onChange,
+  onBlur,
   className,
   autoFocus,
 }) => {
   let inputClasses = `peer w-full rounded border dark:border-dark text-sm outline-none focus:!border-primary transition-all py-4 px-3 ${className} `;
   let labelClasses =
-    "absolute peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-primary peer-focus:text-xs top-3 -translate-y-1/2 left-3 text-xs cursor-text transition-all ";
+    "absolute peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm peer-focus:top-2.5 peer-focus:text-primary peer-focus:text-xs top-2.5 -translate-y-1/2 left-3 text-xs cursor-text transition-all ";
 
   switch (variant) {
     case "dark": {
@@ -48,6 +49,7 @@ const FloatingInput = ({
         className={inputClasses}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         autoFocus={autoFocus}
       />
       <label htmlFor={name} className={labelClasses}>

@@ -1,3 +1,5 @@
-const FormGroup = ({ children }) => <div className="mb-3">{children}</div>;
+const FormGroup = ({ className, children }) => (
+  <div className={className}>{children}</div>
+);
 
 export default FormGroup;

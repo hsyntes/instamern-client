@@ -32,6 +32,8 @@ module.exports = {
           darker: "rgb(var(--color-danger-dark))",
         },
 
+        success: "rgb(var(--color-success))",
+
         muted: {
           DEFAULT: "rgba(var(--color-muted))",
           dark: "rgba(var(--color-muted-dark))",
