@@ -1,4 +1,4 @@
-const Button = ({ type, variant, className, onClick, children }) => {
+const Button = ({ type, variant, className, onClick, disabled, children }) => {
   let classes = `button rounded text-sm font-semibold select-none transition-all px-4 py-1.5 ${className} `;
 
   switch (variant) {
@@ -19,7 +19,12 @@ const Button = ({ type, variant, className, onClick, children }) => {
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
