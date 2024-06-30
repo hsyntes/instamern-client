@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link
               href={"/"}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
-                pathname === "/" && "text-dark dark:text-white"
+                pathname === "/" && "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faHome} />
@@ -34,7 +34,7 @@ const Navbar = () => {
             <Link
               href={"/search"}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
-                pathname === "/search" && "text-dark dark:text-white"
+                pathname === "/search" && "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faSearch} />
@@ -44,7 +44,7 @@ const Navbar = () => {
             <Link
               href={"/create"}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
-                pathname === "/create" && "text-dark dark:text-white"
+                pathname === "/create" && "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faCirclePlus} />
@@ -54,7 +54,7 @@ const Navbar = () => {
             <Link
               href={"/notifications"}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
-                pathname === "/notifications" && "text-dark dark:text-white"
+                pathname === "/notifications" && "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faBell} />
@@ -64,7 +64,7 @@ const Navbar = () => {
             <Link
               href={"/profile"}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
-                pathname === "/profile" && "text-dark dark:text-white"
+                pathname === "/profile" && "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faUser} />
