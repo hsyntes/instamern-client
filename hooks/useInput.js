@@ -97,7 +97,7 @@ const reducer = (state, action) => {
           return {
             ...state,
             isError: !state.isValid,
-            errorMessage: "Invalid email address",
+            errorMessage: state.value !== "" && "Invalid email address",
           };
         }
 
@@ -145,19 +145,19 @@ const initialState = {
 const useInput = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleOnChange = (e) => {
+  function handleOnChange(e) {
     const { name, value } = e.target;
     dispatch({ type: "onChange", name, payload: value });
-  };
+  }
 
-  const handleOnBlur = (e) => {
+  function handleOnBlur(e) {
     const { name } = e.target;
     dispatch({ type: "onBlur", name });
-  };
+  }
 
-  const handleOnClear = (name) => {
+  function handleOnClear(name) {
     dispatch({ type: "onClear", name });
-  };
+  }
 
   return { state, handleOnChange, handleOnBlur, handleOnClear };
 };

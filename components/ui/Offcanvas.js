@@ -10,15 +10,18 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 const Offcanvas = ({ show, className, children }) => {
   const [display, setDisplay] = useState("none");
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      if (!show) setDisplay("none");
-    }, 100);
+  useEffect(
+    function () {
+      const identifier = setTimeout(() => {
+        if (!show) setDisplay("none");
+      }, 100);
 
-    if (show) setDisplay("block");
+      if (show) setDisplay("block");
 
-    return () => clearTimeout(identifier);
-  }, [show]);
+      return () => clearTimeout(identifier);
+    },
+    [show]
+  );
 
   return (
     <div style={{ display, width: "25vw" }}>
