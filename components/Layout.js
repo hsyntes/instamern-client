@@ -10,6 +10,7 @@ import Container from "./Container";
 import Splash from "./ui/loading/Splash";
 import Cookies from "js-cookie";
 import HttpRequest from "@/utils/HttpRequest";
+import Navbar from "./ui/Navbar";
 
 export const Charm_700 = Charm({ subsets: ["latin"], weight: "700" });
 
@@ -58,6 +59,7 @@ const Layout = ({ children }) => {
       if (data.status === "success")
         dispatch(currentUserSliceActions.setCurrentUser(data.data.currentUser));
     },
+    refetchOnWindowFocus: false,
   });
 
   if (isCurrentUserLoading) return <Splash />;
@@ -71,6 +73,7 @@ const Layout = ({ children }) => {
           {/* <div style={{ height: "1000px" }} /> */}
         </Container>
       </main>
+      <Navbar />
       <footer></footer>
     </div>
   );
