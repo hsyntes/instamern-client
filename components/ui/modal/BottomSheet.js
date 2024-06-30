@@ -64,16 +64,16 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
     >
       <motion.div
         animate={{ translateY: show ? "0%" : "100%" }}
-        transition={{ ease: "easeOut", duration: 0.15 }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
         className="absolute bottom-0 w-full h-1/5 bg-white dark:bg-dark rounded-t-3xl border dark:border-dark shadow py-6"
       >
         <div className="py-0.5 bg-muted dark:bg-muted-dark w-1/6 rounded-full mx-auto mb-3"></div>
         <section
           className={"flex flex-col w-full h-full items-center justify-center"}
         >
-          <ul className="text-center w-full px-4">
+          <ul className="text-center text-sm w-full px-4">
             <li
-              className="flex items-center justify-center gap-2 active:bg-muted active:dark:bg-muted-dark rounded-lg transition-all py-2"
+              className="flex items-center justify-center gap-2 active:bg-muted active:dark:bg-muted-dark font-semibold rounded-lg transition-all py-2"
               onClick={handleSwitchTheme}
             >
               <FontAwesomeIcon icon={faMoon} />

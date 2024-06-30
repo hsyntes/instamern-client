@@ -1,13 +1,17 @@
 import Link from "next/link";
-import Button from "./Button";
 import Image from "next/image";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Charm_700 } from "../Layout";
+import Button from "./Button";
 import MenuIcon from "./MenuIcon";
 import BottomSheet from "./modal/BottomSheet";
-import { useState } from "react";
 
 const Header = () => {
+  const currentUserState = useSelector((state) => state.currentUser);
   const [bottomSheet, setBottomSheet] = useState(false);
+
+  const { currentUser } = currentUserState;
 
   const handleBottomSheet = () => setBottomSheet(!bottomSheet);
 
@@ -34,14 +38,16 @@ const Header = () => {
           <MenuIcon onClick={handleBottomSheet} />
         </section>
         <section className="col-span-3 lg:col-span-12 ms-auto hidden lg:block">
-          <Button
-            type={"button"}
-            variant={"primary"}
-            className={"rounded-xl ms-auto"}
-            onClick={() => router.push("/auth/signup")}
-          >
-            Sign up
-          </Button>
+          {!currentUser && (
+            <Button
+              type={"button"}
+              variant={"primary"}
+              className={"rounded-xl ms-auto"}
+              onClick={() => router.push("/auth/signup")}
+            >
+              Sign up
+            </Button>
+          )}
         </section>
       </header>
       <BottomSheet show={bottomSheet} handleBottomSheet={handleBottomSheet} />
