@@ -17,7 +17,9 @@ const AlertDialog = ({ show, handleAlertDialog, message }) => {
         />
       </Modal.Header>
       <Modal.Body>
-        <p className="text-center text-muted dark:text-muted-dark">{message}</p>
+        <p className="text-center text-sm text-muted dark:text-muted-dark">
+          {message}
+        </p>
       </Modal.Body>
       <Modal.Footer className={"flex items-center justify-center"}>
         <Button type={"button"} variant={"link"} onClick={handleAlertDialog}>
