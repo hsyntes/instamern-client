@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 class HttpRequest {
-  static async get(endpoint, payload) {
+  static async get(endpoint, payload, token) {
     try {
       console.log(`${process.env.NEXT_PUBLIC_API}/${endpoint} in GET Request`);
 
@@ -10,6 +10,9 @@ class HttpRequest {
         {
           params: {
             ...payload,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -29,6 +32,9 @@ class HttpRequest {
         `${process.env.NEXT_PUBLIC_API}/${endpoint}`,
         {
           ...payload,
+        },
+        {
+          withCredentials: true,
         }
       );
 

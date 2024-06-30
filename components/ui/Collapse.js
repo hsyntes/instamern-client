@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 const Collapse = ({ show, className, children }) => {
   const [display, setDisplay] = useState("none");
 
-  useEffect(() => {
-    if (!show) setDisplay("none");
-    if (show) setDisplay("block");
-  }, [show]);
+  useEffect(
+    function () {
+      if (!show) setDisplay("none");
+      if (show) setDisplay("block");
+    },
+    [show]
+  );
 
   return (
     <div className={className} style={{ display }}>

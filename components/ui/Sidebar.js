@@ -55,17 +55,17 @@ const Sidebar = () => {
   const { pathname } = router;
   const { theme } = themeState;
 
-  const handleSearchOffcanvas = () => {
+  function handleSearchOffcanvas() {
     setSearchOffcanvas(!searchOffcanvas);
 
     if (notificationsOffcanvas) setNotificationsOffcanvas(false);
-  };
+  }
 
-  const handleNotificationsOffcanvas = () => {
+  function handleNotificationsOffcanvas() {
     setNotificationsOffcanvas(!notificationsOffcanvas);
 
     if (searchOffcanvas) setSearchOffcanvas(false);
-  };
+  }
 
   const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
   const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
@@ -76,7 +76,7 @@ const Sidebar = () => {
   const { isLoading: isSearchedUsersLoading } = useQuery(
     ["searchUsers", search],
     {
-      queryFn: async () => {
+      queryFn: async function () {
         if (isSearchValid) {
           const data = await searchUsers(search);
           console.log("data: ", data);
@@ -89,34 +89,45 @@ const Sidebar = () => {
     }
   );
 
-  useEffect(() => {
-    if (theme === "dark") setInputTheme("black");
-    if (theme === "light") setInputTheme("white");
+  useEffect(
+    function () {
+      if (theme === "dark") setInputTheme("black");
+      if (theme === "light") setInputTheme("white");
 
-    setSelectedTheme(theme);
-  }, [theme, selectedTheme]);
+      setSelectedTheme(theme);
+    },
+    [theme, selectedTheme]
+  );
 
-  useEffect(() => {
-    if (theme === "dark") setLoadingTheme("black");
-    if (theme === "light") setLoadingTheme("light");
-  }, [theme]);
+  useEffect(
+    function () {
+      if (theme === "dark") setLoadingTheme("black");
+      if (theme === "light") setLoadingTheme("light");
+    },
+    [theme]
+  );
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        !e.target.classList.contains("dropdown")
-      )
-        setSettingsDropdown(false);
-    };
+  useEffect(
+    function () {
+      const handleClickOutside = (e) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(e.target) &&
+          !e.target.classList.contains("dropdown")
+        )
+          setSettingsDropdown(false);
+      };
 
-    document.addEventListener("click", handleClickOutside, true);
+      document.addEventListener("click", handleClickOutside, true);
 
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, [dropdownRef, setSettingsDropdown]);
+      return () => {
+        document.removeEventListener("click", handleClickOutside, true);
+      };
+    },
+    [dropdownRef, setSettingsDropdown]
+  );
+
+  if (router.pathname.startsWith("/auth")) return;
 
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-screen sticky top-0">

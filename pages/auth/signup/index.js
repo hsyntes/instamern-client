@@ -237,7 +237,7 @@ const SignupPage = () => {
       >
         <Card
           className={
-            "w-full lg:w-1/3 xl:w-1/4 lg:bg-white lg:dark:bg-dark dark:border-dark lg:rounded lg:border lg:dark:border-dark lg:shadow-sm lg:dark:shadow-2xl py-12 px-8"
+            "w-full lg:w-1/3 lg:bg-white lg:dark:bg-dark dark:border-dark lg:rounded lg:border lg:dark:border-dark lg:shadow-sm lg:dark:shadow-2xl py-12 px-8"
           }
         >
           <Card.Header className={"mb-16 lg:mb-8"}>

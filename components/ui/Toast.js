@@ -23,13 +23,16 @@ const Toast = ({ show, variant, className, setToast, message }) => {
     }
   }
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      setToast(false);
-    }, 2000);
+  useEffect(
+    function () {
+      const identifier = setTimeout(() => {
+        setToast(false);
+      }, 2000);
 
-    return () => clearTimeout(identifier);
-  }, [setToast]);
+      return () => clearTimeout(identifier);
+    },
+    [setToast]
+  );
 
   return (
     <motion.div
