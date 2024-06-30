@@ -26,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useInput from "@/hooks/useInput";
 import HttpRequest from "@/utils/HttpRequest";
+import Modal from "./modal/Modal";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`);
@@ -44,6 +45,7 @@ const Sidebar = () => {
   const [inputTheme, setInputTheme] = useState("white");
   const [selectedTheme, setSelectedTheme] = useState("");
   const [loadingTheme, setLoadingTheme] = useState("");
+  const [createPostModal, setCreatePostModal] = useState(false);
   const dropdownRef = useRef();
 
   const {
@@ -69,6 +71,7 @@ const Sidebar = () => {
 
   const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
   const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
+  const handleCreatePostModal = () => setCreatePostModal(!createPostModal);
 
   const handleThemeOnChange = (e) =>
     dispatch(themeSliceActions.switchTheme(e.target.value));
@@ -96,7 +99,7 @@ const Sidebar = () => {
 
       setSelectedTheme(theme);
     },
-    [theme, selectedTheme]
+    [theme]
   );
 
   useEffect(
@@ -161,6 +164,7 @@ const Sidebar = () => {
             </li>
             <li
               className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2`}
+              onClick={handleCreatePostModal}
             >
               <FontAwesomeIcon icon={faPlusCircle} size="lg" />
             </li>
@@ -232,7 +236,8 @@ const Sidebar = () => {
                           value={"dark"}
                           className="dropdown"
                           onChange={handleThemeOnChange}
-                          defaultChecked={selectedTheme === "dark"}
+                          checked={selectedTheme === "dark"}
+                          // defaultChecked={selectedTheme === "dark"}
                         />
                         <label
                           htmlFor="dark"
@@ -247,9 +252,10 @@ const Sidebar = () => {
                           id="light"
                           name="theme"
                           value={"light"}
-                          onChange={handleThemeOnChange}
                           className="dropdown"
-                          defaultChecked={selectedTheme === "light"}
+                          onChange={handleThemeOnChange}
+                          checked={selectedTheme === "light"}
+                          // defaultChecked={selectedTheme === "light"}
                         />
                         <label
                           htmlFor="light"
@@ -344,6 +350,7 @@ const Sidebar = () => {
           <Offcanvas.Body />
           <Offcanvas.Footer />
         </Offcanvas>
+        <Modal show={createPostModal} handleModal={handleCreatePostModal} />
       </section>
     </aside>
   );

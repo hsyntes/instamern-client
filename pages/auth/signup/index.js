@@ -1,30 +1,31 @@
+import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 import { Charm_700 } from "@/components/Layout";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import FloatingInput from "@/components/ui/form/FloatingInput";
 import FormGroup from "@/components/ui/form/FormGroup";
-import { motion } from "framer-motion";
-import useInput from "@/hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
   faAngleRight,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { useMutation, useQuery } from "react-query";
-import HttpRequest from "@/utils/HttpRequest";
 import Spinner from "@/components/ui/loading/Spinner";
 import Toast from "@/components/ui/Toast";
+import useInput from "@/hooks/useInput";
+import HttpRequest from "@/utils/HttpRequest";
 
 const checkUserExists = async (payload) =>
-  await HttpRequest.get(`/users/username/${payload}`);
+  await HttpRequest.get(`users/username/${payload}`);
 
 const checkEmailExists = async (payload) =>
-  await HttpRequest.get(`/users/email/${payload}`);
+  await HttpRequest.get(`users/email/${payload}`);
 
 const signup = async (payload) =>
   await HttpRequest.post("auth/signup", payload);
@@ -230,10 +231,14 @@ const SignupPage = () => {
 
   return (
     <>
+      <Head>
+        <meta name="description" content="Sign up Instamern" />
+        <meta name="keywords" content="instamern, huseyin ates" />
+        <title>Sign up | Instamern</title>
+      </Head>
       <form
         onSubmit={handleSubmit}
-        className="fixed flex items-center justify-center bg-light dark:bg-black select-none"
-        style={{ width: "100vw", height: "100vh" }}
+        className="fixed w-screen h-screen left-0 top-0 flex items-center justify-center bg-light dark:bg-black select-none"
       >
         <Card
           className={
@@ -254,7 +259,7 @@ const SignupPage = () => {
               animate={{ translateX: `-${formStage * 100}%` }}
               className="min-w-full px-1"
             >
-              <FormGroup className={"relative mb-4"}>
+              <FormGroup className={"relative mb-3"}>
                 <FloatingInput
                   type={"text"}
                   name={"fullname"}
@@ -270,7 +275,7 @@ const SignupPage = () => {
                   </p>
                 )}
               </FormGroup>
-              <FormGroup className={"relative mb-4"}>
+              <FormGroup className={"relative mb-3"}>
                 <FloatingInput
                   type={"text"}
                   name={"username"}
@@ -329,7 +334,7 @@ const SignupPage = () => {
                   type={"button"}
                   variant={"primary"}
                   className={
-                    "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
+                    "flex items-center justify-center gap-2 w-full py-4"
                   }
                   disabled={!isFormStage_1_Valid}
                   onClick={handleNextFormStage}
@@ -343,7 +348,7 @@ const SignupPage = () => {
               animate={{ translateX: `-${formStage * 100}%` }}
               className="min-w-full px-1"
             >
-              <FormGroup className={"relative mb-4"}>
+              <FormGroup className={"relative mb-3"}>
                 <FloatingInput
                   type={"password"}
                   name={"password"}
@@ -380,7 +385,7 @@ const SignupPage = () => {
                   type={"submit"}
                   variant={"primary"}
                   className={
-                    "flex items-center justify-center gap-2 w-full py-4 lg:py-3"
+                    "flex items-center justify-center gap-2 w-full py-4"
                   }
                   disabled={!isFormValid || signupMutation.status === "loading"}
                   onClick={handleSubmit}
@@ -388,7 +393,7 @@ const SignupPage = () => {
                   {signupMutation.status === "loading" ? (
                     <Spinner size={"sm"} />
                   ) : (
-                    <span>Signup</span>
+                    <span>Sign up</span>
                   )}
                 </Button>
               </FormGroup>
@@ -420,7 +425,7 @@ const SignupPage = () => {
                   variant={"link"}
                   onClick={() => router.push("/auth/login")}
                 >
-                  Login
+                  Log in
                 </Button>
               </section>
             </section>
