@@ -68,7 +68,7 @@ const Layout = ({ children }) => {
       <main className="lg:col-span-9 py-6">
         <Container>
           {children}
-          <div style={{ height: "1000px" }} />
+          {/* <div style={{ height: "1000px" }} /> */}
         </Container>
       </main>
       <footer></footer>

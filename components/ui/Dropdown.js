@@ -6,7 +6,7 @@ const Dropdown = ({ show, width, className, children }) => {
 
   useEffect(
     function () {
-      const identifier = setTimeout(() => {
+      const identifier = setTimeout(function () {
         if (!show) setDisplay("none");
       }, 100);
 
