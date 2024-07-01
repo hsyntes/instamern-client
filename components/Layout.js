@@ -14,12 +14,7 @@ import Navbar from "./ui/Navbar";
 
 export const Charm_700 = Charm({ subsets: ["latin"], weight: "700" });
 
-const getCurrentUser = async () =>
-  await HttpRequest.get(
-    "/auth/current-user",
-    undefined,
-    Cookies.get("jsonwebtoken")
-  );
+const getCurrentUser = async () => await HttpRequest.get("auth/current-user");
 
 config.autoAddCss = false;
 
@@ -59,7 +54,6 @@ const Layout = ({ children }) => {
       if (data.status === "success")
         dispatch(currentUserSliceActions.setCurrentUser(data.data.currentUser));
     },
-    refetchOnWindowFocus: false,
   });
 
   if (isCurrentUserLoading) return <Splash />;

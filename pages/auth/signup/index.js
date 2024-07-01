@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { Charm_700 } from "@/components/Layout";
@@ -32,6 +32,7 @@ const signup = async (payload) =>
 
 const SignupPage = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const themeState = useSelector((state) => state.theme);
 
@@ -159,7 +160,10 @@ const SignupPage = () => {
     onSuccess: function (data) {
       console.log(data);
 
-      if (data.status === "success") router.push("/");
+      if (data.status === "success") {
+        queryClient.refetchQueries({ queryKey: "getCurrentUser" });
+        router.push("/");
+      }
 
       if (data.status === "fail") {
         setToast(true);

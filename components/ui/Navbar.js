@@ -17,57 +17,57 @@ const Navbar = () => {
   if (pathname.startsWith("/auth")) return;
 
   return (
-    <nav className="block border-dark lg:hidden fixed bottom-0 w-full bg-white dark:bg-dark py-3">
+    <nav className="block border-dark lg:hidden fixed bottom-0 w-full bg-white dark:bg-black py-3">
       <Container>
         <ul className="flex items-center justify-between">
           <li>
             <Link
               href={"/"}
-              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
+              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
                 pathname === "/" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faHome} />
+              <FontAwesomeIcon icon={faHome} size="lg" />
             </Link>
           </li>
           <li>
             <Link
               href={"/search"}
-              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
+              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
                 pathname === "/search" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faSearch} />
+              <FontAwesomeIcon icon={faSearch} size="lg" />
             </Link>
           </li>
           <li>
             <Link
               href={"/create"}
-              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
+              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
                 pathname === "/create" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faCirclePlus} />
+              <FontAwesomeIcon icon={faCirclePlus} size="lg" />
             </Link>
           </li>
           <li>
             <Link
               href={"/notifications"}
-              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
+              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
                 pathname === "/notifications" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faBell} />
+              <FontAwesomeIcon icon={faBell} size="lg" />
             </Link>
           </li>
           <li>
             <Link
               href={"/profile"}
-              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white text-lg ${
+              className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
                 pathname === "/profile" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faUser} size="lg" />
             </Link>
           </li>
         </ul>
