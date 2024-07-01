@@ -8,7 +8,6 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import Sidebar from "./ui/Sidebar";
 import Container from "./Container";
 import Splash from "./ui/loading/Splash";
-import Cookies from "js-cookie";
 import HttpRequest from "@/utils/HttpRequest";
 import Navbar from "./ui/Navbar";
 
