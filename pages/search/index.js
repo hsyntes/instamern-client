@@ -12,6 +12,7 @@ import useInput from "@/hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import HttpRequest from "@/utils/HttpRequest";
+import Head from "next/head";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`);
@@ -59,67 +60,78 @@ const SearchPage = () => {
   console.log("searchedUsers: ", searchedUsers);
 
   return (
-    <section>
-      <section className="relative mb-6">
-        <Input
-          type={"text"}
-          name={"search"}
-          variant={inputTheme}
-          placeholder={"Search"}
-          value={search}
-          onChange={handleSearchOnChange}
-          autoFocus={true}
-        />
-        {isSearchValid ? (
-          <FontAwesomeIcon
-            icon={faTimesCircle}
-            size="sm"
-            className="absolute text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-all"
-            onClick={() => handleSearchOnClear("search")}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faSearch}
-            size="sm"
-            className="absolute text-muted dark:text-muted-dark top-1/2 right-2 -translate-y-1/2"
-          />
-        )}
-      </section>
+    <>
+      <Head>
+        <meta name="description" content="Search users in instamern" />
+        <meta name="keywords" content="instamern, huseyin ates" />
+        <title>Search | Instamern</title>
+      </Head>
       <section>
-        {isSearchedUsersLoading && (
-          <UsersLoading
-            count={15}
-            variant={theme}
-            className={"mb-4 last:mb-0"}
+        <section className="relative mb-6">
+          <Input
+            type={"text"}
+            name={"search"}
+            variant={inputTheme}
+            placeholder={"Search"}
+            value={search}
+            onChange={handleSearchOnChange}
+            autoFocus={true}
           />
-        )}
-        {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
-          <ul>
-            {searchedUsers.map((searchedUser) => (
-              <li className="flex mb-4 last:mb-0" key={searchedUser._id}>
-                <Link href={"/"} className="flex gap-3">
-                  {searchedUser.user_photo ? (
-                    <Image src={searchedUser.user_photo} />
-                  ) : (
-                    <Avatar
-                      size={"lg"}
-                      letter={searchedUser.user_fullname.slice(0, 1)}
-                    />
-                  )}
-                  <section className="text-sm">
-                    <h1>{searchedUser.user_fullname}</h1>
-                    <p>{searchedUser.user_username}</p>
-                  </section>
-                </Link>
-                <Button type={"button"} variant={"link"} className={"ms-auto"}>
-                  Follow
-                </Button>
-              </li>
-            ))}
-          </ul>
-        )}
+          {isSearchValid ? (
+            <FontAwesomeIcon
+              icon={faTimesCircle}
+              size="sm"
+              className="absolute text-muted dark:text-muted-dark hover:!text-dark hover:dark:!text-white top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-all"
+              onClick={() => handleSearchOnClear("search")}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faSearch}
+              size="sm"
+              className="absolute text-muted dark:text-muted-dark top-1/2 right-2 -translate-y-1/2"
+            />
+          )}
+        </section>
+        <section>
+          {isSearchedUsersLoading && (
+            <UsersLoading
+              count={15}
+              variant={theme}
+              className={"mb-4 last:mb-0"}
+            />
+          )}
+          {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
+            <ul>
+              {searchedUsers.map((searchedUser) => (
+                <li className="flex mb-4 last:mb-0" key={searchedUser._id}>
+                  <Link href={"/"} className="flex gap-3">
+                    {searchedUser.user_photo ? (
+                      <Image src={searchedUser.user_photo} />
+                    ) : (
+                      <Avatar
+                        size={"lg"}
+                        letter={searchedUser.user_fullname.slice(0, 1)}
+                      />
+                    )}
+                    <section className="text-sm">
+                      <h1>{searchedUser.user_fullname}</h1>
+                      <p>{searchedUser.user_username}</p>
+                    </section>
+                  </Link>
+                  <Button
+                    type={"button"}
+                    variant={"link"}
+                    className={"ms-auto"}
+                  >
+                    Follow
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </section>
-    </section>
+    </>
   );
 };
 
