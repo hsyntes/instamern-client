@@ -42,7 +42,7 @@ const reducer = (state, action) => {
 
         case "search": {
           return {
-            value: payload.trim(),
+            value: payload,
             isValid: payload.length >= 1,
           };
         }

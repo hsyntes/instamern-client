@@ -25,7 +25,7 @@ const Avatar = ({ letter, size }) => {
 
   return (
     <div
-      className="flex items-center justify-center bg-primary rounded-full"
+      className="flex items-center justify-center bg-primary text-white rounded-full"
       style={style}
     >
       {letter}
