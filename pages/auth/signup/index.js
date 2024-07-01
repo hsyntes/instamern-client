@@ -22,10 +22,10 @@ import useInput from "@/hooks/useInput";
 import HttpRequest from "@/utils/HttpRequest";
 
 const checkUserExists = async (payload) =>
-  await HttpRequest.get(`users/username/${payload}`);
+  await HttpRequest.get(`users/check/username/${payload}`);
 
 const checkEmailExists = async (payload) =>
-  await HttpRequest.get(`users/email/${payload}`);
+  await HttpRequest.get(`users/check/email/${payload}`);
 
 const signup = async (payload) =>
   await HttpRequest.post("auth/signup", payload);
@@ -124,14 +124,12 @@ const SignupPage = () => {
       if (isUsernameValid) {
         const data = await checkUserExists(username);
 
-        if (data.status === "success") {
-          setIsUserExists(false);
-          setUserExistsErrorMessage("");
-        }
-
         if (data.status === "fail") {
           setIsUserExists(true);
           setUserExistsErrorMessage(data.message);
+        } else {
+          setIsUserExists(false);
+          setUserExistsErrorMessage("");
         }
       } else {
         setIsUserExists(null);
@@ -146,14 +144,12 @@ const SignupPage = () => {
       if (isEmailValid) {
         const data = await checkEmailExists(email);
 
-        if (data.status === "success") {
-          setIsEmailExists(false);
-          setEmailExistsErrorMessage("");
-        }
-
         if (data.status === "fail") {
           setIsEmailExists(true);
           setEmailExistsErrorMessage(data.message);
+        } else {
+          setIsEmailExists(false);
+          setEmailExistsErrorMessage("");
         }
       } else {
         setIsEmailExists(null);
@@ -165,8 +161,6 @@ const SignupPage = () => {
   const signupMutation = useMutation({
     mutationFn: signup,
     onSuccess: function (data) {
-      console.log(data);
-
       if (data.status === "success") {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
         router.push("/");

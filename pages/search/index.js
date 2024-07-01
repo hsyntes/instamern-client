@@ -57,8 +57,6 @@ const SearchPage = () => {
     [theme]
   );
 
-  console.log("searchedUsers: ", searchedUsers);
-
   return (
     <>
       <Head>
@@ -66,7 +64,7 @@ const SearchPage = () => {
         <meta name="keywords" content="instamern, huseyin ates" />
         <title>Search | Instamern</title>
       </Head>
-      <section className="relative py-6 mb-4">
+      <section className="relative py-6">
         <Input
           type={"text"}
           name={"search"}

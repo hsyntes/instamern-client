@@ -58,8 +58,6 @@ const LoginPage = () => {
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: function (data) {
-      console.log("data: ", data);
-
       if (data.status === "success") {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
         router.push("/");

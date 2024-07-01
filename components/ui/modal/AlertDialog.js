@@ -1,10 +1,11 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
+import Modal from "./Modal";
 
-const { default: Modal } = require("./Modal");
+const AlertDialog = ({ show, message, handleAlertDialog }) => {
+  if (!show) return;
 
-const AlertDialog = ({ show, handleAlertDialog, message }) => {
   return (
     <Modal show={show} handleModal={handleAlertDialog}>
       <Modal.Header className={"relative flex items-center justify-center"}>

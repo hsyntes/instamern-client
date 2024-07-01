@@ -80,6 +80,11 @@ const Sidebar = () => {
     if (searchOffcanvas) setSearchOffcanvas(false);
   }
 
+  function handleCloseOffcanvasses() {
+    setSearchOffcanvas(false);
+    setNotificationsOffcanvas(false);
+  }
+
   const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
   const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
   const handleCreatePostModal = () => setCreatePostModal(!createPostModal);
@@ -106,8 +111,6 @@ const Sidebar = () => {
   const logoutMutation = useMutation({
     mutationFn: async () => await logout(),
     onSuccess: function (data) {
-      console.log("data: ", data);
-
       if (data.status === "success") {
         Cookies.remove("jsonwebtoken");
         dispatch(currentUserSliceActions.setCurrentUser(null));
@@ -115,6 +118,7 @@ const Sidebar = () => {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
 
         handleSettingsDropdown();
+        router.push("/");
       }
 
       if (data.status === "fail" || data.status === "error") {
@@ -179,12 +183,16 @@ const Sidebar = () => {
           </Link>
           <nav className="mb-auto">
             <ul className="space-y-6">
-              <li
-                className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
-                  pathname === "/" && "!text-dark dark:!text-white"
-                }`}
-              >
-                <FontAwesomeIcon icon={faHome} size="lg" />
+              <li>
+                <Link
+                  href={"/"}
+                  className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
+                    pathname === "/" && "!text-dark dark:!text-white"
+                  }`}
+                  onClick={handleCloseOffcanvasses}
+                >
+                  <FontAwesomeIcon icon={faHome} size="lg" />
+                </Link>
               </li>
               <li
                 className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
@@ -196,7 +204,10 @@ const Sidebar = () => {
               </li>
               <li
                 className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2`}
-                onClick={handleCreatePostModal}
+                onClick={function () {
+                  handleCreatePostModal();
+                  handleCloseOffcanvasses();
+                }}
               >
                 <FontAwesomeIcon icon={faPlusCircle} size="lg" />
               </li>
@@ -208,10 +219,18 @@ const Sidebar = () => {
               >
                 <FontAwesomeIcon icon={faHeart} size="lg" />
               </li>
-              <li
-                className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2`}
-              >
-                <FontAwesomeIcon icon={faUser} size="lg" />
+              <li>
+                <Link
+                  href={`/profile/${currentUser?.user_username}`}
+                  className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
+                    currentUser &&
+                    router.query.username === currentUser?.user_username &&
+                    "!text-dark dark:!text-white"
+                  }`}
+                  onClick={handleCloseOffcanvasses}
+                >
+                  <FontAwesomeIcon icon={faUser} size="lg" />
+                </Link>
               </li>
             </ul>
           </nav>
@@ -388,17 +407,36 @@ const Sidebar = () => {
           </Offcanvas>
           <Offcanvas show={notificationsOffcanvas}>
             <Offcanvas.Header handleOffcanvas={handleNotificationsOffcanvas}>
-              <h1 className="text-lg font-semibold flex items-center gap-2 mb-2">
+              <h1 className="text-lg font-semibold flex items-center gap-2">
                 <FontAwesomeIcon icon={faBell} />
                 <span>Notifications</span>
               </h1>
             </Offcanvas.Header>
-            <Offcanvas.Body />
+            <Offcanvas.Body>
+              <ul>
+                <li className="flex items-start gap-3 bg-light dark:bg-black rounded-lg p-4">
+                  <Image
+                    src={"/logo.svg"}
+                    width={96}
+                    height={96}
+                    className="w-6"
+                    alt="Logo"
+                  />
+                  <section>
+                    <p className="text-sm">
+                      Welcome to my application called&nbsp;
+                      <strong>Instamern</strong>! It's a Full Stack Web
+                      Application like Instagram built with Next.js & MERN.
+                    </p>
+                  </section>
+                </li>
+              </ul>
+            </Offcanvas.Body>
             <Offcanvas.Footer />
           </Offcanvas>
-          <Modal show={createPostModal} handleModal={handleCreatePostModal} />
         </section>
       </aside>
+      <Modal show={createPostModal} handleModal={handleCreatePostModal} />
       <AlertDialog
         show={alertDialog}
         message={alertDialogMessage}
