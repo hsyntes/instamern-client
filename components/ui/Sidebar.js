@@ -21,6 +21,7 @@ import useInput from "@/hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
+  faBell,
   faGear,
   faHeart,
   faHome,
@@ -387,7 +388,10 @@ const Sidebar = () => {
           </Offcanvas>
           <Offcanvas show={notificationsOffcanvas}>
             <Offcanvas.Header handleOffcanvas={handleNotificationsOffcanvas}>
-              <h1 className="text-lg font-semibold mb-2">Notifications</h1>
+              <h1 className="text-lg font-semibold flex items-center gap-2 mb-2">
+                <FontAwesomeIcon icon={faBell} />
+                <span>Notifications</span>
+              </h1>
             </Offcanvas.Header>
             <Offcanvas.Body />
             <Offcanvas.Footer />

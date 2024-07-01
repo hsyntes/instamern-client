@@ -20,18 +20,18 @@ const Header = () => {
 
   return (
     <>
-      <header className="grid grid-cols-12 items-center">
+      <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6">
         <section className="col-span-9 block lg:hidden">
           <Link href={"/"} className="flex items-center gap-2">
             <Image
               src={"/logo.svg"}
               width={96}
               height={96}
-              className="w-6"
+              className="w-5"
               alt="Logo"
             />
             <h1
-              className={`text-3xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent ${Charm_700.className}`}
+              className={`text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent ${Charm_700.className}`}
             >
               instamern
             </h1>
