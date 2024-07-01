@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 import Container from "../Container";
 import {
   faHome,
@@ -13,7 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
   const router = useRouter();
+  const currentUserState = useSelector((state) => state.currentUser);
+
   const { pathname } = router;
+  const { currentUser } = currentUserState;
 
   if (pathname.startsWith("/auth")) return;
 
@@ -68,9 +72,11 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              href={"/profile"}
+              href={`/profile/${currentUser?.user_username}`}
               className={`text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white ${
-                pathname === "/profile" && "!text-dark dark:!text-white"
+                currentUser &&
+                router.query.username === currentUser?.user_username &&
+                "!text-dark dark:!text-white"
               }`}
             >
               <FontAwesomeIcon icon={faUser} size="lg" />

@@ -41,8 +41,6 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
   const logoutMutation = useMutation({
     mutationFn: async () => await logout(),
     onSuccess: function (data) {
-      console.log("data: ", data);
-
       if (data.status === "success") {
         Cookies.remove("jsonwebtoken");
         dispatch(currentUserSliceActions.setCurrentUser(null));
@@ -50,6 +48,7 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
 
         handleBottomSheet();
+        router.push("/");
       }
 
       if (data.status === "fail" || data.status === "error") {
