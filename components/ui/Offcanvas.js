@@ -24,12 +24,20 @@ const Offcanvas = ({ show, className, children }) => {
   );
 
   return (
-    <div style={{ display, width: "25vw" }}>
+    <div
+      style={{
+        display,
+        width:
+          typeof window !== "undefined" && window.innerWidth >= 1356
+            ? "25vw"
+            : "30vw",
+      }}
+    >
       <motion.div
         initial={{ translateX: "-100%" }}
         animate={{ translateX: show ? "0%" : "-100%" }}
         // transition={{ ease: "easeOut", duration: 0.2 }}
-        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen z-40 border-r border-t dark:border-r-dark dark:border-t-dark select-none ${className}`}
+        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen border-r border-t dark:border-r-dark dark:border-t-dark select-none z-50 ${className}`}
       >
         {children}
       </motion.div>

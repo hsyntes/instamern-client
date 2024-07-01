@@ -169,7 +169,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="hidden lg:flex lg:col-span-3 h-screen sticky top-0">
+      <aside className="hidden lg:flex border-r h-screen sticky top-0">
         <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-6 px-2 z-50">
           <Link href={"/"} className="mb-auto">
             <Image
@@ -386,9 +386,13 @@ const Sidebar = () => {
                             letter={searchedUser.user_fullname.slice(0, 1)}
                           />
                         )}
-                        <section className="text-sm">
-                          <h1>{searchedUser.user_fullname}</h1>
-                          <p>{searchedUser.user_username}</p>
+                        <section>
+                          <h1 className="text-sm">
+                            {searchedUser.user_fullname}
+                          </h1>
+                          <p className="text-xs text-muted dark:text-muted-dark">
+                            {searchedUser.user_username}
+                          </p>
                         </section>
                       </Link>
                       <Button
@@ -414,7 +418,7 @@ const Sidebar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <ul>
-                <li className="flex items-start gap-3 bg-light dark:bg-black rounded-lg p-4">
+                <li className="flex items-start gap-3 bg-white dark:bg-black rounded-lg shadow-sm p-4">
                   <Image
                     src={"/logo.svg"}
                     width={96}
