@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,6 +9,8 @@ import MenuIcon from "./MenuIcon";
 import BottomSheet from "./modal/BottomSheet";
 
 const Header = () => {
+  const router = useRouter();
+
   const currentUserState = useSelector((state) => state.currentUser);
   const [bottomSheet, setBottomSheet] = useState(false);
 

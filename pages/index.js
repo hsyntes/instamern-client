@@ -1,12 +1,8 @@
-import { useRouter } from "next/router";
-import Button from "@/components/ui/Button";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
 
 export default function Home() {
-  const router = useRouter();
-
   const currentUserState = useSelector((state) => state.currentUser);
   const { currentUser } = currentUserState;
 

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { Charm_700 } from "@/components/Layout";
 import Card from "@/components/ui/Card";
@@ -18,6 +18,7 @@ const login = async (payload) => await HttpRequest.post("auth/login", payload);
 
 const LoginPage = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const themeState = useSelector((state) => state.theme);
   const [alertDialog, setAlertDialog] = useState(false);
@@ -56,7 +57,10 @@ const LoginPage = () => {
     onSuccess: function (data) {
       console.log("data: ", data);
 
-      if (data.status === "success") router.push("/");
+      if (data.status === "success") {
+        queryClient.refetchQueries({ queryKey: "getCurrentUser" });
+        router.push("/");
+      }
 
       if (data.status === "fail") {
         handleAlertDialog();
