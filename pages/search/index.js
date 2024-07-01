@@ -110,9 +110,11 @@ const SearchPage = () => {
                       letter={searchedUser.user_fullname.slice(0, 1)}
                     />
                   )}
-                  <section className="text-sm">
-                    <h1>{searchedUser.user_fullname}</h1>
-                    <p>{searchedUser.user_username}</p>
+                  <section>
+                    <h1 className="text-sm">{searchedUser.user_fullname}</h1>
+                    <p className="text-xs text-muted dark:text-muted-dark">
+                      {searchedUser.user_username}
+                    </p>
                   </section>
                 </Link>
                 <Button type={"button"} variant={"link"} className={"ms-auto"}>
