@@ -2,12 +2,13 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Container from "../Container";
 import {
-  faBell,
-  faCirclePlus,
   faHome,
   faSearch,
+  faCirclePlus,
+  faHeart as faHeartSolid,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
@@ -57,7 +58,12 @@ const Navbar = () => {
                 pathname === "/notifications" && "!text-dark dark:!text-white"
               }`}
             >
-              <FontAwesomeIcon icon={faBell} size="lg" />
+              <FontAwesomeIcon
+                icon={
+                  pathname === "/notifications" ? faHeartSolid : faHeartRegular
+                }
+                size="lg"
+              />
             </Link>
           </li>
           <li>

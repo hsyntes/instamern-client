@@ -60,11 +60,8 @@ const Layout = ({ children }) => {
   return (
     <div id="layout" className="lg:grid lg:grid-cols-12">
       <Sidebar />
-      <main className="lg:col-span-9 py-6">
-        <Container>
-          {children}
-          {/* <div style={{ height: "1000px" }} /> */}
-        </Container>
+      <main className="lg:col-span-9">
+        <Container>{children}</Container>
       </main>
       <Navbar />
       <footer></footer>
