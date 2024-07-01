@@ -21,12 +21,15 @@ const LoginPage = () => {
   const queryClient = useQueryClient();
 
   const themeState = useSelector((state) => state.theme);
+  const currentUserState = useSelector((state) => state.currentUser);
+
   const [alertDialog, setAlertDialog] = useState(false);
   const [alertDialogMessage, setAlertDialogMessage] = useState("");
   const [inputTheme, setInputTheme] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
 
   const { theme } = themeState;
+  const { currentUser } = currentUserState;
 
   const {
     state: {
@@ -69,6 +72,22 @@ const LoginPage = () => {
     },
   });
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    loginMutation.mutate({
+      username,
+      password,
+    });
+  }
+
+  useEffect(
+    function () {
+      if (currentUser) router.push("/");
+    },
+    [currentUser]
+  );
+
   useEffect(
     function () {
       if (theme === "dark") setInputTheme("black");
@@ -87,15 +106,6 @@ const LoginPage = () => {
     },
     [isUsernameValid, isPasswordValid]
   );
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    loginMutation.mutate({
-      username,
-      password,
-    });
-  }
 
   return (
     <>

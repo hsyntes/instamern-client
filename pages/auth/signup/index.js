@@ -34,6 +34,7 @@ const SignupPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const currentUserState = useSelector((state) => state.currentUser);
   const themeState = useSelector((state) => state.theme);
 
   const [inputTheme, setInputTheme] = useState("");
@@ -48,6 +49,7 @@ const SignupPage = () => {
   const [toastMessage, setToastMessage] = useState("");
 
   const { theme } = themeState;
+  const { currentUser } = currentUserState;
 
   const {
     state: {
@@ -103,6 +105,11 @@ const SignupPage = () => {
     handleOnChange: handlePasswordConfirmOnChange,
     handleOnBlur: handlePasswordConfirmOnBlur,
   } = useInput();
+
+  if (typeof window !== "undefined")
+    window.addEventListener("keyup", function (e) {
+      if (e.key === "Enter" && isFormStage_1_Valid) handleNextFormStage();
+    });
 
   function handleNextFormStage() {
     if (formStage < 1) setFormStage(1);
@@ -186,16 +193,18 @@ const SignupPage = () => {
 
   useEffect(
     function () {
+      if (currentUser) router.push("/");
+    },
+    [currentUser]
+  );
+
+  useEffect(
+    function () {
       if (theme === "dark") setInputTheme("black");
       if (theme === "light") setInputTheme("white");
     },
     [theme]
   );
-
-  if (typeof window !== "undefined")
-    window.addEventListener("keyup", function (e) {
-      if (e.key === "Enter" && isFormStage_1_Valid) handleNextFormStage();
-    });
 
   useEffect(
     function () {
