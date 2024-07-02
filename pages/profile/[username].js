@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import HttpRequest from "@/utils/HttpRequest";
+import { getUserByUsername } from "@/utils/helpers";
 
 const ProfilePage = ({ user }) => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const ProfilePage = ({ user }) => {
 export async function getServerSideProps({ params }) {
   const { username } = params;
 
-  const response = await HttpRequest.get(`users/username/${username}`);
+  const response = await getUserByUsername(username);
 
   const { user } = response.data;
 

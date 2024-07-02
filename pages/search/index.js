@@ -1,26 +1,16 @@
-import { useRouter } from "next/router";
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import Avatar from "@/components/ui/Avatar";
-import Button from "@/components/ui/Button";
 import Input from "@/components/ui/form/Input";
 import UsersLoading from "@/components/ui/loading/UsersLoading";
-import useInput from "@/hooks/useInput";
+import ListUsers from "@/components/ui/users/ListUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import HttpRequest from "@/utils/HttpRequest";
-import ListUsers from "@/components/ui/users/ListUsers";
-
-const searchUsers = async (payload) =>
-  await HttpRequest.get(`users/search/${payload}`);
+import useInput from "@/hooks/useInput";
+import { searchUsers } from "@/utils/helpers";
 
 const SearchPage = () => {
-  const router = useRouter();
-
   const themeState = useSelector((state) => state.theme);
 
   const [searchedUsers, setSearchedUsers] = useState([]);

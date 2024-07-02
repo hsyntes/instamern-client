@@ -1,6 +1,5 @@
+import { useReducer } from "react";
 import validator from "validator";
-
-const { useReducer } = require("react");
 
 const reducer = (state, action) => {
   const { type, name, payload } = action;

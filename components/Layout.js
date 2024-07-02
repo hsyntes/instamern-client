@@ -3,17 +3,16 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import { config } from "@fortawesome/fontawesome-svg-core";
 import Sidebar from "./ui/Sidebar";
 import Container from "./Container";
 import Splash from "./ui/loading/Splash";
-import HttpRequest from "@/utils/HttpRequest";
 import Navbar from "./ui/Navbar";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import Cookies from "js-cookie";
+import { getCurrentUser } from "@/utils/helpers";
 
 export const Charm_700 = Charm({ subsets: ["latin"], weight: "700" });
-
-const getCurrentUser = async () => await HttpRequest.get("auth/current-user");
 
 config.autoAddCss = false;
 
@@ -26,10 +25,14 @@ const Layout = ({ children }) => {
   const { isLoading: isCurrentUserLoading } = useQuery({
     queryKey: "getCurrentUser",
     queryFn: async function () {
-      const data = await getCurrentUser();
+      if (Cookies.get("jsonwebtoken")) {
+        const data = await getCurrentUser();
 
-      if (data.status === "success")
-        dispatch(currentUserSliceActions.setCurrentUser(data.data.currentUser));
+        if (data.status === "success")
+          dispatch(
+            currentUserSliceActions.setCurrentUser(data.data.currentUser)
+          );
+      }
     },
   });
 

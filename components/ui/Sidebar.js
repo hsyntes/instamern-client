@@ -6,18 +6,15 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
 import { themeSliceActions } from "@/store/theme-slice/theme-slice";
-import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import Offcanvas from "./Offcanvas";
 import Input from "./form/Input";
 import Dropdown from "./Dropdown";
 import Collapse from "./Collapse";
 import UsersLoading from "./loading/UsersLoading";
-import Avatar from "./Avatar";
-import Button from "./Button";
 import Modal from "./modal/Modal";
 import AlertDialog from "./modal/AlertDialog";
-import useInput from "@/hooks/useInput";
+import ListUsers from "./users/ListUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -30,13 +27,9 @@ import {
   faTimesCircle,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import HttpRequest from "@/utils/HttpRequest";
-import ListUsers from "./users/ListUsers";
-
-const searchUsers = async (payload) =>
-  await HttpRequest.get(`users/search/${payload}`);
-
-const logout = async () => await HttpRequest.post("auth/logout");
+import Cookies from "js-cookie";
+import useInput from "@/hooks/useInput";
+import { logout, searchUsers } from "@/utils/helpers";
 
 const Sidebar = () => {
   const router = useRouter();

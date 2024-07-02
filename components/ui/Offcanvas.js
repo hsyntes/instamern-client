@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { faEarth, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Charm_700 } from "../Layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEarth, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
