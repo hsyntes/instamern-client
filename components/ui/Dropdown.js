@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Dropdown = ({ show, width, className, children }) => {
   const [display, setDisplay] = useState("none");

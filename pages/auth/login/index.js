@@ -12,9 +12,7 @@ import Button from "@/components/ui/Button";
 import AlertDialog from "@/components/ui/modal/AlertDialog";
 import Spinner from "@/components/ui/loading/Spinner";
 import useInput from "@/hooks/useInput";
-import HttpRequest from "@/utils/HttpRequest";
-
-const login = async (payload) => await HttpRequest.post("auth/login", payload);
+import { login } from "@/utils/helpers";
 
 const LoginPage = () => {
   const router = useRouter();

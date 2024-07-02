@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "@/components/ui/Header";
 import ListUsers from "@/components/ui/users/ListUsers";
-import HttpRequest from "@/utils/HttpRequest";
+import { getRandomUsers } from "@/utils/helpers";
 
 export default function Home({ randomUsers }) {
   return (
@@ -23,9 +23,9 @@ export default function Home({ randomUsers }) {
 }
 
 export async function getServerSideProps() {
-  const response = await HttpRequest.get("users/random/5");
+  const responseRandomUsers = await getRandomUsers(5);
 
-  const { users } = response.data;
+  const { users } = responseRandomUsers.data;
 
   return {
     props: {

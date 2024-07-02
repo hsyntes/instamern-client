@@ -19,16 +19,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import useInput from "@/hooks/useInput";
-import HttpRequest from "@/utils/HttpRequest";
-
-const checkUserExists = async (payload) =>
-  await HttpRequest.get(`users/check/username/${payload}`);
-
-const checkEmailExists = async (payload) =>
-  await HttpRequest.get(`users/check/email/${payload}`);
-
-const signup = async (payload) =>
-  await HttpRequest.post("auth/signup", payload);
+import { checkEmailExists, checkUserExists, signup } from "@/utils/helpers";
 
 const SignupPage = () => {
   const router = useRouter();
@@ -124,10 +115,14 @@ const SignupPage = () => {
       if (isUsernameValid) {
         const data = await checkUserExists(username);
 
+        console.log("data: ", data);
+
         if (data.status === "fail") {
           setIsUserExists(true);
           setUserExistsErrorMessage(data.message);
-        } else {
+        }
+
+        if (data.status === "success") {
           setIsUserExists(false);
           setUserExistsErrorMessage("");
         }
@@ -136,7 +131,7 @@ const SignupPage = () => {
         setUserExistsErrorMessage("");
       }
     },
-    refetchOnWindowFocus: false,
+    // refetchOnWindowFocus: false,
   });
 
   useQuery(["checkEmailExists", email], {
@@ -147,7 +142,9 @@ const SignupPage = () => {
         if (data.status === "fail") {
           setIsEmailExists(true);
           setEmailExistsErrorMessage(data.message);
-        } else {
+        }
+
+        if (data.status === "success") {
           setIsEmailExists(false);
           setEmailExistsErrorMessage("");
         }
