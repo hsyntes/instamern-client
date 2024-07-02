@@ -10,14 +10,14 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import FloatingInput from "@/components/ui/form/FloatingInput";
 import FormGroup from "@/components/ui/form/FormGroup";
+import Spinner from "@/components/ui/loading/Spinner";
+import Toast from "@/components/ui/Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
   faAngleRight,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import Spinner from "@/components/ui/loading/Spinner";
-import Toast from "@/components/ui/Toast";
 import useInput from "@/hooks/useInput";
 import HttpRequest from "@/utils/HttpRequest";
 

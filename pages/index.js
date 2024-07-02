@@ -1,13 +1,7 @@
 import Head from "next/head";
-import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
 
 export default function Home() {
-  const currentUserState = useSelector((state) => state.currentUser);
-  const { currentUser } = currentUserState;
-
-  console.log("currentUser: ", currentUser);
-
   return (
     <>
       <Head>

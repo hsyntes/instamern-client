@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -12,7 +13,6 @@ import useInput from "@/hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import HttpRequest from "@/utils/HttpRequest";
-import Head from "next/head";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`);

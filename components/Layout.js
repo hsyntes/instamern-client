@@ -58,9 +58,9 @@ const Layout = ({ children }) => {
   if (isCurrentUserLoading) return <Splash />;
 
   return (
-    <div id="layout" className="flex items-start">
+    <div id="layout" className="relative flex items-start">
       <Sidebar />
-      <main className="w-full border border-red-500 transition-all">
+      <main className="w-full transition-all">
         <Container>{children}</Container>
       </main>
       <Navbar />

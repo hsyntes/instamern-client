@@ -1,10 +1,10 @@
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { faEarth, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Charm_700 } from "../Layout";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const Offcanvas = ({ show, className, children }) => {
@@ -37,7 +37,7 @@ const Offcanvas = ({ show, className, children }) => {
         initial={{ translateX: "-100%" }}
         animate={{ translateX: show ? "0%" : "-100%" }}
         // transition={{ ease: "easeOut", duration: 0.2 }}
-        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen border-r border-t dark:border-r-dark dark:border-t-dark select-none z-40 ${className}`}
+        className={`offcanvas absolute rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen border-r border-t dark:border-r-dark dark:border-t-dark select-none z-40 ${className}`}
       >
         {children}
       </motion.div>
