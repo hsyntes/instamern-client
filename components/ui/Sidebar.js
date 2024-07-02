@@ -335,7 +335,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        <section className="">
+        <section>
           <Offcanvas show={searchOffcanvas}>
             <Offcanvas.Header handleOffcanvas={handleSearchOffcanvas}>
               <h1 className="text-lg font-semibold mb-2">Search</h1>
@@ -376,8 +376,15 @@ const Sidebar = () => {
               {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
                 <ul>
                   {searchedUsers.map((searchedUser) => (
-                    <li className="flex mb-4 last:mb-0" key={searchedUser._id}>
-                      <Link href={"/"} className="flex gap-3">
+                    <li
+                      className="grid grid-cols-12 mb-4 last:mb-0"
+                      key={searchedUser._id}
+                    >
+                      <Link
+                        href={`/profile/${searchedUser.user_username}`}
+                        className="col-span-10 flex items-start gap-3"
+                        onClick={handleSearchOffcanvas}
+                      >
                         {searchedUser.user_photo ? (
                           <Image src={searchedUser.user_photo} />
                         ) : (
@@ -395,13 +402,15 @@ const Sidebar = () => {
                           </p>
                         </section>
                       </Link>
-                      <Button
-                        type={"button"}
-                        variant={"link"}
-                        className={"ms-auto"}
-                      >
-                        Follow
-                      </Button>
+                      <section className="col-span-2">
+                        <Button
+                          type={"button"}
+                          variant={"link"}
+                          className={"ms-auto"}
+                        >
+                          Follow
+                        </Button>
+                      </section>
                     </li>
                   ))}
                 </ul>

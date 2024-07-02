@@ -22,7 +22,7 @@ const Navbar = () => {
   if (pathname.startsWith("/auth")) return;
 
   return (
-    <nav className="block border-dark lg:hidden fixed bottom-0 w-full bg-white dark:bg-black py-3">
+    <nav className="block lg:hidden fixed bottom-0 w-full bg-white dark:bg-black border-t dark:border-t-dark py-4">
       <Container>
         <ul className="flex items-center justify-between">
           <li>

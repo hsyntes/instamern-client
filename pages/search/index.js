@@ -93,15 +93,21 @@ const SearchPage = () => {
         {isSearchedUsersLoading && (
           <UsersLoading
             count={15}
-            variant={theme}
+            variant={loadingTheme}
             className={"mb-4 last:mb-0"}
           />
         )}
         {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
           <ul>
             {searchedUsers.map((searchedUser) => (
-              <li className="flex mb-4 last:mb-0" key={searchedUser._id}>
-                <Link href={"/"} className="flex gap-3">
+              <li
+                className="grid grid-cols-12 mb-4 last:mb-0"
+                key={searchedUser._id}
+              >
+                <Link
+                  href={`/profile/${searchedUser.user_username}`}
+                  className="col-span-10 flex items-start gap-3"
+                >
                   {searchedUser.user_photo ? (
                     <Image src={searchedUser.user_photo} />
                   ) : (
@@ -117,9 +123,15 @@ const SearchPage = () => {
                     </p>
                   </section>
                 </Link>
-                <Button type={"button"} variant={"link"} className={"ms-auto"}>
-                  Follow
-                </Button>
+                <section className="col-span-2">
+                  <Button
+                    type={"button"}
+                    variant={"link"}
+                    className={"ms-auto"}
+                  >
+                    Follow
+                  </Button>
+                </section>
               </li>
             ))}
           </ul>
