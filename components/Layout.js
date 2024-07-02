@@ -28,6 +28,8 @@ const Layout = ({ children }) => {
       if (Cookies.get("jsonwebtoken")) {
         const data = await getCurrentUser();
 
+        console.log("data: ", data);
+
         if (data.status === "success")
           dispatch(
             currentUserSliceActions.setCurrentUser(data.data.currentUser)
