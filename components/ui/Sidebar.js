@@ -169,7 +169,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="hidden lg:flex border-r h-screen sticky top-0">
+      <aside className="hidden lg:flex border-r h-screen sticky top-0 z-50">
         <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-6 px-2 z-50">
           <Link href={"/"} className="mb-auto">
             <Image
@@ -335,7 +335,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        <section className="w-full">
+        <section className="">
           <Offcanvas show={searchOffcanvas}>
             <Offcanvas.Header handleOffcanvas={handleSearchOffcanvas}>
               <h1 className="text-lg font-semibold mb-2">Search</h1>
