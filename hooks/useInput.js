@@ -19,7 +19,7 @@ const reducer = (state, action) => {
           return {
             value: payload
               .toLowerCase()
-              .replace(/[^a-zA-Z ]/g, "")
+              .replace(/[^a-zA-Z0-9 ]/g, "")
               .trim(),
             isValid: payload.length >= 3 && payload.length <= 12,
           };

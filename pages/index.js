@@ -10,6 +10,7 @@ export default function Home() {
         <title>Instamern</title>
       </Head>
       <Header />
+      <section className=""></section>
     </>
   );
 }
