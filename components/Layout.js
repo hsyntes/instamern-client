@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
   return (
     <div id="layout" className="flex items-start">
       <Sidebar />
-      <main className="w-full transition-all">
+      <main className="w-full border border-red-500 transition-all">
         <Container>{children}</Container>
       </main>
       <Navbar />
