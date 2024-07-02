@@ -15,7 +15,9 @@ export default function Home({ randomUsers }) {
       <section className="grid grid-cols-12 gap-2">
         <section className="col-span-9 dark:border-dark"></section>
         <section className="col-span-3 dark:border-dark">
-          {randomUsers && <ListUsers users={randomUsers} />}
+          {randomUsers && randomUsers.length !== 0 && (
+            <ListUsers users={randomUsers} />
+          )}
         </section>
       </section>
     </>
