@@ -41,6 +41,7 @@ const Input = ({
       value={value}
       onChange={onChange}
       autoFocus={autoFocus}
+      autoComplete="off"
     />
   );
 };

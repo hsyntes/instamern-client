@@ -13,6 +13,7 @@ import useInput from "@/hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import HttpRequest from "@/utils/HttpRequest";
+import ListUsers from "@/components/ui/users/ListUsers";
 
 const searchUsers = async (payload) =>
   await HttpRequest.get(`users/search/${payload}`);
@@ -98,43 +99,7 @@ const SearchPage = () => {
           />
         )}
         {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
-          <ul>
-            {searchedUsers.map((searchedUser) => (
-              <li
-                className="grid grid-cols-12 mb-4 last:mb-0"
-                key={searchedUser._id}
-              >
-                <Link
-                  href={`/profile/${searchedUser.user_username}`}
-                  className="col-span-10 flex items-start gap-3"
-                >
-                  {searchedUser.user_photo ? (
-                    <Image src={searchedUser.user_photo} />
-                  ) : (
-                    <Avatar
-                      size={"lg"}
-                      letter={searchedUser.user_fullname.slice(0, 1)}
-                    />
-                  )}
-                  <section>
-                    <h1 className="text-sm">{searchedUser.user_fullname}</h1>
-                    <p className="text-xs text-muted dark:text-muted-dark">
-                      {searchedUser.user_username}
-                    </p>
-                  </section>
-                </Link>
-                <section className="col-span-2">
-                  <Button
-                    type={"button"}
-                    variant={"link"}
-                    className={"ms-auto"}
-                  >
-                    Follow
-                  </Button>
-                </section>
-              </li>
-            ))}
-          </ul>
+          <ListUsers users={searchedUsers} />
         )}
       </section>
     </>

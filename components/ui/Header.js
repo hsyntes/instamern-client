@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6">
+      <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6 mb-6">
         <section className="col-span-9 block lg:hidden">
           <Link href={"/"} className="flex items-center gap-2">
             <Image

@@ -51,6 +51,7 @@ const FloatingInput = ({
         onChange={onChange}
         onBlur={onBlur}
         autoFocus={autoFocus}
+        autoComplete="off"
       />
       <label htmlFor={name} className={labelClasses}>
         {placeholder}
