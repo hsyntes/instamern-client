@@ -1,4 +1,4 @@
-const Avatar = ({ letter, size }) => {
+const Avatar = ({ name, size }) => {
   let style;
 
   switch (size) {
@@ -28,7 +28,7 @@ const Avatar = ({ letter, size }) => {
       className="flex items-center justify-center bg-primary text-white rounded-full"
       style={style}
     >
-      {letter}
+      {name.slice(0, 1).toUpperCase()}
     </div>
   );
 };

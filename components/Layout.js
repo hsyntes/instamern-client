@@ -23,6 +23,16 @@ const Layout = ({ children }) => {
 
   const { theme } = themeState;
 
+  const { isLoading: isCurrentUserLoading } = useQuery({
+    queryKey: "getCurrentUser",
+    queryFn: async function () {
+      const data = await getCurrentUser();
+
+      if (data.status === "success")
+        dispatch(currentUserSliceActions.setCurrentUser(data.data.currentUser));
+    },
+  });
+
   useEffect(
     function () {
       if (typeof window !== "undefined") localStorage.setItem("theme", theme);
@@ -44,16 +54,6 @@ const Layout = ({ children }) => {
     },
     [theme]
   );
-
-  const { isLoading: isCurrentUserLoading } = useQuery({
-    queryKey: "getCurrentUser",
-    queryFn: async function () {
-      const data = await getCurrentUser();
-
-      if (data.status === "success")
-        dispatch(currentUserSliceActions.setCurrentUser(data.data.currentUser));
-    },
-  });
 
   if (isCurrentUserLoading) return <Splash />;
 

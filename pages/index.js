@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Header from "@/components/ui/Header";
+import ListUsers from "@/components/ui/users/ListUsers";
+import HttpRequest from "@/utils/HttpRequest";
 
-export default function Home() {
+export default function Home({ randomUsers }) {
   return (
     <>
       <Head>
@@ -10,7 +12,24 @@ export default function Home() {
         <title>Instamern</title>
       </Head>
       <Header />
-      <section className=""></section>
+      <section className="grid grid-cols-12 gap-2">
+        <section className="col-span-9 dark:border-dark"></section>
+        <section className="col-span-3 dark:border-dark">
+          {randomUsers && <ListUsers users={randomUsers} />}
+        </section>
+      </section>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const response = await HttpRequest.get("users/random/5");
+
+  const { users } = response.data;
+
+  return {
+    props: {
+      randomUsers: users,
+    },
+  };
 }
