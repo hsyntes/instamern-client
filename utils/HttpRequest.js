@@ -18,10 +18,10 @@ class HttpRequest {
         }
       );
 
-      return response.data;
+      return response?.data;
     } catch (e) {
       console.error(e);
-      return e.response.data;
+      return e.response?.data;
     }
   }
 
@@ -42,9 +42,9 @@ class HttpRequest {
         }
       );
 
-      return response.data;
+      return response?.data;
     } catch (e) {
-      return e.response.data;
+      return e.response?.data;
     }
   }
 }

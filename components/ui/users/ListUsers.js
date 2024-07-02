@@ -17,6 +17,7 @@ const ListUsers = ({ users, onClick }) => (
               src={user.user_photo}
               width={350}
               height={350}
+              className="rounded-full w-9"
               alt="Profile Photo"
             />
           ) : (
