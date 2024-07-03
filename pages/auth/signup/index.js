@@ -115,8 +115,6 @@ const SignupPage = () => {
       if (isUsernameValid) {
         const data = await checkUserExists(username);
 
-        console.log("data: ", data);
-
         if (data.status === "fail") {
           setIsUserExists(true);
           setUserExistsErrorMessage(data.message);
@@ -438,7 +436,7 @@ const SignupPage = () => {
       </form>
       <Toast
         show={toast}
-        variant={"danger"}
+        variant={""}
         setToast={setToast}
         message={toastMessage}
       />

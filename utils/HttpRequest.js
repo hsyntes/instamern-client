@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 class HttpRequest {
-  static async get(endpoint, payload) {
+  static async get(endpoint, payload, token) {
     try {
       console.log(`${process.env.NEXT_PUBLIC_API}/${endpoint} in GET Request`);
 
@@ -13,7 +13,7 @@ class HttpRequest {
             ...payload,
           },
           headers: {
-            Authorization: `Bearer ${Cookies.get("jsonwebtoken")}`,
+            Authorization: `Bearer ${token || Cookies.get("jsonwebtoken")}`,
           },
         }
       );

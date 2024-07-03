@@ -21,7 +21,7 @@ export const getCurrentUser = async () =>
 export const getUserByUsername = async (payload) =>
   await HttpRequest.get(`users/username/${payload}`);
 
-export const getRandomUsers = (payload) =>
-  HttpRequest.get(`users/random/${payload}`);
+export const getRandomUsers = async (payload, token) =>
+  await HttpRequest.get(`users/random/${payload}`, undefined, token);
 
 export const logout = async () => await HttpRequest.post("auth/logout");

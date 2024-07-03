@@ -241,7 +241,7 @@ const Sidebar = () => {
                 show={settingsDropdown}
                 setDropdown={setSettingsDropdown}
                 className={
-                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg p-4 left-full bottom-0"
+                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg p-4 left-full -bottom-3/4"
                 }
                 width={"175px"}
               >
