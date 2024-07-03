@@ -12,9 +12,9 @@ export default function Home({ randomUsers }) {
         <title>Instamern</title>
       </Head>
       <Header />
-      <section className="grid grid-cols-12 gap-2">
-        <section className="col-span-9 dark:border-dark"></section>
-        <section className="col-span-3 dark:border-dark">
+      <section className="lg:grid lg:grid-cols-12 gap-2">
+        <section className="lg:col-span-9 dark:border-dark"></section>
+        <section className="hidden lg:block lg:col-span-3 dark:border-dark">
           {randomUsers && randomUsers.length !== 0 && (
             <ListUsers users={randomUsers} />
           )}

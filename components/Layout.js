@@ -63,11 +63,10 @@ const Layout = ({ children }) => {
   return (
     <div id="layout" className="relative flex items-start">
       <Sidebar />
-      <main className="w-full transition-all">
+      <main className="w-full transition-all lg:py-12">
         <Container>{children}</Container>
       </main>
       <Navbar />
-      <footer></footer>
     </div>
   );
 };
