@@ -15,8 +15,8 @@ export const signup = async (payload) =>
 export const login = async (payload) =>
   await HttpRequest.post("auth/login", payload);
 
-export const getCurrentUser = async () =>
-  await HttpRequest.get("auth/current-user");
+export const getCurrentUser = async (token) =>
+  await HttpRequest.get("auth/current-user", undefined, token);
 
 export const getUserByUsername = async (payload) =>
   await HttpRequest.get(`users/username/${payload}`);

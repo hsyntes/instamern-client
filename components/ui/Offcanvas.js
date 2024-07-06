@@ -38,7 +38,7 @@ const Offcanvas = ({ show, className, children }) => {
         initial={{ translateX: "-100%" }}
         animate={{ translateX: show ? "0%" : "-100%" }}
         // transition={{ ease: "easeOut", duration: 0.2 }}
-        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen border-r border-t dark:border-r-dark dark:border-t-dark select-none z-40 ${className}`}
+        className={`offcanvas rounded-tr-3xl flex flex-col bg-light dark:bg-dark w-full h-screen border-r border-t dark:border-r-dark dark:border-t-dark select-none pt-7 z-40 ${className}`}
       >
         {children}
       </motion.div>
@@ -47,7 +47,7 @@ const Offcanvas = ({ show, className, children }) => {
 };
 
 const OffcanvasHeader = ({ handleOffcanvas, className, children }) => (
-  <div className={`offcanvas-header px-4 py-5 ${className}`}>
+  <div className={`offcanvas-header px-4 ${className}`}>
     <section className="flex items-center justify-between mb-4">
       <h1
         className={`text-3xl bg-gradient-to-r from-primary to-secondary to-70% bg-clip-text text-transparent ${Charm_700.className}`}
@@ -67,7 +67,7 @@ const OffcanvasHeader = ({ handleOffcanvas, className, children }) => (
 
 const OffcanvasBody = ({ handleOffcanvas, className, children }) => (
   <div
-    className={`offcanvas-body h-full overflow-y-scroll px-4 ${className}`}
+    className={`offcanvas-body h-full overflow-y-scroll px-4 mt-6 ${className}`}
     style={{ scrollbarWidth: "none" }}
   >
     {children}

@@ -164,13 +164,13 @@ const Sidebar = () => {
   return (
     <>
       <aside className="hidden lg:flex border-r h-screen sticky top-0 z-50">
-        <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-12 px-2 z-50">
+        <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-8 px-2 z-50">
           <Link href={"/"} className="mb-auto">
             <Image
               src={"/logo.svg"}
               width={96}
               height={96}
-              className="w-7"
+              className="w-7 hover:opacity-90 hover:dark:opacity-75 transition-all"
               alt="Logo"
               priority
             />
@@ -215,7 +215,11 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href={`/profile/${currentUser?.user_username}`}
+                  href={
+                    currentUser
+                      ? `/profile/${currentUser?.user_username}`
+                      : "/auth/signup"
+                  }
                   className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2 ${
                     currentUser &&
                     router.query.username === currentUser?.user_username &&
@@ -339,6 +343,7 @@ const Sidebar = () => {
                   name={"search"}
                   variant={inputTheme}
                   placeholder={"Search"}
+                  className={"rounded-md"}
                   value={search}
                   onChange={handleSearchOnChange}
                   autoFocus={true}

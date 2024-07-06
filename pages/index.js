@@ -30,15 +30,10 @@ export async function getServerSideProps({ req }) {
   let token;
 
   // Parsing token from server side
-  if (req.headers.cookie) {
+  if (req.headers.cookie)
     token = cookie.parse(req.headers.cookie)["jsonwebtoken"];
-  }
 
-  console.log("token: ", token);
   const responseRandomUsers = await getRandomUsers(5, token);
-
-  console.log("responseRandomUsers: ", responseRandomUsers);
-
   const { users } = responseRandomUsers.data;
 
   return {

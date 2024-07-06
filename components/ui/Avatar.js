@@ -22,6 +22,11 @@ const Avatar = ({ name, size }) => {
       break;
     }
 
+    case "3xl": {
+      style = { width: "96px", height: "96px" };
+      break;
+    }
+
     default: {
       style = { width: "24px", height: "24px" };
       break;
