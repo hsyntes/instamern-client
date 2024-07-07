@@ -30,3 +30,12 @@ button:disabled {
 button:disabled:hover {
   background-color: grey;
 }
+
+#stores-slider::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+}
+
+#stores-slider {
+  scrollbar-width: none !important;
+}
