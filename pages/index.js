@@ -1,10 +1,30 @@
 import Head from "next/head";
-import cookie from "cookie";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
 import ListUsers from "@/components/ui/users/ListUsers";
-import { getRandomUsers } from "@/utils/helpers";
+import { getRandomUsers, getStories } from "@/utils/helpers";
 
-export default function Home({ randomUsers }) {
+export default function Home({ stories, randomUsers }) {
+  const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
+
+  const currentUserState = useSelector((state) => state.currentUser);
+  const { currentUser } = currentUserState;
+
+  useEffect(
+    function () {
+      if (currentUser)
+        setFilteredRandomUsers(
+          randomUsers.filter(
+            (randomUser) =>
+              randomUser.user_username !== currentUser.user_username
+          )
+        );
+      else setFilteredRandomUsers(randomUsers);
+    },
+    [randomUsers, currentUser]
+  );
+
   return (
     <>
       <Head>
@@ -12,13 +32,13 @@ export default function Home({ randomUsers }) {
         <meta name="keywords" content="instamern, huseyin ates" />
         <title>Instamern</title>
       </Head>
-      <Header />
+      <Header stories={stories} />
       <section className="lg:grid lg:grid-cols-12 gap-2">
         <section className="lg:col-span-9 dark:border-dark"></section>
         <section className="hidden lg:block lg:col-span-3 dark:border-dark">
           <h6 className="mb-4">People you may want to follow</h6>
-          {randomUsers && randomUsers.length !== 0 && (
-            <ListUsers users={randomUsers} />
+          {filteredRandomUsers && filteredRandomUsers.length !== 0 && (
+            <ListUsers users={filteredRandomUsers} />
           )}
         </section>
       </section>
@@ -26,18 +46,16 @@ export default function Home({ randomUsers }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
-  let token;
+export async function getServerSideProps() {
+  const responseStories = await getStories();
+  const responseRandomUsers = await getRandomUsers(5);
 
-  // Parsing token from server side
-  if (req.headers.cookie)
-    token = cookie.parse(req.headers.cookie)["jsonwebtoken"];
-
-  const responseRandomUsers = await getRandomUsers(5, token);
+  const { stories } = responseStories.data;
   const { users } = responseRandomUsers.data;
 
   return {
     props: {
+      stories,
       randomUsers: users,
     },
   };

@@ -9,6 +9,8 @@ const ProfilePage = ({ user }) => {
   const currentUserState = useSelector((state) => state.currentUser);
   const { currentUser } = currentUserState;
 
+  console.log("user: ", user);
+
   if (!user) return <p>User not found.</p>;
 
   return (
@@ -36,26 +38,32 @@ const ProfilePage = ({ user }) => {
           )}
           <section>
             <section className="flex items-center gap-3 mb-4">
-              <section className="cursor-pointer">6 Posts</section>
-              <section className="cursor-pointer">8 Followers</section>
-              <section className="cursor-pointer">0 Following</section>
+              <section className="cursor-pointer text-sm lg:text-md">
+                6 Posts
+              </section>
+              <section className="cursor-pointer text-sm lg:text-md">
+                8 Followers
+              </section>
+              <section className="cursor-pointer text-sm lg:text-md">
+                0 Following
+              </section>
             </section>
             <section>
               <section className="flex items-center gap-2 mb-2">
-                <h1 className="text-lg lg:text-xl">{user?.user_fullname}</h1>
-                <p className="text-muted dark:text-muted-dark lg:text-lg">
+                <h1 className="text-md lg:text-xl">{user?.user_fullname}</h1>
+                <p className="text-muted dark:text-muted-dark text-sm lg:text-lg">
                   @{user?.user_username}
                 </p>
               </section>
               <section className="mb-4">
-                <p className="lg:w-3/4">{user?.user_bio}</p>
+                <p className="text-sm lg:text-md lg:w-3/4">{user?.user_bio}</p>
               </section>
               <section>
                 {currentUser?._id === user._id ? (
                   <Button
                     type={"button"}
                     variant={"primary"}
-                    className={"w-full lg:w-auto py-3 lg:py-1.5"}
+                    className={"w-full lg:w-auto py-2 lg:py-1.5"}
                   >
                     Edit Profile
                   </Button>
@@ -63,7 +71,7 @@ const ProfilePage = ({ user }) => {
                   <Button
                     type={"button"}
                     variant={"primary"}
-                    className={"w-full lg:w-auto py-3 lg:py-1.5"}
+                    className={"w-full lg:w-auto py-2 lg:py-1.5"}
                   >
                     Follow
                   </Button>

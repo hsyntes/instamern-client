@@ -7,8 +7,9 @@ import { Charm_700 } from "../Layout";
 import Button from "./Button";
 import MenuIcon from "./MenuIcon";
 import BottomSheet from "./modal/BottomSheet";
+import Stories from "./story/Stories";
 
-const Header = () => {
+const Header = ({ stories }) => {
   const router = useRouter();
 
   const currentUserState = useSelector((state) => state.currentUser);
@@ -21,7 +22,7 @@ const Header = () => {
   return (
     <>
       <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6 lg:py-0 mb-12">
-        <section className="col-span-9 block lg:hidden">
+        <section className="col-span-11 block lg:hidden">
           <Link href={"/"} className="flex items-center gap-2">
             <Image
               src={"/logo.svg"}
@@ -37,10 +38,13 @@ const Header = () => {
             </h1>
           </Link>
         </section>
-        <section className="col-span-3 block lg:hidden">
+        <section className="col-span-11 hidden lg:block">
+          <Stories stories={stories} />
+        </section>
+        <section className="col-span-1 block lg:hidden">
           <MenuIcon onClick={handleBottomSheet} />
         </section>
-        <section className="col-span-3 lg:col-span-12 ms-auto hidden lg:block">
+        <section className="lg:col-span-1 ms-auto hidden lg:block">
           {!currentUser && (
             <Button
               type={"button"}
