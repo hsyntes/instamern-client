@@ -26,6 +26,9 @@ export const getUserByUsername = async (payload) =>
 
 export const getStories = async () => await HttpRequest.get("stories");
 
+export const getStory = async (payload) =>
+  await HttpRequest.get(`stories/${payload}`);
+
 export const getRandomUsers = async (payload) =>
   await HttpRequest.get(`users/random/${payload}`);
 
