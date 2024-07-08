@@ -10,7 +10,7 @@ const Stories = ({ stories }) => {
   const { currentUser } = currentUserState;
 
   return (
-    <section className="grid grid-cols-12 items-center gap-4 select-none">
+    <section className="grid grid-cols-12 items-start gap-4 select-none">
       {currentUser && (
         <section className="col-span-1">
           <section className="relative text-center cursor-pointer hover:opacity-90 hover:dark:opacity-75 transition-all mb-2">

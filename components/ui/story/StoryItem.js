@@ -1,13 +1,18 @@
-import { getUser } from "@/utils/helpers";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import ViewStory from "../ViewStory";
 import Avatar from "../Avatar";
-import Spinner from "../loading/Spinner";
+import StoriesLoading from "../loading/StoriesLoading";
+import { getUser } from "@/utils/helpers";
+import { useSelector } from "react-redux";
 
 const StoryItem = ({ userId, photos }) => {
+  const themeState = useSelector((state) => state.theme);
+  const [loadingTheme, setLoadingTheme] = useState("");
   const [storiedBy, setStoriedBy] = useState({});
+
+  const { theme } = themeState;
 
   const { isLoading: isStoriedByLoading } = useQuery(["getStoriedBy", userId], {
     queryFn: async function () {
@@ -17,7 +22,14 @@ const StoryItem = ({ userId, photos }) => {
     },
   });
 
-  if (isStoriedByLoading) return <Spinner />;
+  useEffect(
+    function () {
+      setLoadingTheme(theme);
+    },
+    [theme]
+  );
+
+  if (isStoriedByLoading) return <StoriesLoading variant={loadingTheme} />;
 
   return (
     <>
