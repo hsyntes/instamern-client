@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -6,7 +7,8 @@ import Avatar from "../Avatar";
 import StoriesLoading from "../loading/StoriesLoading";
 import { getUser } from "@/utils/helpers";
 
-const StoryItem = ({ userId }) => {
+const StoryItem = ({ userId, storyId }) => {
+  const router = useRouter();
   const themeState = useSelector((state) => state.theme);
   const [loadingTheme, setLoadingTheme] = useState("");
   const [storiedBy, setStoriedBy] = useState(null);
@@ -37,7 +39,10 @@ const StoryItem = ({ userId }) => {
     storiedBy &&
     !isStoriedByLoading && (
       <>
-        <li className="min-w-14 lg:min-w-14 hover:opacity-90 hover:dark:opacity-75 cursor-pointer transition-all">
+        <li
+          className="min-w-14 lg:min-w-14 hover:opacity-90 hover:dark:opacity-75 cursor-pointer transition-all"
+          onClick={() => router.push(`/story/${storyId}`)}
+        >
           {storiedBy?.user_photo ? (
             <div className="bg-gradient-to-br from-primary to-secondary rounded-full p-[3px]">
               <Image
