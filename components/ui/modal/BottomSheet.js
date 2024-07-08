@@ -9,9 +9,7 @@ import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { themeSliceActions } from "@/store/theme-slice/theme-slice";
 import Cookies from "js-cookie";
-import HttpRequest from "@/utils/HttpRequest";
-
-const logout = async () => await HttpRequest.post("auth/logout");
+import { logout } from "@/utils/helpers";
 
 const BottomSheet = ({ show, handleBottomSheet }) => {
   const queryClient = useQueryClient();
@@ -48,7 +46,11 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
 
         handleBottomSheet();
-        router.push("/");
+
+        //! Canceled due to lose initial props at index.js (HomePage)
+        // router.push("/");
+
+        window.location.href = "/";
       }
 
       if (data.status === "fail" || data.status === "error") {

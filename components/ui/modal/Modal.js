@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
-const Modal = ({ show, handleModal, children }) => {
+const Modal = ({ show, handleModal, className, children }) => {
   const [display, setDisplay] = useState("none");
   const modalOverlayRef = useRef();
 
@@ -49,7 +49,7 @@ const Modal = ({ show, handleModal, children }) => {
       <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: show ? [1.1, 1] : [1, 0.9] }}
-        className="modal absolute top-1/2 left-1/2 w-3/4 lg:w-1/4 xl:w-1/5 bg-white dark:bg-dark rounded-lg border dark:border-dark shadow py-6 px-8 z-50"
+        className={`modal absolute top-1/2 left-1/2 w-3/4 lg:w-1/4 xl:w-1/5 bg-white dark:bg-dark rounded-lg border dark:border-dark shadow py-6 px-8 z-50 ${className}`}
         style={{
           transformOrigin: "center",
           translateX: "-50%",

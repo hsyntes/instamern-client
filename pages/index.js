@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
 import ListUsers from "@/components/ui/users/ListUsers";
 import { getRandomUsers, getStories } from "@/utils/helpers";
+import Stories from "@/components/ui/story/Stories";
 
 export default function Home({ stories, randomUsers }) {
   const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
@@ -33,6 +34,9 @@ export default function Home({ stories, randomUsers }) {
         <title>Instamern</title>
       </Head>
       <Header stories={stories} />
+      <section className="lg:hidden">
+        <Stories stories={stories} />
+      </section>
       <section className="lg:grid lg:grid-cols-12 gap-2">
         <section className="lg:col-span-9 dark:border-dark"></section>
         <section className="hidden lg:block lg:col-span-3 dark:border-dark">
