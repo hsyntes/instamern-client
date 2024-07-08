@@ -58,7 +58,11 @@ const LoginPage = () => {
     onSuccess: function (data) {
       if (data.status === "success") {
         queryClient.refetchQueries({ queryKey: "getCurrentUser" });
-        router.push("/");
+
+        // ! Canceled due to loss of initial props in index.js (HomePage)
+        // router.push("/");
+
+        if (typeof window !== "undefined") window.location.href = "/";
       }
 
       if (data.status === "fail") {
