@@ -436,8 +436,8 @@ const SignupPage = () => {
       </form>
       <Toast
         show={toast}
-        variant={""}
         setToast={setToast}
+        variant={"danger"}
         message={toastMessage}
       />
     </>

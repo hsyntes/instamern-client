@@ -7,6 +7,8 @@ export default function Document() {
       <body className="bg-black text-white">
         <Main />
         <NextScript />
+        <div id="modal-backdrop" />
+        <div id="toast-backdrop" />
       </body>
     </Html>
   );

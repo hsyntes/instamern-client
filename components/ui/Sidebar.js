@@ -163,8 +163,8 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="hidden lg:flex border-r h-screen sticky top-0 z-50">
-        <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-8 px-2 z-50">
+      <aside className="hidden lg:flex border-r h-screen sticky top-0 z-10">
+        <div className="flex flex-col justify-center items-center bg-white dark:bg-black border-r dark:border-r-dark py-8 px-2 z-10">
           <Link href={"/"} className="mb-auto">
             <Image
               src={"/logo.svg"}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { createPortal } from "react-dom";
 
 const Modal = ({ show, handleModal, children }) => {
   const [display, setDisplay] = useState("none");
@@ -38,7 +39,7 @@ const Modal = ({ show, handleModal, children }) => {
     [show]
   );
 
-  return (
+  return createPortal(
     <div
       id="modal-overlay"
       className="fixed w-screen h-screen top-0 left-0 flex items-center justify-center bg-muted-dark dark:bg-muted border select-none z-50"
@@ -57,7 +58,8 @@ const Modal = ({ show, handleModal, children }) => {
       >
         {children}
       </motion.div>
-    </div>
+    </div>,
+    document.getElementById("modal-backdrop")
   );
 };
 
