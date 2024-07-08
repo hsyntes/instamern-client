@@ -38,7 +38,7 @@ const Avatar = ({ name, size, className }) => {
       className={`flex items-center justify-center bg-primary text-white rounded-full ${className}`}
       style={style}
     >
-      {name.slice(0, 1).toUpperCase()}
+      {name?.slice(0, 1).toUpperCase()}
     </div>
   );
 };

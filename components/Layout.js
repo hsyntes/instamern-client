@@ -27,12 +27,11 @@ const Layout = ({ children }) => {
     queryFn: async function () {
       if (Cookies.get("jsonwebtoken")) {
         const data = await getCurrentUser();
-
-        if (data.status === "success")
-          dispatch(
-            currentUserSliceActions.setCurrentUser(data.data.currentUser)
-          );
+        if (data.status === "success") return data.data.currentUser;
       }
+    },
+    onSuccess: function (data) {
+      dispatch(currentUserSliceActions.setCurrentUser(data));
     },
   });
 

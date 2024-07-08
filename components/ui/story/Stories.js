@@ -10,22 +10,26 @@ const Stories = ({ stories }) => {
   const { currentUser } = currentUserState;
 
   return (
-    <section className="grid grid-cols-12 items-start gap-4 select-none">
+    <section
+      id="stories-slider"
+      className="grid grid-cols-12 items-center overflow-x-scroll gap-6 select-none min-w-full"
+      style={{ scrollbarWidth: "none" }}
+    >
       {currentUser && (
-        <section className="col-span-1">
+        <section className="col-span-3 lg:col-span-1 border-r dark:border-r-dark pe-4">
           <section className="relative text-center cursor-pointer hover:opacity-90 hover:dark:opacity-75 transition-all mb-2">
             {currentUser.user_photo ? (
               <Image
-                src={currentUser.user_photo}
+                src={currentUser?.user_photo}
                 width={350}
                 height={350}
-                className="w-12 rounded-full mx-auto"
+                className="w-12 lg:w-14 rounded-full mx-auto"
                 alt="User Profile Photo"
                 priority
               />
             ) : (
               <Avatar
-                name={currentUser.user_username}
+                name={currentUser?.user_username}
                 size={"xl"}
                 className={"mx-auto"}
               />
@@ -39,19 +43,11 @@ const Stories = ({ stories }) => {
           </p>
         </section>
       )}
-      <section className="col-span-11">
+      <section className="col-span-9 lg:col-span-11">
         {stories && (
-          <ul
-            id="stories-slider"
-            className="flex items-center gap-4 overflow-x-scroll"
-            style={{ scrollbarWidth: "none" }}
-          >
+          <ul className="flex items-center gap-6">
             {stories?.map((story) => (
-              <StoryItem
-                userId={story._id}
-                photos={story.story_photos}
-                key={story._id}
-              />
+              <StoryItem userId={story._id} key={story._id} />
             ))}
           </ul>
         )}
