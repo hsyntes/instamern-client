@@ -2,9 +2,9 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
-import ListUsers from "@/components/ui/users/ListUsers";
+import UsersList from "@/components/ui/users/UsersList";
+import Stories from "@/components/ui/stories/Stories";
 import { getRandomUsers, getStories } from "@/utils/helpers";
-import Stories from "@/components/ui/story/Stories";
 
 export default function Home({ stories, randomUsers }) {
   const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
@@ -42,7 +42,7 @@ export default function Home({ stories, randomUsers }) {
         <section className="hidden lg:block lg:col-span-3 dark:border-dark">
           <h6 className="mb-4">People you may want to follow</h6>
           {filteredRandomUsers && filteredRandomUsers.length !== 0 && (
-            <ListUsers users={filteredRandomUsers} />
+            <UsersList users={filteredRandomUsers} />
           )}
         </section>
       </section>

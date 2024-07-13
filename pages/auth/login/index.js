@@ -6,11 +6,10 @@ import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { Charm_700 } from "@/components/Layout";
 import Card from "@/components/ui/Card";
-import FormGroup from "@/components/ui/form/FormGroup";
-import FloatingInput from "@/components/ui/form/FloatingInput";
+import FloatingInput from "@/components/ui/inputs/FloatingInput";
 import Button from "@/components/ui/Button";
-import AlertDialog from "@/components/ui/modal/AlertDialog";
-import Spinner from "@/components/ui/loading/Spinner";
+import AlertDialog from "@/components/ui/modals/AlertDialog";
+import Spinner from "@/components/ui/loadings/Spinner";
 import useInput from "@/hooks/useInput";
 import { login } from "@/utils/helpers";
 
@@ -131,7 +130,7 @@ const LoginPage = () => {
             </h1>
           </Card.Header>
           <Card.Body className={"my-8"}>
-            <FormGroup className={"relative mb-3"}>
+            <div className={"relative mb-3"}>
               <FloatingInput
                 type={"text"}
                 name={"username"}
@@ -146,8 +145,8 @@ const LoginPage = () => {
                   {usernameErrorMessage}
                 </p>
               )}
-            </FormGroup>
-            <FormGroup className={"relative mb-4"}>
+            </div>
+            <div className="relative mb-4">
               <FloatingInput
                 type={"password"}
                 name={"password"}
@@ -162,22 +161,20 @@ const LoginPage = () => {
                   {passwordErrorMessage}
                 </p>
               )}
-            </FormGroup>
-            <FormGroup>
-              <Button
-                type={"submit"}
-                variant={"primary"}
-                className={"flex items-center justify-center gap-2 w-full py-4"}
-                disabled={!isFormValid || loginMutation.status === "loading"}
-                onClick={handleSubmit}
-              >
-                {loginMutation.status === "loading" ? (
-                  <Spinner size={"sm"} />
-                ) : (
-                  <span>Log in</span>
-                )}
-              </Button>
-            </FormGroup>
+            </div>
+            <Button
+              type={"submit"}
+              variant={"primary"}
+              className={"flex items-center justify-center gap-2 w-full py-4"}
+              disabled={!isFormValid || loginMutation.status === "loading"}
+              onClick={handleSubmit}
+            >
+              {loginMutation.status === "loading" ? (
+                <Spinner size={"sm"} />
+              ) : (
+                <span>Log in</span>
+              )}
+            </Button>
           </Card.Body>
           <Card.Footer>
             <section>

@@ -2,9 +2,9 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import Input from "@/components/ui/form/Input";
-import UsersLoading from "@/components/ui/loading/UsersLoading";
-import ListUsers from "@/components/ui/users/ListUsers";
+import Input from "@/components/ui/inputs/Input";
+import UsersLoading from "@/components/ui/loadings/UsersLoading";
+import UsersList from "@/components/ui/users/UsersList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import useInput from "@/hooks/useInput";
@@ -15,7 +15,7 @@ const SearchPage = () => {
 
   const [searchedUsers, setSearchedUsers] = useState([]);
   const [inputTheme, setInputTheme] = useState("");
-  const [loadingTheme, setLoadingTheme] = useState("");
+  const [loadingTheme, setLoadingTheme] = useState(null);
 
   const { theme } = themeState;
 
@@ -89,7 +89,7 @@ const SearchPage = () => {
           />
         )}
         {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
-          <ListUsers users={searchedUsers} />
+          <UsersList users={searchedUsers} />
         )}
       </section>
     </>

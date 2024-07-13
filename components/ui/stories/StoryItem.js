@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import Avatar from "../Avatar";
-import StoriesLoading from "../loading/StoriesLoading";
+import StoriesLoading from "../loadings/StoriesLoading";
 import { getUser } from "@/utils/helpers";
 
 const StoryItem = ({ userId, storyId }) => {
   const router = useRouter();
   const themeState = useSelector((state) => state.theme);
-  const [loadingTheme, setLoadingTheme] = useState("");
+  const [loadingTheme, setLoadingTheme] = useState(null);
   const [storiedBy, setStoriedBy] = useState(null);
 
   const { theme } = themeState;

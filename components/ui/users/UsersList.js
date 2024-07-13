@@ -3,7 +3,7 @@ import Link from "next/link";
 import Avatar from "../Avatar";
 import Button from "../Button";
 
-const ListUsers = ({ users, onClick }) => (
+const UsersList = ({ users, onClick }) => (
   <ul>
     {users.map((user) => (
       <li className="flex items-center mb-4 last:mb-0" key={user._id}>
@@ -38,4 +38,4 @@ const ListUsers = ({ users, onClick }) => (
   </ul>
 );
 
-export default ListUsers;
+export default UsersList;

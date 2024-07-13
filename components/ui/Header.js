@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { Charm_700 } from "../Layout";
 import Button from "./Button";
 import MenuIcon from "./MenuIcon";
-import BottomSheet from "./modal/BottomSheet";
-import Stories from "./story/Stories";
+import BottomSheet from "./modals/BottomSheet";
+import Stories from "./stories/Stories";
 
 const Header = ({ stories }) => {
   const router = useRouter();

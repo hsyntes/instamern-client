@@ -8,13 +8,13 @@ import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
 import { themeSliceActions } from "@/store/theme-slice/theme-slice";
 import { motion } from "framer-motion";
 import Offcanvas from "./Offcanvas";
-import Input from "./form/Input";
+import Input from "./inputs/Input";
 import Dropdown from "./Dropdown";
 import Collapse from "./Collapse";
-import UsersLoading from "./loading/UsersLoading";
-import Modal from "./modal/Modal";
-import AlertDialog from "./modal/AlertDialog";
-import ListUsers from "./users/ListUsers";
+import UsersLoading from "./loadings/UsersLoading";
+import Modal from "./modals/Modal";
+import AlertDialog from "./modals/AlertDialog";
+import UsersList from "./users/UsersList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -46,7 +46,7 @@ const Sidebar = () => {
   const [themeCollapse, setThemeCollapse] = useState(false);
   const [inputTheme, setInputTheme] = useState("white");
   const [selectedTheme, setSelectedTheme] = useState("");
-  const [loadingTheme, setLoadingTheme] = useState("");
+  const [loadingTheme, setLoadingTheme] = useState(null);
   const [createPostModal, setCreatePostModal] = useState(false);
   const [alertDialog, setAlertDialog] = useState(false);
   const [alertDialogMessage, setAlertDialogMessage] = useState("");
@@ -159,7 +159,11 @@ const Sidebar = () => {
     [dropdownRef, setSettingsDropdown]
   );
 
-  if (router.pathname.startsWith("/auth")) return;
+  if (
+    router.pathname.startsWith("/auth") ||
+    router.pathname.startsWith("/story")
+  )
+    return;
 
   return (
     <>
@@ -373,7 +377,7 @@ const Sidebar = () => {
                 />
               )}
               {!isSearchedUsersLoading && searchedUsers.length !== 0 && (
-                <ListUsers
+                <UsersList
                   users={searchedUsers}
                   onClick={handleSearchOffcanvas}
                 />
