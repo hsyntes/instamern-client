@@ -19,7 +19,7 @@ const Navbar = () => {
   const { pathname } = router;
   const { currentUser } = currentUserState;
 
-  if (pathname.startsWith("/auth")) return;
+  if (pathname.startsWith("/auth") || pathname.startsWith("/story")) return;
 
   return (
     <nav className="block lg:hidden fixed bottom-0 w-full bg-white dark:bg-black border-t dark:border-t-dark py-4">

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
 import Sidebar from "./ui/Sidebar";
 import Container from "./Container";
-import Splash from "./ui/loading/Splash";
+import Splash from "./ui/loadings/Splash";
 import Navbar from "./ui/Navbar";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -27,6 +27,7 @@ const Layout = ({ children }) => {
     queryFn: async function () {
       if (Cookies.get("jsonwebtoken")) {
         const data = await getCurrentUser();
+
         if (data.status === "success") return data.data.currentUser;
       }
     },

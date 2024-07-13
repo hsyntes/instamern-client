@@ -8,9 +8,8 @@ import { motion } from "framer-motion";
 import { Charm_700 } from "@/components/Layout";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import FloatingInput from "@/components/ui/form/FloatingInput";
-import FormGroup from "@/components/ui/form/FormGroup";
-import Spinner from "@/components/ui/loading/Spinner";
+import FloatingInput from "@/components/ui/inputs/FloatingInput";
+import Spinner from "@/components/ui/loadings/Spinner";
 import Toast from "@/components/ui/Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -129,7 +128,6 @@ const SignupPage = () => {
         setUserExistsErrorMessage("");
       }
     },
-    // refetchOnWindowFocus: false,
   });
 
   useQuery(["checkEmailExists", email], {
@@ -265,7 +263,7 @@ const SignupPage = () => {
               animate={{ translateX: `-${formStage * 100}%` }}
               className="min-w-full px-1"
             >
-              <FormGroup className={"relative mb-3"}>
+              <div className="relative mb-3">
                 <FloatingInput
                   type={"text"}
                   name={"fullname"}
@@ -280,8 +278,8 @@ const SignupPage = () => {
                     {fullNameErrorMessage}
                   </p>
                 )}
-              </FormGroup>
-              <FormGroup className={"relative mb-3"}>
+              </div>
+              <div className="relative mb-3">
                 <FloatingInput
                   type={"text"}
                   name={"username"}
@@ -307,8 +305,8 @@ const SignupPage = () => {
                     className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
                   />
                 )}
-              </FormGroup>
-              <FormGroup className={"relative mb-4"}>
+              </div>
+              <div className={"relative mb-4"}>
                 <FloatingInput
                   type={"email"}
                   name={"email"}
@@ -334,27 +332,23 @@ const SignupPage = () => {
                     className="absolute top-1/2 right-3 -translate-y-1/2 text-success"
                   />
                 )}
-              </FormGroup>
-              <FormGroup>
-                <Button
-                  type={"button"}
-                  variant={"primary"}
-                  className={
-                    "flex items-center justify-center gap-2 w-full py-4"
-                  }
-                  disabled={!isFormStage_1_Valid}
-                  onClick={handleNextFormStage}
-                >
-                  <span>Next</span>
-                  <FontAwesomeIcon icon={faAngleRight} />
-                </Button>
-              </FormGroup>
+              </div>
+              <Button
+                type={"button"}
+                variant={"primary"}
+                className={"flex items-center justify-center gap-2 w-full py-4"}
+                disabled={!isFormStage_1_Valid}
+                onClick={handleNextFormStage}
+              >
+                <span>Next</span>
+                <FontAwesomeIcon icon={faAngleRight} />
+              </Button>
             </motion.section>
             <motion.section
               animate={{ translateX: `-${formStage * 100}%` }}
               className="min-w-full px-1"
             >
-              <FormGroup className={"relative mb-3"}>
+              <div className="relative mb-3">
                 <FloatingInput
                   type={"password"}
                   name={"password"}
@@ -369,8 +363,8 @@ const SignupPage = () => {
                     {passwordErrorMessage}
                   </p>
                 )}
-              </FormGroup>
-              <FormGroup className={"relative mb-4"}>
+              </div>
+              <div className={"relative mb-4"}>
                 <FloatingInput
                   type={"password"}
                   name={"password-confirm"}
@@ -385,8 +379,8 @@ const SignupPage = () => {
                     {passwordConfirmErrorMessage}
                   </p>
                 )}
-              </FormGroup>
-              <FormGroup className={"mb-8"}>
+              </div>
+              <div className={"mb-8"}>
                 <Button
                   type={"submit"}
                   variant={"primary"}
@@ -402,20 +396,18 @@ const SignupPage = () => {
                     <span>Sign up</span>
                   )}
                 </Button>
-              </FormGroup>
-              <FormGroup>
-                <Button
-                  type={"button"}
-                  variant={"link"}
-                  className={
-                    "flex items-center justify-center gap-1 mx-auto text-dark dark:text-white"
-                  }
-                  onClick={handlePreviousFormStage}
-                >
-                  <FontAwesomeIcon icon={faAngleLeft} />
-                  <span>Back</span>
-                </Button>
-              </FormGroup>
+              </div>
+              <Button
+                type={"button"}
+                variant={"link"}
+                className={
+                  "flex items-center justify-center gap-1 mx-auto text-dark dark:text-white"
+                }
+                onClick={handlePreviousFormStage}
+              >
+                <FontAwesomeIcon icon={faAngleLeft} />
+                <span>Back</span>
+              </Button>
             </motion.section>
           </Card.Body>
           <Card.Footer>
