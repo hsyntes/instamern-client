@@ -21,7 +21,7 @@ const Header = ({ stories }) => {
 
   return (
     <>
-      <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6 lg:py-0">
+      <header className="grid grid-cols-12 items-center sticky top-0 transition-all py-6 lg:py-0 lg:mb-8">
         <section className="col-span-11 block lg:hidden">
           <Link href={"/"} className="flex items-center gap-2">
             <Image
@@ -38,7 +38,11 @@ const Header = ({ stories }) => {
             </h1>
           </Link>
         </section>
-        <section className="col-span-11 hidden lg:block">
+        <section
+          className={`${
+            currentUser ? "col-span-12" : "col-span-11"
+          }  hidden lg:block`}
+        >
           <Stories stories={stories} />
         </section>
         <section className="col-span-1 block lg:hidden">
