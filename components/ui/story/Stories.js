@@ -12,18 +12,18 @@ const Stories = ({ stories }) => {
   return (
     <section
       id="stories-slider"
-      className="grid grid-cols-12 items-center overflow-x-scroll gap-6 select-none min-w-full"
+      className="flex items-center gap-6 select-none min-w-full overflow-x-scroll"
       style={{ scrollbarWidth: "none" }}
     >
       {currentUser && (
-        <section className="col-span-3 lg:col-span-1 border-r dark:border-r-dark pe-4">
+        <section className="">
           <section className="relative text-center cursor-pointer hover:opacity-90 hover:dark:opacity-75 transition-all mb-2">
             {currentUser.user_photo ? (
               <Image
                 src={currentUser?.user_photo}
                 width={350}
                 height={350}
-                className="w-12 lg:w-14 rounded-full mx-auto"
+                className="w-14 rounded-full mx-auto"
                 alt="User Profile Photo"
                 priority
               />
@@ -38,12 +38,12 @@ const Stories = ({ stories }) => {
               <FontAwesomeIcon icon={faPlusCircle} className="text-primary" />
             </span>
           </section>
-          <p className="text-sm text-center text-muted dark:text-muted-dark">
+          <p className="text-sm text-center text-muted dark:text-muted-dark text-nowrap">
             Add story
           </p>
         </section>
       )}
-      <section className="col-span-9 lg:col-span-11">
+      <section className="w-full">
         {stories && (
           <ul className="flex items-center gap-6">
             {stories?.map((story) => (

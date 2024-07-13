@@ -40,7 +40,7 @@ const StoryItem = ({ userId, storyId }) => {
     !isStoriedByLoading && (
       <>
         <li
-          className="min-w-14 lg:min-w-14 hover:opacity-90 hover:dark:opacity-75 cursor-pointer transition-all"
+          className="min-w-14 hover:opacity-90 hover:dark:opacity-75 cursor-pointer transition-all"
           onClick={() => router.push(`/story/${storyId}`)}
         >
           {storiedBy?.user_photo ? (
@@ -49,14 +49,14 @@ const StoryItem = ({ userId, storyId }) => {
                 src={storiedBy?.user_photo}
                 width={350}
                 height={350}
-                className="w-14 lg:w-14 rounded-full mx-auto"
+                className="w-14 rounded-full mx-auto"
                 alt="User Profile Photo"
               />
             </div>
           ) : (
             <Avatar name={storiedBy?.user_username} size={"xl"} />
           )}
-          <p className="text-sm text-center text-muted dark:text-muted-dark">
+          <p className="text-sm text-center text-muted dark:text-muted-dark text-nowrap">
             {storiedBy?.user_username}
           </p>
         </li>
