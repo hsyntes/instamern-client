@@ -35,8 +35,8 @@ const SignupPage = () => {
   const [userExistsErrorMessage, setUserExistsErrorMessage] = useState("");
   const [isEmailExists, setIsEmailExists] = useState("");
   const [emailExistsErrorMessage, setEmailExistsErrorMessage] = useState("");
-  const [toast, setToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+  const [signupToast, setSignupToast] = useState(false);
+  const [signupToastMessage, setSignupToastMessage] = useState("");
 
   const { theme } = themeState;
   const { currentUser } = currentUserState;
@@ -164,8 +164,8 @@ const SignupPage = () => {
       }
 
       if (data.status === "fail") {
-        setToast(true);
-        setToastMessage(data.message);
+        setSignupToast(true);
+        setSignupToastMessage(data.message);
       }
     },
   });
@@ -431,10 +431,10 @@ const SignupPage = () => {
         </Card>
       </form>
       <Toast
-        show={toast}
-        setToast={setToast}
-        variant={"danger"}
-        message={toastMessage}
+        show={signupToast}
+        message={signupToastMessage}
+        variant={"fail"}
+        setToast={setSignupToast}
       />
     </>
   );

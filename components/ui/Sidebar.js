@@ -81,7 +81,8 @@ const Sidebar = () => {
 
   const handleSettingsDropdown = () => setSettingsDropdown(!settingsDropdown);
   const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
-  const handleCreatePostModal = () => setCreatePostModal(!createPostModal);
+  const handleCloseCreatePostModal = () => setCreatePostModal(false);
+  const handleOpenCreatePostModal = () => setCreatePostModal(true);
   const handleAlertDialog = () => setAlertDialog(!alertDialog);
 
   const handleThemeOnChange = (e) =>
@@ -203,7 +204,7 @@ const Sidebar = () => {
               <li
                 className={`flex items-center justify-center text-muted dark:text-muted-dark hover:text-dark hover:bg-light hover:dark:bg-dark hover:dark:text-white rounded-full transition-all cursor-pointer p-2`}
                 onClick={function () {
-                  handleCreatePostModal();
+                  handleOpenCreatePostModal();
                   handleCloseOffcanvasses();
                 }}
               >
@@ -416,7 +417,14 @@ const Sidebar = () => {
           </Offcanvas>
         </section>
       </aside>
-      <Modal show={createPostModal} handleModal={handleCreatePostModal} />
+      <Modal
+        show={createPostModal}
+        handleCloseModal={handleCloseCreatePostModal}
+      >
+        <Modal.Header handleCloseModal={handleCloseCreatePostModal}>
+          <h6 className="font-semibold">Create Post</h6>
+        </Modal.Header>
+      </Modal>
       <AlertDialog
         show={alertDialog}
         message={alertDialogMessage}

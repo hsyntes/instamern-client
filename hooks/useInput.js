@@ -45,6 +45,13 @@ const reducer = (state, action) => {
             isValid: payload.length >= 1,
           };
         }
+
+        case "bio": {
+          return {
+            value: payload,
+            isValid: payload.length >= 1,
+          };
+        }
       }
     }
 

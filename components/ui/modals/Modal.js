@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const Modal = ({ show, handleModal, className, children }) => {
+const Modal = ({ show, handleCloseModal, className, children }) => {
   const [display, setDisplay] = useState("none");
   const modalOverlayRef = useRef();
 
@@ -14,7 +16,7 @@ const Modal = ({ show, handleModal, className, children }) => {
           modalOverlayRef.current &&
           e.target.id === "modal-overlay"
         )
-          handleModal();
+          handleCloseModal();
       };
 
       document.addEventListener("click", handleClickOutside, true);
@@ -23,7 +25,7 @@ const Modal = ({ show, handleModal, className, children }) => {
         document.removeEventListener("click", handleClickOutside, true);
       };
     },
-    [modalOverlayRef, handleModal]
+    [modalOverlayRef, handleCloseModal]
   );
 
   useEffect(
@@ -63,16 +65,28 @@ const Modal = ({ show, handleModal, className, children }) => {
   );
 };
 
-const ModalHeader = ({ className, children }) => (
-  <div className={`modal-header ${className}`}>{children}</div>
+const ModalHeader = ({ handleCloseModal, className, children }) => (
+  <div
+    className={`modal-header flex items-center justify-between ${className}`}
+  >
+    {children}
+    <FontAwesomeIcon
+      icon={faTimes}
+      size="lg"
+      className="cursor-pointer"
+      onClick={handleCloseModal}
+    />
+  </div>
 );
 
 const ModalBody = ({ className, children }) => (
-  <div className={`modal-body my-6 ${className}`}>{children}</div>
+  <div className={`modal-body my-8 ${className}`}>{children}</div>
 );
 
 const ModalFooter = ({ className, children }) => (
-  <div className={`modal-footer ${className}`}>{children}</div>
+  <div className={`modal-footer flex items-center ${className}`}>
+    {children}
+  </div>
 );
 
 Modal.Header = ModalHeader;
