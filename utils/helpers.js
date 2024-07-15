@@ -30,4 +30,7 @@ export const getStory = async (id) => await HttpRequest.get(`stories/${id}`);
 export const getRandomUsers = async (count) =>
   await HttpRequest.get(`users/random/${count}`);
 
+export const updateProfile = async (payload) =>
+  await HttpRequest.post(`users/update`, payload);
+
 export const logout = async () => await HttpRequest.post("auth/logout");

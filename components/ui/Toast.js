@@ -8,13 +8,13 @@ const Toast = ({ show, setToast, variant, message, className }) => {
   let classes = `fixed left-1/2 -translate-x-1/2 bottom-8 w-3/4 lg:w-auto px-8 py-2 rounded dark:border dark:border-dark dark:shadow z-50 ${className} `;
 
   switch (variant) {
-    case "danger": {
+    case "fail": {
       classes += "bg-red-400 bg-opacity-15 text-red-500";
       break;
     }
 
     case "success": {
-      classes += "bg-green-200 text-success";
+      classes += "bg-green-100 text-success";
       break;
     }
 
