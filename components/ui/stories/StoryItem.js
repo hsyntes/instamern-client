@@ -7,7 +7,7 @@ import Avatar from "../Avatar";
 import StoriesLoading from "../loadings/StoriesLoading";
 import { getUser } from "@/utils/helpers";
 
-const StoryItem = ({ userId, storyId }) => {
+const StoryItem = ({ userId }) => {
   const router = useRouter();
   const themeState = useSelector((state) => state.theme);
   const [loadingTheme, setLoadingTheme] = useState(null);
@@ -41,7 +41,7 @@ const StoryItem = ({ userId, storyId }) => {
       <>
         <li
           className="min-w-14 hover:opacity-90 hover:dark:opacity-75 cursor-pointer transition-all"
-          onClick={() => router.push(`/story/${storyId}`)}
+          onClick={() => router.push(`/story/${userId}`)}
         >
           {storiedBy?.user_photo ? (
             <div className="bg-gradient-to-br from-primary to-secondary rounded-full p-[3px]">
@@ -54,7 +54,11 @@ const StoryItem = ({ userId, storyId }) => {
               />
             </div>
           ) : (
-            <Avatar name={storiedBy?.user_username} size={"xl"} />
+            <Avatar
+              name={storiedBy?.user_username}
+              size={"2xl"}
+              className={"border-4 border-secondary mx-auto"}
+            />
           )}
           <p className="text-sm text-center text-muted dark:text-muted-dark text-nowrap">
             {storiedBy?.user_username}
