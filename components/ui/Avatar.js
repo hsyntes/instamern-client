@@ -18,12 +18,12 @@ const Avatar = ({ name, size, className }) => {
     }
 
     case "2xl": {
-      style = { width: "64px", height: "64px" };
+      style = { width: "56px", height: "56px" };
       break;
     }
 
     case "3xl": {
-      style = { width: "96px", height: "96px" };
+      style = { width: "72px", height: "72px" };
       break;
     }
 

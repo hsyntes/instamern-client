@@ -58,6 +58,8 @@ const Layout = ({ children }) => {
     [theme]
   );
 
+  console.log("Hüseyin Ateş | Full Stack Software Engineer");
+
   if (isCurrentUserLoading) return <Splash />;
 
   return (

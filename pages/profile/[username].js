@@ -22,7 +22,7 @@ const ProfilePage = ({ user }) => {
           {user?.user_fullname} (@{user?.user_username}) | Instamern
         </title>
       </Head>
-      <section className="py-8 lg:py-0">
+      <section className="py-6 lg:py-0">
         <section className="flex items-start gap-6 lg:gap-8">
           {user?.user_photo ? (
             <Image

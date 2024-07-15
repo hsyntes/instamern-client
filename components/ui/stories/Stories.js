@@ -47,11 +47,7 @@ const Stories = ({ stories }) => {
         {stories && (
           <ul className="flex items-center gap-6">
             {stories?.map((story) => (
-              <StoryItem
-                userId={story._id}
-                storyId={story._id}
-                key={story._id}
-              />
+              <StoryItem userId={story._id} key={story._id} />
             ))}
           </ul>
         )}
