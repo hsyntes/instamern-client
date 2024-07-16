@@ -11,7 +11,7 @@ const NotificationsPage = () => {
         <meta name="keywords" content="instamern, huseyin ates" />
         <title>Notifications | Instamern</title>
       </Head>
-      <section className="sticky top-0 scroll-m-32 bg-white dark:bg-black py-6 transition-all">
+      <section className="sticky top-0 bg-white dark:bg-black py-6 transition-all">
         <h1 className="text-lg font-semibold flex items-center gap-2">
           <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>

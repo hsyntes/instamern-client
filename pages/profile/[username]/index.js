@@ -1,7 +1,9 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
 import { useMutation, useQueryClient } from "react-query";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
@@ -13,9 +15,10 @@ import { getUserByUsername, updateProfile } from "@/utils/helpers";
 import useInput from "@/hooks/useInput";
 import Toast from "@/components/ui/Toast";
 import Spinner from "@/components/ui/loadings/Spinner";
-import { currentUserSliceActions } from "@/store/user-slice/current-user-slice";
+import TextArea from "@/components/ui/inputs/TextArea";
 
 const ProfilePage = ({ user }) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const currentUserState = useSelector((state) => state.currentUser);
@@ -49,14 +52,6 @@ const ProfilePage = ({ user }) => {
   const { currentUser } = currentUserState;
   const { theme } = themeState;
 
-  useEffect(
-    function () {
-      if (theme === "dark") setInputTheme("black");
-      if (theme === "light") setInputTheme("white");
-    },
-    [theme]
-  );
-
   const updateProfileMutation = useMutation({
     mutationFn: updateProfile,
     onSuccess: function (data) {
@@ -85,7 +80,13 @@ const ProfilePage = ({ user }) => {
     });
   }
 
-  console.log("currentUser: ", currentUser);
+  useEffect(
+    function () {
+      if (theme === "dark") setInputTheme("black");
+      if (theme === "light") setInputTheme("white");
+    },
+    [theme]
+  );
 
   if (!user) return <p>User not found.</p>;
 
@@ -173,6 +174,9 @@ const ProfilePage = ({ user }) => {
                     type={"button"}
                     variant={"primary"}
                     className={"w-full py-2.5"}
+                    onClick={() =>
+                      router.push(`${currentUser?.user_username}/edit`)
+                    }
                   >
                     Edit Profile
                   </Button>
@@ -197,7 +201,7 @@ const ProfilePage = ({ user }) => {
           className={"relative overflow-hidden"}
         >
           {updateProfileMutation.status === "loading" && (
-            <section className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-muted dark:bg-muted-dark">
+            <section className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-muted dark:bg-muted-dark z-50">
               <Spinner size={"xl"} />
             </section>
           )}
@@ -206,28 +210,27 @@ const ProfilePage = ({ user }) => {
               <h6 className="font-semibold">Edit Profile</h6>
             </Modal.Header>
             <Modal.Body>
-              <section className="group w-1/3 relative mx-auto rounded-full cursor-pointer mb-6">
-                {currentUser?.user_photo ? (
-                  <Image
-                    src={currentUser.user_photo}
-                    width={350}
-                    height={350}
-                    className="rounded-full mx-auto w-24 lg:w-28"
-                    alt="Profile Photo"
-                    priority
-                  />
-                ) : (
-                  <Avatar
-                    name={currentUser.user_fullname}
-                    size={"3xl"}
-                    className={"mx-auto"}
-                  />
-                )}
-                <section className="flex opacity-0 group-hover:opacity-50 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 items-center justify-center rounded-full w-full h-full bg-white dark:bg-dark transition-all">
-                  <FontAwesomeIcon
-                    icon={faCamera}
-                    className="text-dark dark:text-white"
-                  />
+              <section className="flex items-center justify-center mb-8">
+                <section className="group relative w-[81px] h-[81px] overflow-hidden">
+                  {currentUser?.user_photo ? (
+                    <Image
+                      src={currentUser.user_photo}
+                      width={350}
+                      height={350}
+                      className="rounded-full w-full object-cover"
+                      alt="Profile Photo"
+                      priority
+                    />
+                  ) : (
+                    <Avatarz
+                      name={currentUser.user_fullname}
+                      size={"3xl"}
+                      className={"mx-auto w-full"}
+                    />
+                  )}
+                  <section className="absolute flex items-center justify-center top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full h-full opacity-0 group-hover:opacity-50 rounded-full bg-white dark:bg-black transition-all cursor-pointer">
+                    <FontAwesomeIcon icon={faCamera} size="lg" />
+                  </section>
                 </section>
               </section>
               <section>
@@ -252,13 +255,14 @@ const ProfilePage = ({ user }) => {
                   />
                 </section>
                 <section className="mb-2">
-                  <Input
-                    type={"text"}
+                  <TextArea
+                    inputMode={"text"}
                     name={"bio"}
-                    variant={inputTheme}
                     placeholder={"Bio"}
+                    maxLength={244}
                     value={bio || currentUser?.user_bio}
                     onChange={handleBioOnChange}
+                    variant={inputTheme}
                   />
                 </section>
               </section>

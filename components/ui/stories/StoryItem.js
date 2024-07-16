@@ -57,7 +57,7 @@ const StoryItem = ({ userId }) => {
             <Avatar
               name={storiedBy?.user_username}
               size={"2xl"}
-              className={"border-4 border-secondary mx-auto"}
+              className={"border-[3px] border-secondary mx-auto"}
             />
           )}
           <p className="text-sm text-center text-muted dark:text-muted-dark text-nowrap">

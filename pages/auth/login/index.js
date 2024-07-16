@@ -50,7 +50,8 @@ const LoginPage = () => {
     handleOnBlur: handlePasswordOnBlur,
   } = useInput();
 
-  const handleAlertDialog = () => setAlertDialog(!alertDialog);
+  const handleCloseAlertDialog = () => setAlertDialog(false);
+  const handleOpenAlertDialog = () => setAlertDialog(true);
 
   const loginMutation = useMutation({
     mutationFn: login,
@@ -65,7 +66,7 @@ const LoginPage = () => {
       }
 
       if (data.status === "fail") {
-        handleAlertDialog();
+        handleOpenAlertDialog();
         setAlertDialogMessage(data.message);
       }
     },
@@ -198,7 +199,7 @@ const LoginPage = () => {
       </form>
       <AlertDialog
         show={alertDialog}
-        handleAlertDialog={handleAlertDialog}
+        handleCloseAlertDialog={handleCloseAlertDialog}
         message={alertDialogMessage}
       />
     </>

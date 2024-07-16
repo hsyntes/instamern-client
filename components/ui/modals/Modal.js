@@ -8,6 +8,11 @@ const Modal = ({ show, handleCloseModal, className, children }) => {
   const [display, setDisplay] = useState("none");
   const modalOverlayRef = useRef();
 
+  if (typeof window !== "undefined")
+    window.addEventListener("keyup", function (e) {
+      if (e.key === "Escape") handleCloseModal();
+    });
+
   useEffect(
     function () {
       const handleClickOutside = (e) => {
@@ -51,7 +56,7 @@ const Modal = ({ show, handleCloseModal, className, children }) => {
       <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: show ? [1.1, 1] : [1, 0.9] }}
-        className={`modal absolute top-1/2 left-1/2 w-3/4 lg:w-1/4 xl:w-1/5 bg-white dark:bg-dark rounded-lg border dark:border-dark shadow py-6 px-8 z-50 ${className}`}
+        className={`modal absolute top-1/2 left-1/2 w-3/4 lg:w-1/3 xl:w-1/4 bg-white dark:bg-dark rounded-lg border dark:border-dark shadow py-6 px-8 z-50 ${className}`}
         style={{
           transformOrigin: "center",
           translateX: "-50%",
@@ -73,7 +78,7 @@ const ModalHeader = ({ handleCloseModal, className, children }) => (
     <FontAwesomeIcon
       icon={faTimes}
       size="lg"
-      className="cursor-pointer"
+      className="cursor-pointer ms-auto"
       onClick={handleCloseModal}
     />
   </div>
