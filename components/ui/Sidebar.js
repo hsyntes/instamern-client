@@ -83,7 +83,9 @@ const Sidebar = () => {
   const handleThemeCollapse = () => setThemeCollapse(!themeCollapse);
   const handleCloseCreatePostModal = () => setCreatePostModal(false);
   const handleOpenCreatePostModal = () => setCreatePostModal(true);
-  const handleAlertDialog = () => setAlertDialog(!alertDialog);
+  const handleCloseAlertDialog = () => setAlertDialog(false);
+  const handleOpenAlertDialog = () => setAlertDialog(true);
+  // const handleAlertDialog = () => setAlertDialog(!alertDialog);
 
   const handleThemeOnChange = (e) =>
     dispatch(themeSliceActions.switchTheme(e.target.value));
@@ -117,7 +119,7 @@ const Sidebar = () => {
       }
 
       if (data.status === "fail" || data.status === "error") {
-        handleAlertDialog();
+        handleOpenAlertDialog();
         setAlertDialogMessage(data.message);
       }
     },
@@ -428,7 +430,7 @@ const Sidebar = () => {
       <AlertDialog
         show={alertDialog}
         message={alertDialogMessage}
-        handleAlertDialog={handleAlertDialog}
+        handleCloseAlertDialog={handleCloseAlertDialog}
       />
     </>
   );

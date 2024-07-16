@@ -26,7 +26,9 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
   const { theme } = themeState;
   const { currentUser } = currentUserState;
 
-  const handleAlertDialog = () => setAlertDialog(!alertDialog);
+  // const handleAlertDialog = () => setAlertDialog(!alertDialog);
+  const handleCloseAlertDialog = () => setAlertDialog(false);
+  const handleOpenAlertDialog = () => setAlertDialog(true);
 
   function handleSwitchTheme() {
     dispatch(
@@ -54,7 +56,7 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
       }
 
       if (data.status === "fail" || data.status === "error") {
-        handleAlertDialog();
+        handleOpenAlertDialog();
         setAlertDialogMessage(data.message);
       }
     },
@@ -141,7 +143,7 @@ const BottomSheet = ({ show, handleBottomSheet }) => {
       <AlertDialog
         show={alertDialog}
         message={alertDialogMessage}
-        handleAlertDialog={handleAlertDialog}
+        handleCloseAlertDialog={handleCloseAlertDialog}
       />
     </>
   );
