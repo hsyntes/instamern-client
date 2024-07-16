@@ -42,15 +42,17 @@ const StoryPage = ({ story }) => {
     }
   );
 
+  if (typeof window !== "undefined")
+    window.addEventListener("keyup", function (e) {
+      if (e.key === "Escape") router.push("..");
+    });
+
   useEffect(
     function () {
       setLoadingTheme(theme);
     },
     [theme]
   );
-
-  console.log("storiedBy: ", storiedBy);
-  console.log("story: ", story);
 
   return (
     <>
@@ -59,7 +61,7 @@ const StoryPage = ({ story }) => {
         <meta name="keywords" content="instamern, huseyin ates" />
         <title>Stories (@{storiedBy?.user_username}) | Instamern</title>
       </Head>
-      <section className="w-full h-full hidden lg:flex flex-col items-center justify-center fixed top-0 left-0">
+      <section className="w-full h-full hidden lg:flex flex-col items-center justify-center fixed top-0 left-0 select-none">
         <section className="absolute top-12 right-12">
           <FontAwesomeIcon
             icon={faTimes}

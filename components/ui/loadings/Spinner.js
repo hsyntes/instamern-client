@@ -14,6 +14,11 @@ const Spinner = ({ size }) => {
       break;
     }
 
+    case "xl": {
+      style = { width: "48px", height: "48px" };
+      break;
+    }
+
     default: {
       style = { width: "24px", height: "24px" };
       break;

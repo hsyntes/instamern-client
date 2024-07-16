@@ -3,19 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import Modal from "./Modal";
 
-const AlertDialog = ({ show, message, handleAlertDialog }) => {
-  if (!show) return;
+const AlertDialog = ({ show, message, handleCloseAlertDialog }) => {
+  // if (!show) return;
 
   return (
-    <Modal show={show} handleModal={handleAlertDialog}>
-      <Modal.Header className={"relative flex items-center justify-center"}>
-        <h6 className="text-lg font-semibold">Error</h6>
-        <FontAwesomeIcon
-          icon={faTimes}
-          size="lg"
-          className="absolute top-1/2 right-0 -translate-y-1/2 text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white cursor-pointer"
-          onClick={handleAlertDialog}
-        />
+    <Modal show={show} handleCloseModal={handleCloseAlertDialog}>
+      <Modal.Header
+        handleCloseModal={handleCloseAlertDialog}
+        className={"relative"}
+      >
+        <h6 className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-lg font-semibold">
+          Error
+        </h6>
       </Modal.Header>
       <Modal.Body>
         <p className="text-center text-sm text-muted dark:text-muted-dark">
@@ -23,7 +22,11 @@ const AlertDialog = ({ show, message, handleAlertDialog }) => {
         </p>
       </Modal.Body>
       <Modal.Footer className={"flex items-center justify-center"}>
-        <Button type={"button"} variant={"link"} onClick={handleAlertDialog}>
+        <Button
+          type={"button"}
+          variant={"link"}
+          onClick={handleCloseAlertDialog}
+        >
           Got it
         </Button>
       </Modal.Footer>
