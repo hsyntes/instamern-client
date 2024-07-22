@@ -201,8 +201,6 @@ const StoryPage = ({ story }) => {
 export async function getServerSideProps({ params }) {
   const { storyId } = params;
 
-  console.log("storyId: ", storyId);
-
   const response = await getStory(storyId);
   const { story } = response.data;
 
