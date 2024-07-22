@@ -27,10 +27,15 @@ export const getStories = async () => await HttpRequest.get("stories");
 
 export const getStory = async (id) => await HttpRequest.get(`stories/${id}`);
 
+export const getPost = async (id) => await HttpRequest.get(`posts/${id}`);
+
 export const getRandomUsers = async (count) =>
   await HttpRequest.get(`users/random/${count}`);
 
 export const updateProfile = async (payload) =>
   await HttpRequest.post(`users/update`, payload);
+
+export const createComment = async ({ postId, payload }) =>
+  await HttpRequest.post(`posts/${postId}/comments`, payload);
 
 export const logout = async () => await HttpRequest.post("auth/logout");

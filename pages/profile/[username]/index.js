@@ -16,6 +16,7 @@ import useInput from "@/hooks/useInput";
 import Toast from "@/components/ui/Toast";
 import Spinner from "@/components/ui/loadings/Spinner";
 import TextArea from "@/components/ui/inputs/TextArea";
+import ViewPost from "@/components/ui/modals/ViewPost";
 
 const ProfilePage = ({ user }) => {
   const router = useRouter();
@@ -30,9 +31,21 @@ const ProfilePage = ({ user }) => {
   const [updateToastVariant, setUpdateToastVariant] = useState("");
   const [inputTheme, setInputTheme] = useState(null);
   const [editProfileModal, setEditProfileModal] = useState(false);
+  const [viewPostModal, setViewPostModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const handleCloseEditProfileModal = () => setEditProfileModal(false);
   const handleOpenEditProfileModal = () => setEditProfileModal(true);
+
+  const handleCloseViewPostModal = () => {
+    setViewPostModal(false);
+    setSelectedPost(null);
+  };
+
+  const handleOpenViewPostModal = (id) => {
+    setViewPostModal(true);
+    setSelectedPost(id);
+  };
 
   const {
     state: { value: fullname, isValid: isFullnameValid },
@@ -87,6 +100,8 @@ const ProfilePage = ({ user }) => {
     },
     [theme]
   );
+
+  console.log("selectedPost", selectedPost);
 
   if (!user) return <p>User not found.</p>;
 
@@ -193,6 +208,30 @@ const ProfilePage = ({ user }) => {
             </section>
           </section>
         </section>
+        <hr className="border dark:border-dark my-12" />
+        <section className="grid grid-cols-12 gap-4">
+          {user &&
+            user?.user_posts &&
+            user?.user_posts?.length !== 0 &&
+            user?.user_posts.map((post) => (
+              <section
+                className="col-span-4 flex rounded overflow-hidden hover:opacity-90 hover:dark:opacity-75 transition-all cursor-pointer"
+                onClick={() => handleOpenViewPostModal(post._id)}
+                key={post._id}
+              >
+                {post?.post_images?.map((post_image) => (
+                  <Image
+                    src={post_image}
+                    className="min-w-full"
+                    width={1080}
+                    height={1350}
+                    key={post_image}
+                    alt="User Post Image"
+                  />
+                ))}
+              </section>
+            ))}
+        </section>
       </section>
       {currentUser && (
         <Modal
@@ -222,7 +261,7 @@ const ProfilePage = ({ user }) => {
                       priority
                     />
                   ) : (
-                    <Avatarz
+                    <Avatar
                       name={currentUser.user_fullname}
                       size={"3xl"}
                       className={"mx-auto w-full"}
@@ -279,6 +318,11 @@ const ProfilePage = ({ user }) => {
           </form>
         </Modal>
       )}
+      <ViewPost
+        show={viewPostModal}
+        handleCloseModal={handleCloseViewPostModal}
+        postId={selectedPost}
+      />
       <Toast
         show={updateToast}
         message={updateToastMessage}
@@ -293,7 +337,7 @@ export async function getServerSideProps({ params }) {
   const { username } = params;
 
   const response = await getUserByUsername(username);
-  const user = response.data.user;
+  const { user } = response.data;
 
   return {
     props: {
