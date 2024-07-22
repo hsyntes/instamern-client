@@ -24,7 +24,7 @@ const CommentItem = ({ comment, commentedById, handleCloseModal }) => {
     <li className="overflow-x-hidden">
       <Link
         href={`/profile/${commentedBy?.user_username}`}
-        className="flex items-start gap-2"
+        className="flex items-start gap-2 mb-1"
         onClick={handleCloseModal}
       >
         {commentedBy?.user_photo ? (
@@ -48,7 +48,7 @@ const CommentItem = ({ comment, commentedById, handleCloseModal }) => {
 };
 
 const Comments = ({ comments, handleCloseModal }) => (
-  <ul className="space-y-6">
+  <ul className="space-y-8 lg:space-y-6">
     {comments?.map((comment) => (
       <CommentItem
         comment={comment.comment}

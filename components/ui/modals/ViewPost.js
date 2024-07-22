@@ -28,6 +28,7 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
   const [post, setPost] = useState(null);
   const [postedBy, setPostedBy] = useState(null);
   const [currentPostImage, setCurrentPostImage] = useState(0);
+  const [loadingTheme, setLoadingTheme] = useState("");
   const [inputTheme, setInputTheme] = useState("");
 
   const {
@@ -115,8 +116,14 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
 
   useEffect(
     function () {
-      if (theme === "dark") setInputTheme("black");
-      if (theme === "light") setInputTheme("white");
+      if (theme === "dark") {
+        setInputTheme("black");
+        setLoadingTheme(theme);
+      }
+      if (theme === "light") {
+        setInputTheme("white");
+        setLoadingTheme(theme);
+      }
     },
     [theme]
   );
@@ -127,7 +134,9 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
       handleCloseModal={handleCloseModal}
       className={"flex items-start !w-5/6 h-[90vh] overflow-hidden !p-0"}
     >
-      {(isPostLoading || isPostedByLoading) && <ViewPostLoading />}
+      {(isPostLoading || isPostedByLoading) && (
+        <ViewPostLoading variant={loadingTheme} />
+      )}
       {!(isPostLoading || isPostedByLoading) && postedBy && (
         <>
           <section

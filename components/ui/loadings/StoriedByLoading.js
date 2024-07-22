@@ -46,10 +46,10 @@ const StoriedByLoading = ({ variant, className }) => {
       <motion.div
         animate={{ opacity: [0.75, 1, 0.75] }}
         transition={{ ease: "easeInOut", duration: 1, repeat: Infinity }}
-        className={`w-full h-[70vh] rounded-lg bg-white ${
+        className={`w-full h-[70vh] rounded-lg bg-gray-300 ${
           variant === "dark" && "!bg-dark-lighter"
         } `}
-      ></motion.div>
+      />
     </div>
   );
 };
