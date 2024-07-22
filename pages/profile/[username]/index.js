@@ -101,8 +101,6 @@ const ProfilePage = ({ user }) => {
     [theme]
   );
 
-  console.log("selectedPost", selectedPost);
-
   if (!user) return <p>User not found.</p>;
 
   return (
@@ -216,7 +214,13 @@ const ProfilePage = ({ user }) => {
             user?.user_posts.map((post) => (
               <section
                 className="col-span-4 flex rounded overflow-hidden hover:opacity-90 hover:dark:opacity-75 transition-all cursor-pointer"
-                onClick={() => handleOpenViewPostModal(post._id)}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    if (window.innerWidth >= 1024)
+                      handleOpenViewPostModal(post._id);
+                    else router.push(`/post/${post?._id}`);
+                  }
+                }}
                 key={post._id}
               >
                 {post?.post_images?.map((post_image) => (
