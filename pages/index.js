@@ -4,13 +4,30 @@ import { useSelector } from "react-redux";
 import Header from "@/components/ui/Header";
 import UsersList from "@/components/ui/users/UsersList";
 import Stories from "@/components/ui/stories/Stories";
-import { getRandomUsers, getStories } from "@/utils/helpers";
+import { getPosts, getRandomUsers, getStories } from "@/utils/helpers";
+import { useInfiniteQuery } from "react-query";
 
 export default function Home({ stories, randomUsers }) {
   const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
 
   const currentUserState = useSelector((state) => state.currentUser);
   const { currentUser } = currentUserState;
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: "getPosts",
+      queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
+      getNextPageParam: function ({ data }) {
+        const { currentPage, totalPages } = data;
+
+        console.log("Current Page: ", currentPage);
+        console.log("Total Pages: ", totalPages);
+
+        return currentPage < totalPages ? currentPage + 1 : undefined;
+      },
+    });
+
+  const posts = data?.pages?.flatMap((page) => page.data.posts);
 
   useEffect(
     function () {
