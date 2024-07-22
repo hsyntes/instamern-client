@@ -49,7 +49,8 @@ const EditProfilePage = ({}) => {
   const { query } = router;
 
   const updateProfileMutation = useMutation({
-    mutationFn: updateProfile,
+    mutationFn:
+      isFullnameValid && isUsernameValid && isBioValid && updateProfile,
     onSuccess: function (data) {
       const { status } = data;
 

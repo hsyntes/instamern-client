@@ -21,29 +21,31 @@ const CommentItem = ({ comment, commentedById, handleCloseModal }) => {
   });
 
   return (
-    <li className="overflow-x-hidden">
-      <Link
-        href={`/profile/${commentedBy?.user_username}`}
-        className="flex items-start gap-2 mb-1"
-        onClick={handleCloseModal}
-      >
-        {commentedBy?.user_photo ? (
-          <Image
-            src={commentedBy?.user_photo}
-            width={350}
-            height={350}
-            className="w-6 rounded-full"
-            alt="User Profile Photo"
-          />
-        ) : (
-          <Avatar name={commentedBy?.user_username} />
-        )}
-        <h1 className="mb-1">{commentedBy?.user_username}</h1>
-      </Link>
-      <section className="select-text">
-        <p className="text-sm text-justify text-wrap">{comment}</p>
-      </section>
-    </li>
+    commentedBy && (
+      <li className="overflow-x-hidden">
+        <Link
+          href={`/profile/${commentedBy?.user_username}`}
+          className="flex items-start gap-2 mb-1"
+          onClick={handleCloseModal}
+        >
+          {commentedBy?.user_photo ? (
+            <Image
+              src={commentedBy?.user_photo}
+              width={350}
+              height={350}
+              className="w-6 rounded-full"
+              alt="User Profile Photo"
+            />
+          ) : (
+            <Avatar name={commentedBy?.user_username} />
+          )}
+          <h1 className="mb-1">{commentedBy?.user_username}</h1>
+        </Link>
+        <section className="select-text">
+          <p className="text-sm text-justify text-wrap">{comment}</p>
+        </section>
+      </li>
+    )
   );
 };
 

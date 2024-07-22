@@ -66,7 +66,8 @@ const ProfilePage = ({ user }) => {
   const { theme } = themeState;
 
   const updateProfileMutation = useMutation({
-    mutationFn: updateProfile,
+    mutationFn:
+      isFullnameValid && isUsernameValid && isBioValid && updateProfile,
     onSuccess: function (data) {
       const { status } = data;
 
@@ -213,7 +214,7 @@ const ProfilePage = ({ user }) => {
             user?.user_posts?.length !== 0 &&
             user?.user_posts.map((post) => (
               <section
-                className="col-span-4 flex rounded overflow-hidden hover:opacity-90 hover:dark:opacity-75 transition-all cursor-pointer"
+                className="col-span-4 flex rounded overflow-hidden hover:opacity-70 hover:dark:opacity-50 transition-all cursor-pointer"
                 onClick={() => {
                   if (typeof window !== "undefined") {
                     if (window.innerWidth >= 1024)

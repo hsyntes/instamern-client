@@ -41,8 +41,10 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
 
   const { isLoading: isPostLoading } = useQuery(["getPost", postId], {
     queryFn: async function () {
-      const data = await getPost(postId);
-      if (data.status === "success") return data.data.post;
+      if (postId) {
+        const data = await getPost(postId);
+        if (data.status === "success") return data.data.post;
+      }
     },
     onSuccess: function (data) {
       setPost(data);
@@ -231,15 +233,17 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
                 onClick={handleCloseModal}
               />
             </section>
-            <section
-              className="h-full overflow-y-scroll my-auto p-4"
-              style={{ scrollbarWidth: "none" }}
-            >
-              <Comments
-                comments={post?.post_comments}
-                handleCloseModal={handleCloseModal}
-              />
-            </section>
+            {post?.post_comments && (
+              <section
+                className="h-full overflow-y-scroll my-auto p-4"
+                style={{ scrollbarWidth: "none" }}
+              >
+                <Comments
+                  comments={post?.post_comments}
+                  handleCloseModal={handleCloseModal}
+                />
+              </section>
+            )}
             <section className="relative mt-auto p-4">
               <form onSubmit={handleSubmit}>
                 <TextArea
