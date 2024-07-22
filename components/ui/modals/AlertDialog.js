@@ -1,11 +1,7 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import Modal from "./Modal";
 
 const AlertDialog = ({ show, message, handleCloseAlertDialog }) => {
-  // if (!show) return;
-
   return (
     <Modal show={show} handleCloseModal={handleCloseAlertDialog}>
       <Modal.Header

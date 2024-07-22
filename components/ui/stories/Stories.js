@@ -16,7 +16,7 @@ const Stories = ({ stories }) => {
       style={{ scrollbarWidth: "none" }}
     >
       {currentUser && (
-        <section className="">
+        <section>
           <section className="relative text-center cursor-pointer hover:opacity-90 hover:dark:opacity-75 transition-all mb-2">
             {currentUser.user_photo ? (
               <Image
@@ -43,15 +43,15 @@ const Stories = ({ stories }) => {
           </p>
         </section>
       )}
-      <section className="w-full">
-        {stories && (
+      {stories && (
+        <section className="w-full">
           <ul className="flex items-center gap-6">
             {stories?.map((story) => (
               <StoryItem userId={story._id} key={story._id} />
             ))}
           </ul>
-        )}
-      </section>
+        </section>
+      )}
     </section>
   );
 };

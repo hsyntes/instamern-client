@@ -4,9 +4,9 @@ import Avatar from "../Avatar";
 import Button from "../Button";
 
 const UsersList = ({ users, onClick }) => (
-  <ul>
+  <ul className="space-y-6">
     {users.map((user) => (
-      <li className="flex items-center mb-4 last:mb-0" key={user._id}>
+      <li className="flex items-center" key={user._id}>
         <Link
           href={`/profile/${user.user_username}`}
           className="flex items-center gap-3 w-full group me-auto"

@@ -7,6 +7,7 @@ const TextArea = ({
   onChange,
   className,
   variant,
+  disabled,
 }) => {
   let classes = `w-full border dark:border-dark text-sm rounded focus:!border-primary outline-none transition-all min-h-28 p-2 ${className} `;
 
@@ -32,6 +33,10 @@ const TextArea = ({
     }
   }
 
+  function handleKeyDown(e) {
+    if (e.key === "Enter") e.preventDefault();
+  }
+
   return (
     <textarea
       inputMode={inputMode}
@@ -42,6 +47,8 @@ const TextArea = ({
       onChange={onChange}
       className={classes}
       style={{ resize: "none" }}
+      disabled={disabled}
+      onKeyDown={handleKeyDown}
     />
   );
 };

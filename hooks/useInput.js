@@ -52,6 +52,13 @@ const reducer = (state, action) => {
             isValid: payload.length >= 1,
           };
         }
+
+        case "comment": {
+          return {
+            value: payload,
+            isValid: payload.length >= 1,
+          };
+        }
       }
     }
 
@@ -133,7 +140,8 @@ const reducer = (state, action) => {
 
     case "onClear": {
       switch (name) {
-        case "search": {
+        case "search":
+        case "comment": {
           return { ...initialState };
         }
       }
