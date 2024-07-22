@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const Spinner = ({ size }) => {
+const Spinner = ({ size, className }) => {
   let style;
 
   switch (size) {
@@ -29,7 +29,7 @@ const Spinner = ({ size }) => {
     <motion.div
       animate={{ rotate: [0, 360] }}
       transition={{ ease: "easeOut", duration: 0.5, repeat: Infinity }}
-      className="spinner border-t-2 border-t-primary border-2 border-white rounded-full"
+      className={`spinner border-t-2 border-t-primary border-2 border-white rounded-full ${className}`}
       style={style}
     />
   );

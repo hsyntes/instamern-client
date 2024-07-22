@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
-import Modal from "./Modal";
-import Spinner from "../loadings/Spinner";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -12,11 +11,14 @@ import {
   faPaperPlane,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
-import { createComment, getPost, getUser } from "@/utils/helpers";
+import Modal from "./Modal";
+import Spinner from "../loadings/Spinner";
 import TextArea from "../inputs/TextArea";
 import useInput from "@/hooks/useInput";
 import Comments from "../comments/Comments";
+import ViewPostLoading from "../loadings/ViewPostLoading";
+import Avatar from "../Avatar";
+import { createComment, getPost, getUser } from "@/utils/helpers";
 
 const ViewPost = ({ show, handleCloseModal, postId }) => {
   const queryClient = useQueryClient();
@@ -79,7 +81,7 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
   }
 
   const commentMutation = useMutation({
-    mutationFn: createComment,
+    mutationFn: isCommentValid && createComment,
     onSuccess: function (data) {
       if (data.status === "success") {
         queryClient.refetchQueries({ queryKey: "getPost" });
@@ -89,8 +91,15 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
   });
 
   function handleSubmit(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     commentMutation.mutate({ postId, payload: { comment } });
+  }
+
+  function handleOnKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
   }
 
   useEffect(
@@ -116,72 +125,14 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
     <Modal
       show={show}
       handleCloseModal={handleCloseModal}
-      className={
-        "flex items-start flex-row-reverse !w-5/6 h-[90vh] overflow-hidden !p-0"
-      }
+      className={"flex items-start !w-5/6 h-[90vh] overflow-hidden !p-0"}
     >
-      {(isPostLoading || isPostedByLoading) && <Spinner />}
-      {!(isPostLoading && isPostedByLoading) && postedBy && (
+      {(isPostLoading || isPostedByLoading) && <ViewPostLoading />}
+      {!(isPostLoading || isPostedByLoading) && postedBy && (
         <>
-          <section className={"flex flex-col h-full lg:w-3/4 xl:w-1/2"}>
-            <section className="flex items-start justify-between p-4">
-              <Link
-                href={`/profile/${postedBy?.user_username}`}
-                className="flex items-start gap-3"
-              >
-                <Image
-                  src={postedBy?.user_photo}
-                  width={350}
-                  height={350}
-                  className="rounded-full w-9"
-                  alt="User Profile Image"
-                />
-                <section>
-                  <h1 className="mb-1">{postedBy?.user_username}</h1>
-                  <p className="text-sm">{post?.post_caption}</p>
-                </section>
-              </Link>
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="cursor-pointer"
-                onClick={handleCloseModal}
-              />
-            </section>
-            <section
-              className="h-full overflow-y-scroll my-auto p-4"
-              style={{ scrollbarWidth: "none" }}
-            >
-              <Comments comments={post?.post_comments} />
-            </section>
-            <section className="relative mt-auto p-4">
-              <form onSubmit={handleSubmit}>
-                <TextArea
-                  inputMode={"text"}
-                  name={"comment"}
-                  placeholder={"Comment"}
-                  value={comment}
-                  onChange={handleCommentOnChange}
-                  className={"group"}
-                  variant={inputTheme}
-                  disabled={commentMutation.status === "loading"}
-                />
-                <section className="absolute bottom-0 right-0 -translate-y-1/2 -translate-x-1/2 p-3">
-                  {commentMutation.status === "loading" ? (
-                    <Spinner size={"sm"} />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faPaperPlane}
-                      className="group-focus:!text-primary hover:text-primary transition-all cursor-pointer"
-                      onClick={handleSubmit}
-                    />
-                  )}
-                </section>
-              </form>
-            </section>
-          </section>
           <section
             className={
-              "w-full h-full relative flex items-center overflow-hidden !p-0 !m-0 border-r dark:border-r-dark bg-black dark:bg-white"
+              "w-full h-full relative flex items-center overflow-hidden !p-0 !m-0 border-r dark:border-r-dark bg-light dark:bg-black"
             }
           >
             {post?.post_images.map((post_image, index) => (
@@ -240,6 +191,76 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
                 ))}
               </section>
             )}
+          </section>
+          <section className={"flex flex-col h-full lg:w-3/4 xl:w-1/2"}>
+            <section className="flex items-start justify-between p-4">
+              <Link
+                href={`/profile/${postedBy?.user_username}`}
+                className="flex items-start gap-3"
+                onClick={handleCloseModal}
+              >
+                {postedBy.user_photo ? (
+                  <Image
+                    src={postedBy?.user_photo}
+                    width={350}
+                    height={350}
+                    className="rounded-full w-9"
+                    alt="User Profile Image"
+                  />
+                ) : (
+                  <Avatar name={postedBy?.user_username} size={"lg"} />
+                )}
+                <section>
+                  <h1 className="mb-1">{postedBy?.user_username}</h1>
+                  <p className="text-sm">{post?.post_caption}</p>
+                </section>
+              </Link>
+              <FontAwesomeIcon
+                icon={faTimes}
+                size="xl"
+                className="text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white hover:scale-105 cursor-pointer transition-all"
+                onClick={handleCloseModal}
+              />
+            </section>
+            <section
+              className="h-full overflow-y-scroll my-auto p-4"
+              style={{ scrollbarWidth: "none" }}
+            >
+              <Comments
+                comments={post?.post_comments}
+                handleCloseModal={handleCloseModal}
+              />
+            </section>
+            <section className="relative mt-auto p-4">
+              <form onSubmit={handleSubmit}>
+                <TextArea
+                  inputMode={"text"}
+                  name={"comment"}
+                  placeholder={"Comment"}
+                  value={comment}
+                  onChange={handleCommentOnChange}
+                  className={"peer"}
+                  variant={inputTheme}
+                  onKeyDown={handleOnKeyDown}
+                  disabled={commentMutation.status === "loading"}
+                />
+
+                {commentMutation.status === "loading" ? (
+                  <Spinner
+                    size={"sm"}
+                    className={
+                      "absolute bottom-10 right-8 -translate-y-1/2 -translate-x-1/2"
+                    }
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPaperPlane}
+                    className="absolute bottom-0 right-0 -translate-y-1/2 -translate-x-1/2 px-3 py-4 text-dark dark:text-white peer-focus:text-primary hover:text-primary transition-all cursor-pointer"
+                    onClick={handleSubmit}
+                  />
+                )}
+              </form>
+            </section>
           </section>
         </>
       )}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
 
 const Toast = ({ show, setToast, variant, message, className }) => {
   const [display, setDisplay] = useState("none");
@@ -63,7 +63,9 @@ const Toast = ({ show, setToast, variant, message, className }) => {
           translateY: "-50%",
         }}
       >
-        <p className="text-sm text-center select-none">{message}</p>
+        <p className="text-sm text-center font-semibold select-none">
+          {message}
+        </p>
       </motion.div>
     </div>,
     document.getElementById("toast-backdrop")
