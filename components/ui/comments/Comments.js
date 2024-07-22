@@ -1,11 +1,11 @@
-import { getUser } from "@/utils/helpers";
+import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import Avatar from "../Avatar";
-import Link from "next/link";
+import { getUser } from "@/utils/helpers";
 
-const CommentItem = ({ comment, commentedById }) => {
+const CommentItem = ({ comment, commentedById, handleCloseModal }) => {
   const [commentedBy, setCommentedBy] = useState(null);
 
   useQuery(["getCommentedBy", commentedById], {
@@ -21,10 +21,11 @@ const CommentItem = ({ comment, commentedById }) => {
   });
 
   return (
-    <li>
+    <li className="overflow-x-hidden">
       <Link
         href={`/profile/${commentedBy?.user_username}`}
-        className="flex items-start gap-3"
+        className="flex items-start gap-2"
+        onClick={handleCloseModal}
       >
         {commentedBy?.user_photo ? (
           <Image
@@ -37,21 +38,22 @@ const CommentItem = ({ comment, commentedById }) => {
         ) : (
           <Avatar name={commentedBy?.user_username} />
         )}
-        <section>
-          <h1 className="mb-1">{commentedBy?.user_username}</h1>
-          <p className="text-sm">{comment}</p>
-        </section>
+        <h1 className="mb-1">{commentedBy?.user_username}</h1>
       </Link>
+      <section className="select-text">
+        <p className="text-sm text-justify text-wrap">{comment}</p>
+      </section>
     </li>
   );
 };
 
-const Comments = ({ comments }) => (
+const Comments = ({ comments, handleCloseModal }) => (
   <ul className="space-y-6">
     {comments?.map((comment) => (
       <CommentItem
         comment={comment.comment}
         commentedById={comment.comment_commentedBy}
+        handleCloseModal={handleCloseModal}
         key={comment._id}
       />
     ))}
