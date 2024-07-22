@@ -26,9 +26,8 @@ const Modal = ({ show, handleCloseModal, className, children }) => {
 
       document.addEventListener("click", handleClickOutside, true);
 
-      return () => {
+      return () =>
         document.removeEventListener("click", handleClickOutside, true);
-      };
     },
     [modalOverlayRef, handleCloseModal]
   );
@@ -42,6 +41,14 @@ const Modal = ({ show, handleCloseModal, className, children }) => {
       if (show) setDisplay("block");
 
       return () => clearTimeout(identifier);
+    },
+    [show]
+  );
+
+  useEffect(
+    function () {
+      if (show) document.body.style.overflowY = "hidden";
+      if (!show) document.body.style.overflowY = "auto";
     },
     [show]
   );

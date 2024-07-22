@@ -91,7 +91,7 @@ const StoryPage = ({ story }) => {
               ) : (
                 <Avatar name={storiedBy?.user_username} size={"lg"} />
               )}
-              <p>{storiedBy?.user_username}</p>
+              <p className="text-lg">{storiedBy?.user_username}</p>
             </Link>
             <section
               className="w-full relative overflow-hidden rounded-lg"
@@ -152,7 +152,7 @@ const StoryPage = ({ story }) => {
                 ) : (
                   <Avatar name={storiedBy?.user_username} size={"lg"} />
                 )}
-                <p>{storiedBy?.user_username}</p>
+                <p className="text-lg">{storiedBy?.user_username}</p>
               </Link>
               <FontAwesomeIcon
                 icon={faTimes}
