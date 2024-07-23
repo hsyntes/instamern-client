@@ -65,8 +65,10 @@ export default function Home({ stories, randomUsers }) {
               hasMore={hasNextPage}
               style={{ scrollbarWidth: "none" }}
               loader={
-                <section className="my-12">
-                  <Spinner />
+                <section className="lg:w-1/2 xl:w-1/3 my-12">
+                  <center>
+                    <Spinner />
+                  </center>
                 </section>
               }
             >

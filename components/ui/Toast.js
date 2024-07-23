@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 const Toast = ({ show, setToast, variant, message, className }) => {
   const [display, setDisplay] = useState("none");
 
-  let classes = `fixed left-1/2 -translate-x-1/2 bottom-8 w-3/4 lg:w-auto px-8 py-2 rounded dark:border dark:border-dark dark:shadow z-50 ${className} `;
+  let classes = `fixed left-1/2 -translate-x-1/2 bottom-8 w-3/4 lg:w-auto px-8 py-2 rounded dark:border dark:border-dark shadow z-50 ${className} `;
 
   switch (variant) {
-    case "fail": {
+    case "fail":
+    case "error": {
       classes += "bg-red-400 bg-opacity-15 text-red-500";
       break;
     }

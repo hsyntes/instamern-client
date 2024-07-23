@@ -1,9 +1,8 @@
-import { createComment, getUser } from "@/utils/helpers";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import Avatar from "../ui/Avatar";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,10 +11,12 @@ import {
   faHeart,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import useInput from "@/hooks/useInput";
+import Avatar from "../ui/Avatar";
 import Input from "../ui/inputs/Input";
 import Spinner from "../ui/loadings/Spinner";
 import ViewPost from "../ui/modals/ViewPost";
+import useInput from "@/hooks/useInput";
+import { createComment, getUser } from "@/utils/helpers";
 
 const Comment = ({ postId }) => {
   const queryClient = useQueryClient();
@@ -96,6 +97,8 @@ const Comment = ({ postId }) => {
 };
 
 const PostsListItem = ({ post }) => {
+  const router = useRouter();
+
   const currentUserState = useSelector((state) => state.currentUser);
 
   const [postedBy, setPostedBy] = useState(null);
@@ -158,7 +161,13 @@ const PostsListItem = ({ post }) => {
             width={1080}
             height={1350}
             className="rounded cursor-pointer"
-            onClick={() => handleOpenViewPostModal(post?._id)}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                if (window.innerWidth >= 1024)
+                  handleOpenViewPostModal(post._id);
+                else router.push(`/post/${post?._id}`);
+              }
+            }}
             alt="Post Image"
           />
         </section>
@@ -169,7 +178,16 @@ const PostsListItem = ({ post }) => {
           </section>
         </section>
         <section className="mb-2">
-          <p className="text-sm text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white font-semibold cursor-pointer transition-all">
+          <p
+            className="text-sm text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white font-semibold cursor-pointer transition-all"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                if (window.innerWidth >= 1024)
+                  handleOpenViewPostModal(post._id);
+                else router.push(`/post/${post?._id}`);
+              }
+            }}
+          >
             View all {post.post_comments.length} comments
           </p>
         </section>

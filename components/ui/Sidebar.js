@@ -64,13 +64,11 @@ const Sidebar = () => {
 
   function handleSearchOffcanvas() {
     setSearchOffcanvas(!searchOffcanvas);
-
     if (notificationsOffcanvas) setNotificationsOffcanvas(false);
   }
 
   function handleNotificationsOffcanvas() {
     setNotificationsOffcanvas(!notificationsOffcanvas);
-
     if (searchOffcanvas) setSearchOffcanvas(false);
   }
 
@@ -85,7 +83,6 @@ const Sidebar = () => {
   const handleOpenCreatePostModal = () => setCreatePostModal(true);
   const handleCloseAlertDialog = () => setAlertDialog(false);
   const handleOpenAlertDialog = () => setAlertDialog(true);
-  // const handleAlertDialog = () => setAlertDialog(!alertDialog);
 
   const handleThemeOnChange = (e) =>
     dispatch(themeSliceActions.switchTheme(e.target.value));
@@ -149,8 +146,10 @@ const Sidebar = () => {
           dropdownRef.current &&
           !dropdownRef.current.contains(e.target) &&
           !e.target.classList.contains("dropdown")
-        )
+        ) {
           setSettingsDropdown(false);
+          setThemeCollapse(false);
+        }
       };
 
       document.addEventListener("click", handleClickOutside, true);
@@ -252,7 +251,7 @@ const Sidebar = () => {
                 show={settingsDropdown}
                 setDropdown={setSettingsDropdown}
                 className={
-                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg py-4 px-6 left-14 -bottom-1/2"
+                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg py-8 px-6 left-14 -bottom-1/2"
                 }
                 width={"225px"}
               >
@@ -266,7 +265,7 @@ const Sidebar = () => {
                 </Dropdown.Header>
                 <Dropdown.Divider />
                 <Dropdown.Body>
-                  <ul className="dropdown text-sm font-semibold space-y-3">
+                  <ul className="dropdown text-sm font-semibold space-y-4">
                     <li>
                       <section
                         className={`dropdown flex items-center justify-between cursor-pointer hover:text-primary ${

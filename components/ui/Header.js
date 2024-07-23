@@ -21,7 +21,7 @@ const Header = ({ stories }) => {
 
   return (
     <>
-      <header className="grid grid-cols-12 items-center sticky bg-white dark:bg-black lg:static top-0 transition-all py-6 lg:py-0 lg:mb-12 z-50">
+      <header className="grid grid-cols-12 items-center sticky bg-white dark:bg-black lg:static top-0 py-6 lg:py-0 lg:mb-12 z-50">
         <section className="col-span-11 block lg:hidden">
           <Link href={"/"} className="flex items-center gap-2">
             <Image
