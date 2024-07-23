@@ -95,8 +95,11 @@ const EditProfilePage = ({}) => {
   return (
     <>
       <Head>
-        <meta name="description" content="User's profile instamern" />
-        <meta name="keywords" content="instamern, huseyin ates" />
+        <meta
+          name="description"
+          content="Instamern by Huseyin Ates | Hüseyin Ateş"
+        />
+        <meta name="keywords" content="instamern, huseyin ates, hüseyin ateş" />
         <title>Edit {currentUser.user_username}'s Profile | Instamern</title>
       </Head>
       <section
