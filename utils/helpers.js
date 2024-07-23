@@ -32,6 +32,8 @@ export const getPosts = async (page = 1, limit = 2) =>
 
 export const getPost = async (id) => await HttpRequest.get(`posts/${id}`);
 
+export const deletePost = async (id) => await HttpRequest.delete(`posts/${id}`);
+
 export const getRandomUsers = async (count) =>
   await HttpRequest.get(`users/random/${count}`);
 

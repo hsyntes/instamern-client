@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,13 +10,17 @@ import {
   faEllipsisV,
   faHeart,
   faPaperPlane,
+  faPen,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import Avatar from "../ui/Avatar";
-import Input from "../ui/inputs/Input";
-import Spinner from "../ui/loadings/Spinner";
-import ViewPost from "../ui/modals/ViewPost";
+import Avatar from "../Avatar";
+import Input from "../inputs/Input";
+import Spinner from "../loadings/Spinner";
+import ViewPost from "../modals/ViewPost";
 import useInput from "@/hooks/useInput";
-import { createComment, getUser } from "@/utils/helpers";
+import { createComment, deletePost, getUser } from "@/utils/helpers";
+import Dropdown from "../Dropdown";
+import ConfirmDialog from "../modals/ConfirmDialog";
 
 const Comment = ({ postId }) => {
   const queryClient = useQueryClient();
@@ -98,14 +102,21 @@ const Comment = ({ postId }) => {
 
 const PostsListItem = ({ post }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const currentUserState = useSelector((state) => state.currentUser);
 
   const [postedBy, setPostedBy] = useState(null);
   const [viewPostModal, setViewPostModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [postDropdown, setPostDropdown] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState(false);
+  const [confirmDialogMessage, setConfirmDialogMessage] = useState("");
+  const dropdownRef = useRef();
 
   const { currentUser } = currentUserState;
+
+  const handlePostDropdown = () => setPostDropdown(!postDropdown);
 
   function handleCloseViewPostModal() {
     setViewPostModal(false);
@@ -116,6 +127,16 @@ const PostsListItem = ({ post }) => {
     setViewPostModal(true);
     setSelectedPost(id);
   }
+
+  const handleOpenConfirmDialog = () => {
+    setConfirmDialog(true);
+    setConfirmDialogMessage("Are you sure want to delete this post?");
+  };
+
+  const handleCloseConfirmDialog = () => {
+    setConfirmDialog(false);
+    setConfirmDialogMessage("");
+  };
 
   useQuery(["getPostedBy", post.post_postedBy], {
     queryFn: async function () {
@@ -128,9 +149,39 @@ const PostsListItem = ({ post }) => {
     },
   });
 
+  const deletePostMutation = useMutation({
+    mutationKey: "deletePost",
+    mutationFn: async function () {
+      await deletePost(post?._id);
+      queryClient.refetchQueries({ queryKey: "getPosts" });
+    },
+  });
+
+  const handleDeletePost = () => deletePostMutation.mutate();
+
+  useEffect(
+    function () {
+      function handleClickOutside(e) {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(e.target) &&
+          !e.target.classList.contains("dropdown")
+        )
+          setPostDropdown(false);
+      }
+
+      document.addEventListener("click", handleClickOutside, true);
+
+      return () => {
+        document.removeEventListener("click", handleClickOutside, true);
+      };
+    },
+    [dropdownRef, setPostDropdown]
+  );
+
   return (
     <>
-      <li className="lg:w-1/2 xl:w-1/3">
+      <li className="lg:w-1/2 xl:w-1/3 select-none">
         <section className="flex items-center justify-between mb-4">
           {postedBy && (
             <Link
@@ -152,7 +203,37 @@ const PostsListItem = ({ post }) => {
             </Link>
           )}
           {currentUser?.user_username === postedBy?.user_username && (
-            <FontAwesomeIcon icon={faEllipsisV} className="cursor-pointer" />
+            <section className="relative">
+              <FontAwesomeIcon
+                icon={faEllipsisV}
+                className="block cursor-pointer p-2"
+                onClick={handlePostDropdown}
+                ref={dropdownRef}
+              />
+              <Dropdown
+                show={postDropdown}
+                className={
+                  "bg-white dark:bg-dark rounded-lg py-4 px-6 right-full"
+                }
+                width={"150px"}
+              >
+                <Dropdown.Body>
+                  <ul className="dropdown space-y-2">
+                    <li className="flex items-center gap-2 text-sm font-semibold hover:text-primary transition-all cursor-pointer">
+                      <FontAwesomeIcon icon={faPen} />
+                      <span>Edit</span>
+                    </li>
+                    <li
+                      className="flex items-center gap-2 text-sm font-semibold text-danger hover:text-danger-darker cursor-pointer"
+                      onClick={handleOpenConfirmDialog}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                      <span>Delete</span>
+                    </li>
+                  </ul>
+                </Dropdown.Body>
+              </Dropdown>
+            </section>
           )}
         </section>
         <section className="mb-6">
@@ -160,7 +241,7 @@ const PostsListItem = ({ post }) => {
             src={post.post_images[0]}
             width={1080}
             height={1350}
-            className="rounded cursor-pointer"
+            className="rounded hover:opacity-70 hover:dark:opacity-50 transition-all  cursor-pointer"
             onClick={() => {
               if (typeof window !== "undefined") {
                 if (window.innerWidth >= 1024)
@@ -199,6 +280,12 @@ const PostsListItem = ({ post }) => {
         show={viewPostModal}
         handleCloseModal={handleCloseViewPostModal}
         postId={selectedPost}
+      />
+      <ConfirmDialog
+        show={confirmDialog}
+        message={confirmDialogMessage}
+        handleCloseConfirmDialog={handleCloseConfirmDialog}
+        handleAcceptConfirm={handleDeletePost}
       />
     </>
   );

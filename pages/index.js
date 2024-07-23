@@ -6,7 +6,7 @@ import UsersList from "@/components/ui/users/UsersList";
 import Stories from "@/components/ui/stories/Stories";
 import { getPosts, getRandomUsers, getStories } from "@/utils/helpers";
 import { useInfiniteQuery } from "react-query";
-import PostsList from "@/components/posts/PostsList";
+import PostsList from "@/components/ui/posts/PostsList";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "@/components/ui/loadings/Spinner";
 

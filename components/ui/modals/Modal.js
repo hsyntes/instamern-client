@@ -15,14 +15,14 @@ const Modal = ({ show, handleCloseModal, className, children }) => {
 
   useEffect(
     function () {
-      const handleClickOutside = (e) => {
+      function handleClickOutside(e) {
         if (
-          modalOverlayRef &&
-          modalOverlayRef.current &&
+          // modalOverlayRef &&
+          // modalOverlayRef.current &&
           e.target.id === "modal-overlay"
         )
           handleCloseModal();
-      };
+      }
 
       document.addEventListener("click", handleClickOutside, true);
 

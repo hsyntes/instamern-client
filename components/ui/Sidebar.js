@@ -141,7 +141,7 @@ const Sidebar = () => {
 
   useEffect(
     function () {
-      const handleClickOutside = (e) => {
+      function handleClickOutside(e) {
         if (
           dropdownRef.current &&
           !dropdownRef.current.contains(e.target) &&
@@ -150,7 +150,7 @@ const Sidebar = () => {
           setSettingsDropdown(false);
           setThemeCollapse(false);
         }
-      };
+      }
 
       document.addEventListener("click", handleClickOutside, true);
 
@@ -296,7 +296,6 @@ const Sidebar = () => {
                             className="dropdown"
                             onChange={handleThemeOnChange}
                             checked={selectedTheme === "dark"}
-                            // defaultChecked={selectedTheme === "dark"}
                           />
                           <label
                             htmlFor="dark"
@@ -314,7 +313,6 @@ const Sidebar = () => {
                             className="dropdown"
                             onChange={handleThemeOnChange}
                             checked={selectedTheme === "light"}
-                            // defaultChecked={selectedTheme === "light"}
                           />
                           <label
                             htmlFor="light"

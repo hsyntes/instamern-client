@@ -47,6 +47,28 @@ class HttpRequest {
       return e.response?.data;
     }
   }
+
+  static async delete(endpoint, payload) {
+    try {
+      console.log(
+        `${process.env.NEXT_PUBLIC_API}/${endpoint} in DELETE Request`
+      );
+
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API}/${endpoint}`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${Cookies.get("jsonwebtoken")}`,
+          },
+        }
+      );
+
+      return response?.data;
+    } catch (e) {
+      return e.response?.data;
+    }
+  }
 }
 
 export default HttpRequest;
