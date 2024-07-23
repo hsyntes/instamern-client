@@ -15,6 +15,7 @@ import {
 import useInput from "@/hooks/useInput";
 import Input from "../ui/inputs/Input";
 import Spinner from "../ui/loadings/Spinner";
+import ViewPost from "../ui/modals/ViewPost";
 
 const Comment = ({ postId }) => {
   const queryClient = useQueryClient();
@@ -98,8 +99,20 @@ const PostsListItem = ({ post }) => {
   const currentUserState = useSelector((state) => state.currentUser);
 
   const [postedBy, setPostedBy] = useState(null);
+  const [viewPostModal, setViewPostModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const { currentUser } = currentUserState;
+
+  function handleCloseViewPostModal() {
+    setViewPostModal(false);
+    setSelectedPost(null);
+  }
+
+  function handleOpenViewPostModal(id) {
+    setViewPostModal(true);
+    setSelectedPost(id);
+  }
 
   useQuery(["getPostedBy", post.post_postedBy], {
     queryFn: async function () {
@@ -113,55 +126,63 @@ const PostsListItem = ({ post }) => {
   });
 
   return (
-    <li className="lg:w-1/2 xl:w-1/3">
-      <section className="flex items-center justify-between mb-4">
-        {postedBy && (
-          <Link
-            href={`/profile/${postedBy?.user_username}`}
-            className="flex items-center gap-3"
-          >
-            {postedBy?.user_photo ? (
-              <Image
-                src={postedBy?.user_photo}
-                width={350}
-                height={350}
-                className="w-9 rounded-full"
-                alt="User Profile Photo"
-              />
-            ) : (
-              <Avatar name={postedBy?.user_username} size={"lg"} />
-            )}
-            <h1>{postedBy?.user_username}</h1>
-          </Link>
-        )}
-        {currentUser?.user_username === postedBy?.user_username && (
-          <FontAwesomeIcon icon={faEllipsisV} className="cursor-pointer" />
-        )}
-      </section>
-      <section className="mb-6">
-        <Image
-          src={post.post_images[0]}
-          width={1080}
-          height={1350}
-          className="rounded"
-          alt="Post Image"
-        />
-      </section>
-      <section className="mb-2">
-        <section className="flex items-center gap-4">
-          <FontAwesomeIcon icon={faHeart} />
-          <FontAwesomeIcon icon={faComment} />
+    <>
+      <li className="lg:w-1/2 xl:w-1/3">
+        <section className="flex items-center justify-between mb-4">
+          {postedBy && (
+            <Link
+              href={`/profile/${postedBy?.user_username}`}
+              className="flex items-center gap-3"
+            >
+              {postedBy?.user_photo ? (
+                <Image
+                  src={postedBy?.user_photo}
+                  width={350}
+                  height={350}
+                  className="w-9 rounded-full"
+                  alt="User Profile Photo"
+                />
+              ) : (
+                <Avatar name={postedBy?.user_username} size={"lg"} />
+              )}
+              <h1>{postedBy?.user_username}</h1>
+            </Link>
+          )}
+          {currentUser?.user_username === postedBy?.user_username && (
+            <FontAwesomeIcon icon={faEllipsisV} className="cursor-pointer" />
+          )}
         </section>
-      </section>
-      <section className="mb-2">
-        <p className="text-sm text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white font-semibold cursor-pointer transition-all">
-          View all {post.post_comments.length} comments
-        </p>
-      </section>
-      <section className="relative">
-        <Comment postId={post?._id} />
-      </section>
-    </li>
+        <section className="mb-6">
+          <Image
+            src={post.post_images[0]}
+            width={1080}
+            height={1350}
+            className="rounded cursor-pointer"
+            onClick={() => handleOpenViewPostModal(post?._id)}
+            alt="Post Image"
+          />
+        </section>
+        <section className="mb-2">
+          <section className="flex items-center gap-4">
+            <FontAwesomeIcon icon={faHeart} />
+            <FontAwesomeIcon icon={faComment} />
+          </section>
+        </section>
+        <section className="mb-2">
+          <p className="text-sm text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white font-semibold cursor-pointer transition-all">
+            View all {post.post_comments.length} comments
+          </p>
+        </section>
+        <section className="relative">
+          <Comment postId={post?._id} />
+        </section>
+      </li>
+      <ViewPost
+        show={viewPostModal}
+        handleCloseModal={handleCloseViewPostModal}
+        postId={selectedPost}
+      />
+    </>
   );
 };
 
