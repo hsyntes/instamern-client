@@ -45,8 +45,11 @@ export default function Home({ stories, randomUsers }) {
   return (
     <>
       <Head>
-        <meta name="description" content="Instamern" />
-        <meta name="keywords" content="instamern, huseyin ates" />
+        <meta
+          name="description"
+          content="Instamern by Huseyin Ates | Hüseyin Ateş"
+        />
+        <meta name="keywords" content="instamern, huseyin ates, hüseyin ateş" />
         <title>Instamern</title>
       </Head>
       <Header stories={stories} />

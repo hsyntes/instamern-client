@@ -128,9 +128,12 @@ const PostDetailPage = () => {
   return (
     <>
       <Head>
-        <meta name="description" content="Posts instamern" />
-        <meta name="keywords" content="instamern, huseyin ates" />
-        <title>Notifications | Instamern</title>
+        <meta
+          name="description"
+          content="Instamern by Huseyin Ates | Hüseyin Ateş"
+        />
+        <meta name="keywords" content="instamern, huseyin ates, hüseyin ateş" />
+        <title>{postedBy?.user_username}'s Post | Instamern</title>
       </Head>
       <section className="sticky top-0 bg-white dark:bg-black py-6 transition-all z-50">
         <h1

@@ -252,9 +252,9 @@ const Sidebar = () => {
                 show={settingsDropdown}
                 setDropdown={setSettingsDropdown}
                 className={
-                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg p-4 left-full -bottom-3/4"
+                  "backdrop-blur dark:backdrop-brightness-50 rounded-lg py-4 px-6 left-14 -bottom-1/2"
                 }
-                width={"175px"}
+                width={"225px"}
               >
                 <Dropdown.Header className={"dropdown flex items-center gap-2"}>
                   <FontAwesomeIcon
@@ -326,6 +326,14 @@ const Sidebar = () => {
                         </section>
                       </Collapse>
                     </li>
+                    {currentUser && (
+                      <li
+                        className="dropdown hover:text-primary cursor-pointer transition-all"
+                        onClick={() => logoutMutation.mutate()}
+                      >
+                        Account Settings
+                      </li>
+                    )}
                     {currentUser && (
                       <li
                         className="dropdown text-danger cursor-pointer hover:text-danger-darker transition-all"

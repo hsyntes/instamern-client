@@ -7,8 +7,11 @@ const NotificationsPage = () => {
   return (
     <>
       <Head>
-        <meta name="description" content="Notifications instamern" />
-        <meta name="keywords" content="instamern, huseyin ates" />
+        <meta
+          name="description"
+          content="Instamern by Huseyin Ates | Hüseyin Ateş"
+        />
+        <meta name="keywords" content="instamern, huseyin ates, hüseyin ateş" />
         <title>Notifications | Instamern</title>
       </Head>
       <section className="sticky top-0 bg-white dark:bg-black py-6 transition-all">
