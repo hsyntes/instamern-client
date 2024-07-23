@@ -181,7 +181,12 @@ const PostsListItem = ({ post }) => {
 
   return (
     <>
-      <li className="lg:w-1/2 xl:w-1/3 select-none">
+      <li
+        className="lg:w-1/2 xl:w-1/3 select-none"
+        style={
+          deletePostMutation.status === "loading" ? { opacity: 0.2 } : undefined
+        }
+      >
         <section className="flex items-center justify-between mb-4">
           {postedBy && (
             <Link
@@ -202,48 +207,52 @@ const PostsListItem = ({ post }) => {
               <h1>{postedBy?.user_username}</h1>
             </Link>
           )}
-          {currentUser?.user_username === postedBy?.user_username && (
-            <section className="relative">
-              <FontAwesomeIcon
-                icon={faEllipsisV}
-                className="block cursor-pointer p-2"
-                onClick={handlePostDropdown}
-                ref={dropdownRef}
-              />
-              <Dropdown
-                show={postDropdown}
-                className={
-                  "bg-white dark:bg-dark rounded-lg py-4 px-6 right-full"
-                }
-                width={"150px"}
-              >
-                <Dropdown.Body>
-                  <ul className="dropdown space-y-2">
-                    <li className="flex items-center gap-2 text-sm font-semibold hover:text-primary transition-all cursor-pointer">
-                      <FontAwesomeIcon icon={faPen} />
-                      <span>Edit</span>
-                    </li>
-                    <li
-                      className="flex items-center gap-2 text-sm font-semibold text-danger hover:text-danger-darker cursor-pointer"
-                      onClick={handleOpenConfirmDialog}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                      <span>Delete</span>
-                    </li>
-                  </ul>
-                </Dropdown.Body>
-              </Dropdown>
-            </section>
-          )}
+          {currentUser?.user_username === postedBy?.user_username &&
+            deletePostMutation.status !== "loading" && (
+              <section className="relative">
+                <FontAwesomeIcon
+                  icon={faEllipsisV}
+                  className="block cursor-pointer p-2"
+                  onClick={handlePostDropdown}
+                  ref={dropdownRef}
+                />
+                <Dropdown
+                  show={postDropdown}
+                  className={
+                    "bg-white dark:bg-dark rounded-lg py-4 px-6 right-full"
+                  }
+                  width={"150px"}
+                >
+                  <Dropdown.Body>
+                    <ul className="dropdown space-y-2">
+                      <li className="flex items-center gap-2 text-sm font-semibold hover:text-primary transition-all cursor-pointer">
+                        <FontAwesomeIcon icon={faPen} />
+                        <span>Edit</span>
+                      </li>
+                      <li
+                        className="flex items-center gap-2 text-sm font-semibold text-danger hover:text-danger-darker cursor-pointer"
+                        onClick={handleOpenConfirmDialog}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                        <span>Delete</span>
+                      </li>
+                    </ul>
+                  </Dropdown.Body>
+                </Dropdown>
+              </section>
+            )}
         </section>
         <section className="mb-6">
           <Image
             src={post.post_images[0]}
             width={1080}
             height={1350}
-            className="rounded hover:opacity-70 hover:dark:opacity-50 transition-all  cursor-pointer"
+            className="rounded transition-all  cursor-pointer"
             onClick={() => {
-              if (typeof window !== "undefined") {
+              if (
+                typeof window !== "undefined" &&
+                deletePostMutation.status !== "loading"
+              ) {
                 if (window.innerWidth >= 1024)
                   handleOpenViewPostModal(post._id);
                 else router.push(`/post/${post?._id}`);
@@ -262,7 +271,10 @@ const PostsListItem = ({ post }) => {
           <p
             className="text-sm text-muted dark:text-muted-dark hover:text-dark hover:dark:text-white font-semibold cursor-pointer transition-all"
             onClick={() => {
-              if (typeof window !== "undefined") {
+              if (
+                typeof window !== "undefined" &&
+                deletePostMutation.status !== "loading"
+              ) {
                 if (window.innerWidth >= 1024)
                   handleOpenViewPostModal(post._id);
                 else router.push(`/post/${post?._id}`);
