@@ -257,7 +257,6 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
                   onKeyDown={handleOnKeyDown}
                   disabled={commentMutation.status === "loading"}
                 />
-
                 {commentMutation.status === "loading" ? (
                   <Spinner
                     size={"sm"}

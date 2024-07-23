@@ -6,6 +6,9 @@ import UsersList from "@/components/ui/users/UsersList";
 import Stories from "@/components/ui/stories/Stories";
 import { getPosts, getRandomUsers, getStories } from "@/utils/helpers";
 import { useInfiniteQuery } from "react-query";
+import PostsList from "@/components/posts/PostsList";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Spinner from "@/components/ui/loadings/Spinner";
 
 export default function Home({ stories, randomUsers }) {
   const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
@@ -19,10 +22,6 @@ export default function Home({ stories, randomUsers }) {
       queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
       getNextPageParam: function ({ data }) {
         const { currentPage, totalPages } = data;
-
-        console.log("Current Page: ", currentPage);
-        console.log("Total Pages: ", totalPages);
-
         return currentPage < totalPages ? currentPage + 1 : undefined;
       },
     });
@@ -51,11 +50,27 @@ export default function Home({ stories, randomUsers }) {
         <title>Instamern</title>
       </Head>
       <Header stories={stories} />
-      <section className="lg:hidden">
+      <section className="lg:hidden mb-12">
         <Stories stories={stories} />
       </section>
       <section className="lg:grid lg:grid-cols-12 gap-2">
-        <section className="lg:col-span-9 dark:border-dark"></section>
+        <section className="lg:col-span-9 dark:border-dark mb-48">
+          {posts && (
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={fetchNextPage}
+              hasMore={hasNextPage}
+              style={{ scrollbarWidth: "none" }}
+              loader={
+                <section className="my-12">
+                  <Spinner />
+                </section>
+              }
+            >
+              <PostsList posts={posts} />
+            </InfiniteScroll>
+          )}
+        </section>
         <section className="hidden lg:block lg:col-span-3 dark:border-dark">
           <h6 className="mb-4">People you may want to follow</h6>
           {filteredRandomUsers && filteredRandomUsers.length !== 0 && (
