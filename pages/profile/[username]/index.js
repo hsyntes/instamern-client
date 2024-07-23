@@ -37,15 +37,15 @@ const ProfilePage = ({ user }) => {
   const handleCloseEditProfileModal = () => setEditProfileModal(false);
   const handleOpenEditProfileModal = () => setEditProfileModal(true);
 
-  const handleCloseViewPostModal = () => {
+  function handleCloseViewPostModal() {
     setViewPostModal(false);
     setSelectedPost(null);
-  };
+  }
 
-  const handleOpenViewPostModal = (id) => {
+  function handleOpenViewPostModal(id) {
     setViewPostModal(true);
     setSelectedPost(id);
-  };
+  }
 
   const {
     state: { value: fullname, isValid: isFullnameValid },

@@ -11,10 +11,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "@/components/ui/loadings/Spinner";
 
 export default function Home({ stories, randomUsers }) {
-  const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
-
   const currentUserState = useSelector((state) => state.currentUser);
   const { currentUser } = currentUserState;
+
+  const [filteredRandomUsers, setFilteredRandomUsers] = useState([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({

@@ -88,6 +88,8 @@ const ViewPost = ({ show, handleCloseModal, postId }) => {
     onSuccess: function (data) {
       if (data.status === "success") {
         queryClient.refetchQueries({ queryKey: "getPost" });
+        queryClient.refetchQueries({ queryKey: "getPosts" });
+
         handleCommentOnClear("comment");
       }
     },
