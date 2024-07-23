@@ -8,6 +8,7 @@ const FloatingInput = ({
   onBlur,
   className,
   autoFocus,
+  onKeyDown,
 }) => {
   let inputClasses = `peer w-full rounded border dark:border-dark text-sm outline-none focus:!border-primary transition-all py-4 px-3 ${className} `;
   let labelClasses =
@@ -52,6 +53,7 @@ const FloatingInput = ({
         onBlur={onBlur}
         autoFocus={autoFocus}
         autoComplete="off"
+        onKeyDown={onKeyDown}
       />
       <label htmlFor={name} className={labelClasses}>
         {placeholder}

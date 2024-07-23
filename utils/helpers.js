@@ -27,7 +27,7 @@ export const getStories = async () => await HttpRequest.get("stories");
 
 export const getStory = async (id) => await HttpRequest.get(`stories/${id}`);
 
-export const getPosts = async (page = 1, limit = 3) =>
+export const getPosts = async (page = 1, limit = 2) =>
   await HttpRequest.get("posts", { page, limit });
 
 export const getPost = async (id) => await HttpRequest.get(`posts/${id}`);
